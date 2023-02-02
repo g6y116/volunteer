@@ -11,10 +11,17 @@ interface Const {
         const val FALSE = "N"
         const val ALL = ""
 
-        const val TODO = 1
-        const val DOING = 2
-        const val DONE = 3
+        const val TODO_NUM = 1
+        const val DOING_NUM = 2
+        const val DONE_NUM = 3
 
-        const val LOAD_SIZE = 20
+        const val TODO_TEXT = "모집 예정"
+        const val DOING_TEXT = "모집 중"
+        const val DONE_TEXT = "모집 완료"
+
+        const val LOAD_SIZE = 40
+
+        const val HOME = "home"
+        const val BOOK_MARK = "bookMark"
     }
 }

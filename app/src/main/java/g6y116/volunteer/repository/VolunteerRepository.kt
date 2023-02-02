@@ -13,6 +13,7 @@ import com.tickaroo.tikxml.annotation.Xml
 import g6y116.volunteer.Const
 import g6y116.volunteer.datasource.HomePagingSource
 import kotlinx.coroutines.flow.Flow
+import org.apache.commons.text.StringEscapeUtils
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Query
@@ -60,15 +61,13 @@ interface VolunteerRepository {
         gooGunCode: String = "",
         isAdultPossible: String = Const.ALL,
         isYoungPossible: String = Const.ALL,
-        serviceKey: String = Const.SERVICE_KEY,
     ): Flow<PagingData<VolunteerInfo>>
+    suspend fun getHomeDetail(
+        pID: String,
+    ): Volunteer
     suspend fun getBookMarkList(): Flow<PagingData<VolunteerInfo>>
     fun addBookMark(pID: String)
     fun deleteBookMark(pID: String)
-    fun getVolunteerDetail(
-        pID: String,
-        serviceKey: String = Const.SERVICE_KEY,
-    ): Volunteer
 }
 
 class VolunteerRepositoryImpl @Inject constructor(
@@ -76,7 +75,6 @@ class VolunteerRepositoryImpl @Inject constructor(
     private val volunteerInfoDao: VolunteerInfoDao,
     private val volunteerDao: VolunteerDao,
 ) : VolunteerRepository {
-
     override fun getHomeList(
         pageNum: Int,
         keyWord: String,
@@ -86,7 +84,6 @@ class VolunteerRepositoryImpl @Inject constructor(
         gooGunCode: String,
         isAdultPossible: String,
         isYoungPossible: String,
-        serviceKey: String
     ): Flow<PagingData<VolunteerInfo>> {
         return Pager(
             config = PagingConfig(pageSize = Const.LOAD_SIZE, enablePlaceholders = false),
@@ -100,9 +97,13 @@ class VolunteerRepositoryImpl @Inject constructor(
                 gooGunCode,
                 isAdultPossible,
                 isYoungPossible,
-                serviceKey
+                Const.SERVICE_KEY
             ) },
         ).flow
+    }
+
+    override suspend fun getHomeDetail(pID: String): Volunteer {
+        return (api.getVolunteerDetail(pID, Const.SERVICE_KEY).body() as DetailResponse).body.items.item.toVolunteer()
     }
 
     override suspend fun getBookMarkList(): Flow<PagingData<VolunteerInfo>> {
@@ -114,10 +115,6 @@ class VolunteerRepositoryImpl @Inject constructor(
     }
 
     override fun deleteBookMark(pID: String) {
-        TODO("Not yet implemented")
-    }
-
-    override fun getVolunteerDetail(pID: String, serviceKey: String): Volunteer {
         TODO("Not yet implemented")
     }
 }
@@ -179,7 +176,7 @@ data class HomeItems(
 @Xml(name= "items")
 data class DetailItems(
     @Element(name="item")
-    val item: List<VolunteerRes>
+    val item: VolunteerRes
 )
 
 @Xml(name= "item")
@@ -205,8 +202,8 @@ data class VolunteerInfoRes(
     fun toVolunteerInfo() = this.run {
         VolunteerInfo(
             pID = pID,
-            title= title,
-            host = host,
+            title= StringEscapeUtils.unescapeHtml4(title),
+            host = StringEscapeUtils.unescapeHtml4(host),
             sDate = sDate,
             eDate = eDate,
             state = state,
@@ -214,13 +211,13 @@ data class VolunteerInfoRes(
             gooGunCode = gooGunCode,
             isAdultPossible = adultPossible,
             isYoungPossible = youngPossible,
-            field = field,
-            place = place,
+            field = StringEscapeUtils.unescapeHtml4(field),
+            place = StringEscapeUtils.unescapeHtml4(place),
             sHour = sHour,
             eHour = eHour,
             nsDate = nsDate,
             neDate = neDate,
-            url = url
+            url = StringEscapeUtils.unescapeHtml4(url)
         )
     }
 }
@@ -229,7 +226,8 @@ data class VolunteerInfoRes(
 data class VolunteerRes(
     @PropertyElement(name="progrmRegistNo") var pID: String,
     @PropertyElement(name="progrmSj") var title: String,
-    @PropertyElement(name="nanmmbyNm") var host: String,
+    @PropertyElement(name="nanmmbyNm") var area: String,
+    @PropertyElement(name="mnnstNm") val host: String,
     @PropertyElement(name="progrmBgnde") var sDate: String,
     @PropertyElement(name="progrmEndde") var eDate: String,
     @PropertyElement(name="progrmSttusSe") var state: Int,
@@ -247,13 +245,15 @@ data class VolunteerRes(
     @PropertyElement(name="rcritNmpr") val num: Int,
     @PropertyElement(name="nanmmbyNmAdmn") val manager: String,
     @PropertyElement(name="telno") val tel: String,
+    @PropertyElement(name="email") val email: String,
     @PropertyElement(name="progrmCn") val contents: String,
 ) {
     fun toVolunteer() = this.run {
         Volunteer(
             pID = pID,
-            title= title,
-            host = host,
+            title= StringEscapeUtils.unescapeHtml4(title),
+            area = StringEscapeUtils.unescapeHtml4(area),
+            host = StringEscapeUtils.unescapeHtml4(host),
             sDate = sDate,
             eDate = eDate,
             state = state,
@@ -262,16 +262,17 @@ data class VolunteerRes(
             isAdultPossible = adultPossible,
             isYoungPossible = youngPossible,
             isGroupPossible = groupPossible,
-            field = field,
-            place = place,
+            field = StringEscapeUtils.unescapeHtml4(field),
+            place = StringEscapeUtils.unescapeHtml4(place),
             sHour = sHour,
             eHour = eHour,
             nsDate = nsDate,
             neDate = neDate,
             num = num,
-            manager = manager,
-            tel = tel,
-            contents = contents
+            manager = StringEscapeUtils.unescapeHtml4(manager),
+            tel = StringEscapeUtils.unescapeHtml4(tel),
+            email = StringEscapeUtils.unescapeHtml4(email),
+            contents = StringEscapeUtils.unescapeHtml4(contents),
         )
     }
 }
@@ -305,7 +306,8 @@ data class Volunteer(
     @PrimaryKey(autoGenerate = false)
     @SerializedName("progrmRegistNo") val pID: String,
     @SerializedName("progrmSj") val title: String,
-    @SerializedName("nanmmbyNm") val host: String,
+    @SerializedName("nanmmbyNm") val area: String,
+    @SerializedName("mnnstNm") val host: String,
     @SerializedName("progrmBgnde") val sDate: String,
     @SerializedName("progrmEndde") val eDate: String,
     @SerializedName("progrmSttusSe") val state: Int,
@@ -323,10 +325,10 @@ data class Volunteer(
     @SerializedName("rcritNmpr") val num: Int,
     @SerializedName("nanmmbyNmAdmn") val manager: String,
     @SerializedName("telno") val tel: String,
+    @SerializedName("email") val email: String,
     @SerializedName("progrmCn") val contents: String,
-) {
+): java.io.Serializable {
     fun isBookMark(bookMarkList: List<BookMark>) = bookMarkList.any { it.pID == pID }
-//    fun isDoingPossible(): {}
 }
 
 @Entity(tableName = "book_mark")

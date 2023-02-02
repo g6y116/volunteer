@@ -1,5 +1,6 @@
 package g6y116.volunteer.datasource
 
+import android.util.Log
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import com.bumptech.glide.load.HttpException
@@ -37,7 +38,9 @@ class HomePagingSource(
                 serviceKey = serviceKey,
             )
 
+            val totalCount = (response.body() as HomeResponse).body.totalCount
             val repos = (response.body() as HomeResponse).body.items.item.map { it.toVolunteerInfo() }
+            Log.d("성준", "paging $page, $totalCount")
             val nextKey = if (repos.isEmpty()) { null } else { page + 1 }
             LoadResult.Page(
                 data = repos,

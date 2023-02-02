@@ -92,4 +92,11 @@ dependencies {
     implementation 'com.tickaroo.tikxml:core:0.8.13'
     implementation 'com.tickaroo.tikxml:retrofit-converter:0.8.13'
     kapt 'com.tickaroo.tikxml:processor:0.8.13'
+
+    // commons-text (special char parser)
+    implementation 'org.apache.commons:commons-text:1.9'
+
+    // reviewer
+//    implementation 'com.google.android.play:review:2.0.1'
+//    implementation 'com.google.android.play:review-ktx:2.0.1'
 }
