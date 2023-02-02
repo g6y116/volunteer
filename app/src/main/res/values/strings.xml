@@ -1,5 +1,6 @@
 <resources>
     <string name="app_name">1365 봉사활동</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="menu_1">봉사정보</string>
+    <string name="menu_2">북마크</string>
+    <string name="menu_3">더보기</string>
 </resources>

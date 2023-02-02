@@ -1,6 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+<navigation
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/graph">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/graph"
+    app:startDestination="@id/homeFragment">
 
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="g6y116.volunteer.view.HomeFragment"
+        tools:layout="@layout/fragment_home" />
+
+    <fragment
+        android:id="@+id/bookMarkFragment"
+        android:name="g6y116.volunteer.view.BookMarkFragment"
+        tools:layout="@layout/fragment_book_mark" />
+
+    <fragment
+        android:id="@+id/moreFragment"
+        android:name="g6y116.volunteer.view.MoreFragment"
+        tools:layout="@layout/fragment_more" />
 </navigation>
