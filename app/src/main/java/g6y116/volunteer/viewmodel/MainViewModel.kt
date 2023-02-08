@@ -1,5 +1,6 @@
 package g6y116.volunteer.viewmodel
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.cachedIn
@@ -14,16 +15,22 @@ class MainViewModel @Inject constructor(private val repository: VolunteerReposit
 
     val homeList = repository.getHomeList(
         pageNum = 1,
-        keyWord = "",
-        sDate = "",
-        eDate = "",
         siDoCode = "",
         gooGunCode = "",
+        sDate = "",
+        eDate = "",
+        keyWord = "",
         isAdultPossible = Const.ALL,
         isYoungPossible = Const.ALL,
     ).cachedIn(viewModelScope)
 
-    suspend fun getVolunteerDetail(pID: String): Volunteer {
+    val bookMarkList = repository.getBookMarkInfoList()
+
+    suspend fun getDetailFromHome(pID: String): Volunteer {
         return repository.getHomeDetail(pID)
+    }
+
+    fun getDetailFromBookMark(pID: String): LiveData<Volunteer> {
+        return repository.getBookMark(pID)
     }
 }

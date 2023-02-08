@@ -1,12 +1,11 @@
 package g6y116.volunteer.repository
 
+import androidx.lifecycle.LiveData
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
+import androidx.room.*
 import androidx.room.Dao
-import androidx.room.Entity
-import androidx.room.PrimaryKey
-import com.google.gson.annotations.SerializedName
 import com.tickaroo.tikxml.annotation.Element
 import com.tickaroo.tikxml.annotation.PropertyElement
 import com.tickaroo.tikxml.annotation.Xml
@@ -21,53 +20,66 @@ import javax.inject.Inject
 
 @Dao
 interface VolunteerInfoDao {
+    @androidx.room.Query("SELECT * FROM volunteer_info ORDER BY pID DESC")
+    fun getBookMarkInfoList(): LiveData<List<VolunteerInfo>>
 
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    suspend fun addBookMarkInfo(item: VolunteerInfo)
+
+    @androidx.room.Query("DELETE FROM volunteer_info WHERE pID = :pID")
+    suspend fun removeBookMarkInfo(pID: String)
 }
 
 @Dao
 interface VolunteerDao {
+    @androidx.room.Query("SELECT * FROM volunteer WHERE pID = :pID ORDER BY pID DESC")
+    fun getBookMark(pID: String): LiveData<Volunteer>
 
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    suspend fun addBookMark(item: Volunteer)
+
+    @androidx.room.Query("DELETE FROM volunteer WHERE pID = :pID")
+    suspend fun removeBookMark(pID: String)
 }
 
 interface VolunteerApi {
     @GET("getVltrSearchWordList")
     suspend fun getVolunteerList(
-        @Query("progrmBgnde") sDate: String,
-        @Query("progrmEndde") eDate: String,
-        @Query("adultPosblAt") isAdultPossible: String,
-        @Query("yngbgsPosblAt") isYoungPossible: String,
         @Query("pageNo") pageNum: Int,
-        @Query("keyword") keyWord: String, // 옵션
         @Query("schSido") siDoCode: String,
         @Query("schSign1") gooGunCode: String,
-        @Query("serviceKey") serviceKey: String,
+        @Query("progrmBgnde") sDate: String,
+        @Query("progrmEndde") eDate: String,
+        @Query("keyword") keyWord: String,
+        @Query("adultPosblAt") isAdultPossible: String,
+        @Query("yngbgsPosblAt") isYoungPossible: String,
+        @Query("serviceKey") serviceKey: String = Const.SERVICE_KEY,
         @Query("numOfRows") numOfRows: Int = Const.LOAD_SIZE,
     ) : Response<HomeResponse>
 
     @GET("getVltrPartcptnItem")
     suspend fun getVolunteerDetail(
         @Query("progrmRegistNo") pID: String,
-        @Query("serviceKey") serviceKey: String,
+        @Query("serviceKey") serviceKey: String = Const.SERVICE_KEY,
     ) : Response<DetailResponse>
 }
 
 interface VolunteerRepository {
     fun getHomeList(
         pageNum: Int = 1,
-        keyWord: String = "",
-        sDate: String = "",
-        eDate: String = "",
         siDoCode: String = "",
         gooGunCode: String = "",
+        sDate: String = "",
+        eDate: String = "",
+        keyWord: String = "",
         isAdultPossible: String = Const.ALL,
         isYoungPossible: String = Const.ALL,
     ): Flow<PagingData<VolunteerInfo>>
-    suspend fun getHomeDetail(
-        pID: String,
-    ): Volunteer
-    suspend fun getBookMarkList(): Flow<PagingData<VolunteerInfo>>
-    fun addBookMark(pID: String)
-    fun deleteBookMark(pID: String)
+    suspend fun getHomeDetail(pID: String): Volunteer
+    fun getBookMarkInfoList(): LiveData<List<VolunteerInfo>>
+    fun getBookMark(pID: String): LiveData<Volunteer>
+    suspend fun addBookMark(volunteerInfo: VolunteerInfo, volunteer: Volunteer)
+    suspend fun removeBookMark(volunteerInfo: VolunteerInfo, volunteer: Volunteer)
 }
 
 class VolunteerRepositoryImpl @Inject constructor(
@@ -77,16 +89,16 @@ class VolunteerRepositoryImpl @Inject constructor(
 ) : VolunteerRepository {
     override fun getHomeList(
         pageNum: Int,
-        keyWord: String,
-        sDate: String,
-        eDate: String,
         siDoCode: String,
         gooGunCode: String,
+        sDate: String,
+        eDate: String,
+        keyWord: String,
         isAdultPossible: String,
         isYoungPossible: String,
     ): Flow<PagingData<VolunteerInfo>> {
         return Pager(
-            config = PagingConfig(pageSize = Const.LOAD_SIZE, enablePlaceholders = false),
+            config = PagingConfig(pageSize = Const.LOAD_SIZE, enablePlaceholders = true),
             pagingSourceFactory = { HomePagingSource(
                 api,
                 pageNum,
@@ -103,19 +115,25 @@ class VolunteerRepositoryImpl @Inject constructor(
     }
 
     override suspend fun getHomeDetail(pID: String): Volunteer {
-        return (api.getVolunteerDetail(pID, Const.SERVICE_KEY).body() as DetailResponse).body.items.item.toVolunteer()
+        return (api.getVolunteerDetail(pID).body() as DetailResponse).body.items.item.toVolunteer()
     }
 
-    override suspend fun getBookMarkList(): Flow<PagingData<VolunteerInfo>> {
-        TODO("Not yet implemented")
+    override fun getBookMarkInfoList(): LiveData<List<VolunteerInfo>> {
+        return volunteerInfoDao.getBookMarkInfoList()
     }
 
-    override fun addBookMark(pID: String) {
-        TODO("Not yet implemented")
+    override fun getBookMark(pID: String): LiveData<Volunteer> {
+        return volunteerDao.getBookMark(pID)
     }
 
-    override fun deleteBookMark(pID: String) {
-        TODO("Not yet implemented")
+    override suspend fun addBookMark(volunteerInfo: VolunteerInfo, volunteer: Volunteer) {
+        volunteerInfoDao.addBookMarkInfo(volunteerInfo)
+        volunteerDao.addBookMark(volunteer)
+    }
+
+    override suspend fun removeBookMark(volunteerInfo: VolunteerInfo, volunteer: Volunteer) {
+        volunteerInfoDao.removeBookMarkInfo(volunteerInfo.pID)
+        volunteerDao.removeBookMark(volunteer.pID)
     }
 }
 
@@ -187,16 +205,6 @@ data class VolunteerInfoRes(
     @PropertyElement(name="progrmBgnde") var sDate: String,
     @PropertyElement(name="progrmEndde") var eDate: String,
     @PropertyElement(name="progrmSttusSe") var state: Int,
-    @PropertyElement(name="sidoCd") var siDoCode: String,
-    @PropertyElement(name="gugunCd") var gooGunCode: String,
-    @PropertyElement(name="adultPosblAt") var adultPossible: String,
-    @PropertyElement(name="yngbgsPosblAt") var youngPossible: String,
-    @PropertyElement(name="srvcClCode") var field: String,
-    @PropertyElement(name="actPlace") var place: String,
-    @PropertyElement(name="actBeginTm") var sHour: Int,
-    @PropertyElement(name="actEndTm") var eHour: Int,
-    @PropertyElement(name="noticeBgnde") var nsDate: String,
-    @PropertyElement(name="noticeEndde") var neDate: String,
     @PropertyElement(name="url") var url: String,
 ) {
     fun toVolunteerInfo() = this.run {
@@ -207,16 +215,6 @@ data class VolunteerInfoRes(
             sDate = sDate,
             eDate = eDate,
             state = state,
-            siDoCode = siDoCode,
-            gooGunCode = gooGunCode,
-            isAdultPossible = adultPossible,
-            isYoungPossible = youngPossible,
-            field = StringEscapeUtils.unescapeHtml4(field),
-            place = StringEscapeUtils.unescapeHtml4(place),
-            sHour = sHour,
-            eHour = eHour,
-            nsDate = nsDate,
-            neDate = neDate,
             url = StringEscapeUtils.unescapeHtml4(url)
         )
     }
@@ -235,7 +233,6 @@ data class VolunteerRes(
     @PropertyElement(name="gugunCd") var gooGunCode: String,
     @PropertyElement(name="adultPosblAt") var adultPossible: String,
     @PropertyElement(name="yngbgsPosblAt") var youngPossible: String,
-    @PropertyElement(name="grpPosblAt") val groupPossible: String,
     @PropertyElement(name="srvcClCode") var field: String,
     @PropertyElement(name="actPlace") var place: String,
     @PropertyElement(name="actBeginTm") var sHour: Int,
@@ -247,6 +244,7 @@ data class VolunteerRes(
     @PropertyElement(name="telno") val tel: String,
     @PropertyElement(name="email") val email: String,
     @PropertyElement(name="progrmCn") val contents: String,
+    @PropertyElement(name="postAdres") val address: String,
 ) {
     fun toVolunteer() = this.run {
         Volunteer(
@@ -261,7 +259,6 @@ data class VolunteerRes(
             gooGunCode = gooGunCode,
             isAdultPossible = adultPossible,
             isYoungPossible = youngPossible,
-            isGroupPossible = groupPossible,
             field = StringEscapeUtils.unescapeHtml4(field),
             place = StringEscapeUtils.unescapeHtml4(place),
             sHour = sHour,
@@ -273,6 +270,7 @@ data class VolunteerRes(
             tel = StringEscapeUtils.unescapeHtml4(tel),
             email = StringEscapeUtils.unescapeHtml4(email),
             contents = StringEscapeUtils.unescapeHtml4(contents),
+            address = StringEscapeUtils.unescapeHtml4(address),
         )
     }
 }
@@ -280,60 +278,39 @@ data class VolunteerRes(
 @Entity(tableName = "volunteer_info")
 data class VolunteerInfo(
     @PrimaryKey(autoGenerate = false)
-    @SerializedName("progrmRegistNo") val pID: String,
-    @SerializedName("progrmSj") val title: String,
-    @SerializedName("nanmmbyNm") val host: String,
-    @SerializedName("progrmBgnde") val sDate: String,
-    @SerializedName("progrmEndde") val eDate: String,
-    @SerializedName("progrmSttusSe") val state: Int,
-    @SerializedName("sidoCd") val siDoCode: String,
-    @SerializedName("gugunCd") val gooGunCode: String,
-    @SerializedName("adultPosblAt") val isAdultPossible: String, // 성인 가능 여부
-    @SerializedName("yngbgsPosblAt") val isYoungPossible: String, // 청소년 가능 여부
-    @SerializedName("srvcClCode") val field: String, // 분야
-    @SerializedName("actPlace") val place: String,
-    @SerializedName("actBeginTm") val sHour: Int,
-    @SerializedName("actEndTm") val eHour: Int,
-    @SerializedName("noticeBgnde") val nsDate: String, // 모집 시작일
-    @SerializedName("noticeEndde") val neDate: String, // 모집 종료일
-    @SerializedName("url") val url: String,
-) {
-    fun isBookMark(bookMarkList: List<BookMark>) = bookMarkList.any { it.pID == pID }
-}
+    @ColumnInfo(name = "pID") val pID: String,
+    @ColumnInfo(name = "title") val title: String,
+    @ColumnInfo(name = "host") val host: String,
+    @ColumnInfo(name = "sDate") val sDate: String,
+    @ColumnInfo(name = "eDate") val eDate: String,
+    @ColumnInfo(name = "state") val state: Int,
+    @ColumnInfo(name = "url") val url: String,
+)
 
 @Entity(tableName = "volunteer")
 data class Volunteer(
     @PrimaryKey(autoGenerate = false)
-    @SerializedName("progrmRegistNo") val pID: String,
-    @SerializedName("progrmSj") val title: String,
-    @SerializedName("nanmmbyNm") val area: String,
-    @SerializedName("mnnstNm") val host: String,
-    @SerializedName("progrmBgnde") val sDate: String,
-    @SerializedName("progrmEndde") val eDate: String,
-    @SerializedName("progrmSttusSe") val state: Int,
-    @SerializedName("sidoCd") val siDoCode: String,
-    @SerializedName("gugunCd") val gooGunCode: String,
-    @SerializedName("adultPosblAt") val isAdultPossible: String, // 성인 가능 여부
-    @SerializedName("yngbgsPosblAt") val isYoungPossible: String, // 청소년 가능 여부
-    @SerializedName("grpPosblAt") val isGroupPossible: String, // 단체 가능 여부
-    @SerializedName("srvcClCode") val field: String, // 분야
-    @SerializedName("actPlace") val place: String,
-    @SerializedName("actBeginTm") val sHour: Int,
-    @SerializedName("actEndTm") val eHour: Int,
-    @SerializedName("noticeBgnde") val nsDate: String, // 모집 시작일
-    @SerializedName("noticeEndde") val neDate: String, // 모집 종료일
-    @SerializedName("rcritNmpr") val num: Int,
-    @SerializedName("nanmmbyNmAdmn") val manager: String,
-    @SerializedName("telno") val tel: String,
-    @SerializedName("email") val email: String,
-    @SerializedName("progrmCn") val contents: String,
-): java.io.Serializable {
-    fun isBookMark(bookMarkList: List<BookMark>) = bookMarkList.any { it.pID == pID }
-}
-
-@Entity(tableName = "book_mark")
-data class BookMark(
-    @PrimaryKey(autoGenerate = false)
-    @SerializedName("pID") val pID: String,
-    @SerializedName("url") val url: String,
+    @ColumnInfo(name = "pID") val pID: String,
+    @ColumnInfo(name = "title") val title: String,
+    @ColumnInfo(name = "area") val area: String,
+    @ColumnInfo(name = "host") val host: String,
+    @ColumnInfo(name = "sDate") val sDate: String,
+    @ColumnInfo(name = "eDate") val eDate: String,
+    @ColumnInfo(name = "state") val state: Int,
+    @ColumnInfo(name = "siDoCode") val siDoCode: String,
+    @ColumnInfo(name = "gooGunCode") val gooGunCode: String,
+    @ColumnInfo(name = "isAdultPossible") val isAdultPossible: String, // 성인 가능 여부
+    @ColumnInfo(name = "isYoungPossible") val isYoungPossible: String, // 청소년 가능 여부
+    @ColumnInfo(name = "field") val field: String, // 분야
+    @ColumnInfo(name = "place") val place: String,
+    @ColumnInfo(name = "sHour") val sHour: Int,
+    @ColumnInfo(name = "eHour") val eHour: Int,
+    @ColumnInfo(name = "nsDate") val nsDate: String, // 모집 시작일
+    @ColumnInfo(name = "neDate") val neDate: String, // 모집 종료일
+    @ColumnInfo(name = "num") val num: Int,
+    @ColumnInfo(name = "manager") val manager: String,
+    @ColumnInfo(name = "tel") val tel: String,
+    @ColumnInfo(name = "email") val email: String,
+    @ColumnInfo(name = "contents") val contents: String,
+    @ColumnInfo(name = "address") val address: String,
 )

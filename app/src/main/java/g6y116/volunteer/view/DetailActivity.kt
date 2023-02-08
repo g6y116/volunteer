@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.util.Log
 import androidx.activity.viewModels
 import dagger.hilt.android.AndroidEntryPoint
+import g6y116.volunteer.Const
 import g6y116.volunteer.databinding.ActivityDetailBinding
 import g6y116.volunteer.repository.Volunteer
 import g6y116.volunteer.viewmodel.DetailViewModel
@@ -24,12 +25,24 @@ class DetailActivity : AppCompatActivity() {
     }
 
     private fun setView() {
-        viewModel.volunteer.value = intent?.getSerializableExtra("volunteer") as Volunteer
+        viewModel.pID.value = intent?.getStringExtra("pID").toString()
         viewModel.url.value = intent?.getStringExtra("url").toString()
         viewModel.from.value = intent?.getStringExtra("from").toString()
 
+        val from = intent?.getStringExtra("from").toString()
+        if (from == Const.HOME) {
+            viewModel.pID.value?.let { viewModel.getVolunteerFromHome(it) }
+        } else {
+            viewModel.pID.value?.let { viewModel.getVolunteerFromBookMark(it) }
+        }
+
         binding.lifecycleOwner = this
         binding.viewmodel = viewModel
+
+        binding.ivBookMark.setOnClickListener {
+            Log.d("성준", "북마크 누름")
+            viewModel.clickBookMark()
+        }
 
         binding.btn.setOnClickListener {
             viewModel.url.value?.let {

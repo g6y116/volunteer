@@ -12,11 +12,11 @@ import java.io.IOException
 class HomePagingSource(
     private val api: VolunteerApi,
     private val pageNum: Int,
-    private val keyWord: String,
-    private val sDate: String,
-    private val eDate: String,
     private val siDoCode: String,
     private val gooGunCode: String,
+    private val sDate: String,
+    private val eDate: String,
+    private val keyWord: String,
     private val isAdultPossible: String,
     private val isYoungPossible: String,
     private val serviceKey: String
@@ -27,11 +27,11 @@ class HomePagingSource(
 
         return try {
             val response = api.getVolunteerList(
-                sDate = sDate,
-                eDate = eDate,
+                pageNum = page,
                 siDoCode = siDoCode,
                 gooGunCode = gooGunCode,
-                pageNum = page,
+                sDate = sDate,
+                eDate = eDate,
                 keyWord = keyWord,
                 isAdultPossible = isAdultPossible,
                 isYoungPossible = isYoungPossible,

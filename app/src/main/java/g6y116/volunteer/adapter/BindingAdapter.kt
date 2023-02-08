@@ -1,5 +1,6 @@
 package g6y116.volunteer.adapter
 
+import android.view.View
 import android.widget.ImageView
 import androidx.databinding.BindingAdapter
 import android.widget.TextView
@@ -19,11 +20,13 @@ object BindingAdapter {
 
     @JvmStatic
     @BindingAdapter(value = ["sDate", "eDate"], requireAll = true)
-    fun setDateText(view: TextView, startDate: String, endDate: String) {
-        if (startDate == endDate)
-            view.text = "${startDate.substring(4, 6).toInt()}월 ${startDate.substring(6, 8).toInt()}일"
-        else
-            view.text = "${startDate.substring(4, 6).toInt()}월 ${startDate.substring(6, 8).toInt()}일 ~ ${endDate.substring(4, 6).toInt()}월 ${endDate.substring(6, 8).toInt()}일"
+    fun setDateText(view: TextView, startDate: String?, endDate: String?) {
+        if (startDate != null && endDate != null) {
+            if (startDate == endDate)
+                view.text = "${startDate.substring(4, 6).toInt()}월 ${startDate.substring(6, 8).toInt()}일"
+            else
+                view.text = "${startDate.substring(4, 6).toInt()}월 ${startDate.substring(6, 8).toInt()}일 ~ ${endDate.substring(4, 6).toInt()}월 ${endDate.substring(6, 8).toInt()}일"
+        }
     }
 
     @JvmStatic
@@ -54,7 +57,9 @@ object BindingAdapter {
 
     @JvmStatic
     @BindingAdapter(value = ["adultPossible", "youngPossible"], requireAll = true)
-    fun setPossibleText(view: TextView, adultPossible: String, youngPossible: String) {
+    fun setPossibleText(view: TextView, adultPossible: String?, youngPossible: String?) {
+        if (adultPossible == null || youngPossible == null) return
+
         view.text = when {
             adultPossible == Const.TRUE && youngPossible == Const.TRUE -> "성인/청소년 가능"
             adultPossible == Const.TRUE && youngPossible == Const.FALSE -> "성인 가능"
@@ -63,11 +68,26 @@ object BindingAdapter {
         }
     }
 
-    @JvmStatic
-    @BindingAdapter("bookMark")
-    fun setBookMarkImage(view: ImageView, isBookMark: Boolean) {
-        if (isBookMark) view.setImageResource(R.drawable.ic_bookmark_24)
-        else view.setImageResource(R.drawable.ic_bookmark_border_24)
-        view.setColorFilter(ContextCompat.getColor(view.context, R.color.gray_1))
-    }
+//    @JvmStatic
+//    @BindingAdapter("bookInfoMark")
+//    fun setBookMarkInfoImage(view: ImageView, type: Int) {
+//        if (type == Const.MARK) {
+//            view.setImageResource(R.drawable.ic_bookmark_24)
+//            view.setColorFilter(ContextCompat.getColor(view.context, R.color.green))
+//            view.visibility = View.VISIBLE
+//        }
+//        else {
+//            view.setImageResource(R.drawable.ic_bookmark_border_24)
+//            view.setColorFilter(ContextCompat.getColor(view.context, R.color.green))
+//            view.visibility = View.GONE
+//        }
+//    }
+//
+//    @JvmStatic
+//    @BindingAdapter("bookMark")
+//    fun setBookMarkImage(view: ImageView, type: Int) {
+//        if (type == Const.MARK) view.setImageResource(R.drawable.ic_bookmark_24)
+//        else view.setImageResource(R.drawable.ic_bookmark_border_24)
+//        view.setColorFilter(ContextCompat.getColor(view.context, R.color.gray_1))
+//    }
 }

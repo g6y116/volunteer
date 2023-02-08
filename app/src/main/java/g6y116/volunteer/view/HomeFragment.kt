@@ -1,16 +1,14 @@
 package g6y116.volunteer.view
 
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.os.bundleOf
+import android.widget.ImageView
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import g6y116.volunteer.Const
 import g6y116.volunteer.R
@@ -26,14 +24,7 @@ class HomeFragment : Fragment(), ViewHolderBindListener {
 
     private val binding by lazy { FragmentHomeBinding.inflate(layoutInflater) }
     private val viewModel: MainViewModel by activityViewModels()
-
-    private lateinit var activityContext: MainActivity
     private val adapter: HomeAdapter = HomeAdapter(this)
-
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        activityContext = context as MainActivity
-    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         return binding.root
@@ -54,20 +45,16 @@ class HomeFragment : Fragment(), ViewHolderBindListener {
     override fun onViewHolderBind(holder: ViewHolder, item: Any) {
         val item = item as VolunteerInfo
 
-        // 북마크 표시 기능 추가
+        val isBookMark = viewModel.bookMarkList.value?.any { it.pID == item.pID } ?: false
+        holder.itemView.findViewById<ImageView>(R.id.ivBookMark).visibility = if (isBookMark) View.VISIBLE else View.GONE
 
         holder.itemView.setOnClickListener {
             lifecycleScope.launch {
-                try {
-                    val volunteer = viewModel.getVolunteerDetail(item.pID)
-                    startActivity(Intent(context, DetailActivity::class.java).apply {
-                        putExtra("volunteer", volunteer)
-                        putExtra("url", item.url)
-                        putExtra("from", Const.HOME)
-                    })
-                } catch (e: Exception) {
-                    // 토스트 뛰우기
-                }
+                startActivity(Intent(context, DetailActivity::class.java).apply {
+                    putExtra("pID", item.pID)
+                    putExtra("url", item.url)
+                    putExtra("from", Const.HOME)
+                })
             }
         }
     }

@@ -59,7 +59,6 @@
             android:layout_height="0dp"
             android:adapter="@{adapter}"
             app:layoutManager="LinearLayoutManager"
-            android:overScrollMode="never"
             app:layout_constraintTop_toBottomOf="@+id/appLabel"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
