@@ -31,26 +31,6 @@
                 android:text="봉사정보"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"/>
-
-            <Spinner
-                android:id="@+id/snSiDo"
-                android:layout_marginStart="@dimen/medium_margin"
-                android:layout_marginBottom="@dimen/small_margin"
-                android:layout_width="wrap_content"
-                android:layout_height="24dp"
-                android:spinnerMode="dialog"
-                app:layout_constraintStart_toEndOf="@+id/tvTitle"
-                app:layout_constraintBottom_toBottomOf="parent"/>
-
-            <Spinner
-                android:id="@+id/snGooGun"
-                android:layout_marginStart="@dimen/small_margin"
-                android:layout_marginBottom="@dimen/small_margin"
-                android:layout_width="wrap_content"
-                android:layout_height="24dp"
-                android:spinnerMode="dialog"
-                app:layout_constraintStart_toEndOf="@+id/snSiDo"
-                app:layout_constraintBottom_toBottomOf="parent"/>
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.recyclerview.widget.RecyclerView

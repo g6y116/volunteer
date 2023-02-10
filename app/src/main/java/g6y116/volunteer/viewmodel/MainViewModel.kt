@@ -1,12 +1,11 @@
 package g6y116.volunteer.viewmodel
 
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.cachedIn
 import dagger.hilt.android.lifecycle.HiltViewModel
 import g6y116.volunteer.Const
-import g6y116.volunteer.repository.Volunteer
+import g6y116.volunteer.data.Volunteer
 import g6y116.volunteer.repository.VolunteerRepository
 import javax.inject.Inject
 
@@ -24,13 +23,7 @@ class MainViewModel @Inject constructor(private val repository: VolunteerReposit
         isYoungPossible = Const.ALL,
     ).cachedIn(viewModelScope)
 
-    val bookMarkList = repository.getBookMarkInfoList()
+    val bookMarkList = repository.getBookMarkList()
 
-    suspend fun getDetailFromHome(pID: String): Volunteer {
-        return repository.getHomeDetail(pID)
-    }
-
-    fun getDetailFromBookMark(pID: String): LiveData<Volunteer> {
-        return repository.getBookMark(pID)
-    }
+    suspend fun getVolunteer(pID: String): Volunteer = repository.getDetail(pID)
 }

@@ -1,21 +1,37 @@
 package g6y116.volunteer.adapter
 
-import android.view.View
-import android.widget.ImageView
 import androidx.databinding.BindingAdapter
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import g6y116.volunteer.Const
 import g6y116.volunteer.R
-import org.apache.commons.text.StringEscapeUtils
 
 object BindingAdapter {
+
+    @JvmStatic
+    @BindingAdapter("state")
+    fun setStateText(view: TextView, state: Int) {
+        when(state) {
+            Const.TODO_NUM -> {
+                view.text = Const.TODO_TEXT
+                view.setTextColor(ContextCompat.getColor(view.context, R.color.gray_1))
+            }
+            Const.DOING_NUM -> {
+                view.text = Const.DOING_TEXT
+                view.setTextColor(ContextCompat.getColor(view.context, R.color.sky_blue))
+            }
+            Const.DONE_NUM -> {
+                view.text = Const.DONE_TEXT
+                view.setTextColor(ContextCompat.getColor(view.context, R.color.gray_0))
+            }
+        }
+
+    }
 
     @JvmStatic
     @BindingAdapter(value = ["sDateInfo", "eDateInfo"], requireAll = true)
     fun setDateInfoText(view: TextView, startDate: String, endDate: String) {
         view.text = startDate.substring(4, 6) + "/" + startDate.substring(6, 8) + " ~ " + endDate.substring(4, 6) + "/" + endDate.substring(6, 8)
-        view.setTextColor(ContextCompat.getColor(view.context, R.color.sky_blue))
     }
 
     @JvmStatic
@@ -36,26 +52,6 @@ object BindingAdapter {
     }
 
     @JvmStatic
-    @BindingAdapter("state")
-    fun setStateText(view: TextView, state: Int) {
-         when(state) {
-            Const.TODO_NUM -> {
-                view.text = Const.TODO_TEXT
-                view.setTextColor(ContextCompat.getColor(view.context, R.color.gray_1))
-            }
-            Const.DOING_NUM -> {
-                view.text = Const.DOING_TEXT
-                view.setTextColor(ContextCompat.getColor(view.context, R.color.sky_blue))
-            }
-            Const.DONE_NUM -> {
-                view.text = Const.DONE_TEXT
-                view.setTextColor(ContextCompat.getColor(view.context, R.color.gray_0))
-            }
-        }
-
-    }
-
-    @JvmStatic
     @BindingAdapter(value = ["adultPossible", "youngPossible"], requireAll = true)
     fun setPossibleText(view: TextView, adultPossible: String?, youngPossible: String?) {
         if (adultPossible == null || youngPossible == null) return
@@ -68,26 +64,6 @@ object BindingAdapter {
         }
     }
 
-//    @JvmStatic
-//    @BindingAdapter("bookInfoMark")
-//    fun setBookMarkInfoImage(view: ImageView, type: Int) {
-//        if (type == Const.MARK) {
-//            view.setImageResource(R.drawable.ic_bookmark_24)
-//            view.setColorFilter(ContextCompat.getColor(view.context, R.color.green))
-//            view.visibility = View.VISIBLE
-//        }
-//        else {
-//            view.setImageResource(R.drawable.ic_bookmark_border_24)
-//            view.setColorFilter(ContextCompat.getColor(view.context, R.color.green))
-//            view.visibility = View.GONE
-//        }
-//    }
-//
-//    @JvmStatic
-//    @BindingAdapter("bookMark")
-//    fun setBookMarkImage(view: ImageView, type: Int) {
-//        if (type == Const.MARK) view.setImageResource(R.drawable.ic_bookmark_24)
-//        else view.setImageResource(R.drawable.ic_bookmark_border_24)
-//        view.setColorFilter(ContextCompat.getColor(view.context, R.color.gray_1))
-//    }
+    // view.setImageResource(R.drawable.ic_bookmark_border_24)
+    // view.setColorFilter(ContextCompat.getColor(view.context, R.color.green))
 }

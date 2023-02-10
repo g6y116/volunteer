@@ -14,6 +14,8 @@ import dagger.hilt.InstallIn
 import dagger.hilt.android.HiltAndroidApp
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
+import g6y116.volunteer.data.Volunteer
+import g6y116.volunteer.data.VolunteerInfo
 import g6y116.volunteer.repository.*
 import retrofit2.Retrofit
 import javax.inject.Singleton
@@ -43,12 +45,6 @@ object AppModule {
     @Provides
     fun provideVolunteerInfoDao(database: AppDatabase): VolunteerInfoDao {
         return database.getVolunteerInfoDao()
-    }
-
-    @Singleton
-    @Provides
-    fun provideVolunteerDao(database: AppDatabase): VolunteerDao {
-        return database.getVolunteerDao()
     }
 
     // Api
@@ -91,8 +87,7 @@ object AppModule {
 }
 
 // DataBase
-@Database(entities = [VolunteerInfo::class, Volunteer::class], version = 1, exportSchema = false)
+@Database(entities = [VolunteerInfo::class], version = 1, exportSchema = false)
 abstract class AppDatabase : RoomDatabase() {
     abstract fun getVolunteerInfoDao(): VolunteerInfoDao
-    abstract fun getVolunteerDao(): VolunteerDao
 }

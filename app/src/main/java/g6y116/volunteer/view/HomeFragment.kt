@@ -2,6 +2,7 @@ package g6y116.volunteer.view
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -14,8 +15,8 @@ import g6y116.volunteer.Const
 import g6y116.volunteer.R
 import g6y116.volunteer.adapter.HomeAdapter
 import g6y116.volunteer.adapter.ViewHolderBindListener
+import g6y116.volunteer.data.VolunteerInfo
 import g6y116.volunteer.databinding.FragmentHomeBinding
-import g6y116.volunteer.repository.VolunteerInfo
 import g6y116.volunteer.viewmodel.MainViewModel
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -45,8 +46,10 @@ class HomeFragment : Fragment(), ViewHolderBindListener {
     override fun onViewHolderBind(holder: ViewHolder, item: Any) {
         val item = item as VolunteerInfo
 
-        val isBookMark = viewModel.bookMarkList.value?.any { it.pID == item.pID } ?: false
+        val isBookMark = viewModel.bookMarkList.value?.let { item.isBookMark(it) } ?: false
         holder.itemView.findViewById<ImageView>(R.id.ivBookMark).visibility = if (isBookMark) View.VISIBLE else View.GONE
+
+        Log.d("성준", "isBookMark : ${item.title}, ${isBookMark}")
 
         holder.itemView.setOnClickListener {
             lifecycleScope.launch {

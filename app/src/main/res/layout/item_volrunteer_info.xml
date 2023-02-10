@@ -7,7 +7,7 @@
     <data>
         <variable
             name="item"
-            type="g6y116.volunteer.repository.VolunteerInfo" />
+            type="g6y116.volunteer.data.VolunteerInfo" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -23,7 +23,7 @@
             app:sDateInfo="@{item.sDate}"
             app:eDateInfo="@{item.eDate}"
             tools:text="mm/dd ~ mm/dd"
-            tools:textColor="@color/sky_blue"
+            android:textColor="@color/sky_blue"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 
@@ -65,8 +65,8 @@
             android:id="@+id/ivBookMark"
             android:layout_width="16dp"
             android:layout_height="16dp"
-            tools:background="@drawable/ic_bookmark_24"
-            tools:backgroundTint="@color/green"
+            android:background="@drawable/ic_bookmark_24"
+            android:backgroundTint="@color/green"
             app:layout_constraintTop_toTopOf="@+id/tvDate"
             app:layout_constraintBottom_toBottomOf="@+id/tvDate"
             app:layout_constraintStart_toEndOf="@+id/tvState"/>

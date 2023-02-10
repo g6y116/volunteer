@@ -9,6 +9,10 @@
     android:weightSum="1"
     tools:context=".view.MainActivity">
 
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/item_toolbar"/>
+
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/nh"
         android:name="androidx.navigation.fragment.NavHostFragment"

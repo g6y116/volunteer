@@ -1,6 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- common -->
+    <style name="toolbar">
+        <item name="android:elevation">2.5dp</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:fontFamily">@font/nanum_bold</item>
+        <item name="android:background">@color/white</item>
+    </style>
+
     <style name="app_label">
         <item name="android:paddingBottom">@dimen/extra_small_padding</item>
         <item name="android:layout_width">0dp</item>

@@ -5,8 +5,8 @@ import android.view.ViewGroup
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
+import g6y116.volunteer.data.VolunteerInfo
 import g6y116.volunteer.databinding.ItemVolrunteerInfoBinding
-import g6y116.volunteer.repository.VolunteerInfo
 
 class HomeAdapter(private val viewHolderBindListener: ViewHolderBindListener):
     PagingDataAdapter<VolunteerInfo, HomeAdapter.ViewHolder>(DIFF_CALLBACK) {

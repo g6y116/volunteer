@@ -13,12 +13,10 @@ import androidx.recyclerview.widget.RecyclerView
 import g6y116.volunteer.Const
 import g6y116.volunteer.R
 import g6y116.volunteer.adapter.BookMarkAdapter
-import g6y116.volunteer.adapter.HomeAdapter
 import g6y116.volunteer.adapter.ViewHolderBindListener
+import g6y116.volunteer.data.VolunteerInfo
 import g6y116.volunteer.databinding.FragmentBookMarkBinding
-import g6y116.volunteer.repository.VolunteerInfo
 import g6y116.volunteer.viewmodel.MainViewModel
-import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
 class BookMarkFragment : Fragment(), ViewHolderBindListener {
@@ -46,7 +44,9 @@ class BookMarkFragment : Fragment(), ViewHolderBindListener {
     override fun onViewHolderBind(holder: RecyclerView.ViewHolder, item: Any) {
         val item = item as VolunteerInfo
 
-        holder.itemView.findViewById<ImageView>(R.id.ivBookMark).visibility = View.VISIBLE
+        val isBookMark = viewModel.bookMarkList.value?.let { item.isBookMark(it) } ?: false
+        holder.itemView.findViewById<ImageView>(R.id.ivBookMark).visibility = if (isBookMark) View.VISIBLE else View.GONE
+
         holder.itemView.setOnClickListener {
             lifecycleScope.launch {
                 startActivity(Intent(context, DetailActivity::class.java).apply {

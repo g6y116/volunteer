@@ -2,6 +2,7 @@ package g6y116.volunteer.view
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.MenuItem
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.navigation.fragment.NavHostFragment
@@ -22,6 +23,10 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
+
+        setSupportActionBar(binding.toolbar.root)
+        supportActionBar?.title = "봉사 정보"
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
         setNavigation()
     }
 
@@ -29,6 +34,13 @@ class MainActivity : AppCompatActivity() {
         val navHostFragment = supportFragmentManager.findFragmentById(R.id.nh) as NavHostFragment
         val navController = navHostFragment.navController
         NavigationUI.setupWithNavController(binding.bn, navController)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+//            android.R.id.
+        }
+        return super.onOptionsItemSelected(item)
     }
 
     override fun onBackPressed() {
