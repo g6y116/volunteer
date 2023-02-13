@@ -3,9 +3,9 @@ package g6y116.volunteer.datasource
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import com.bumptech.glide.load.HttpException
+import g6y116.volunteer.api.VolunteerApi
 import g6y116.volunteer.data.HomeResponse
 import g6y116.volunteer.data.VolunteerInfo
-import g6y116.volunteer.repository.VolunteerApi
 import java.io.IOException
 
 class HomePagingSource(
@@ -18,14 +18,13 @@ class HomePagingSource(
     private val keyWord: String,
     private val isAdultPossible: String,
     private val isYoungPossible: String,
-    private val serviceKey: String
 ) : PagingSource<Int, VolunteerInfo>() {
 
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, VolunteerInfo> {
         val page = params.key ?: pageNum
 
         return try {
-            val response = api.getVolunteerInfoList(
+            val response = api.getVolunteerList(
                 pageNum = page,
                 siDoCode = siDoCode,
                 gooGunCode = gooGunCode,
@@ -34,7 +33,6 @@ class HomePagingSource(
                 keyWord = keyWord,
                 isAdultPossible = isAdultPossible,
                 isYoungPossible = isYoungPossible,
-                serviceKey = serviceKey,
             )
 
             val totalCount = (response.body() as HomeResponse).body.totalCount

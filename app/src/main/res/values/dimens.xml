@@ -1,22 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- margin -->
-    <dimen name="large_margin">24dp</dimen>
-    <dimen name="medium_margin">16dp</dimen>
-    <dimen name="small_margin">8dp</dimen>
-    <dimen name="extra_small_margin">4dp</dimen>
+    <dimen name="margin_large">24dp</dimen>
+    <dimen name="margin_medium">16dp</dimen>
+    <dimen name="margin_small">8dp</dimen>
+    <dimen name="margin_extra_small">4dp</dimen>
 
-    <!-- padding -->
-    <dimen name="large_padding">24dp</dimen>
-    <dimen name="medium_padding">16dp</dimen>
-    <dimen name="small_padding">8dp</dimen>
-    <dimen name="extra_small_padding">4dp</dimen>
+    <dimen name="padding_large">24dp</dimen>
+    <dimen name="padding_medium">16dp</dimen>
+    <dimen name="padding_small">8dp</dimen>
+    <dimen name="padding_extra_small">4dp</dimen>
 
-    <!-- fond -->
-    <dimen name="label_text">20dp</dimen>
-    <dimen name="large_text">16dp</dimen>
-    <dimen name="medium_text">14dp</dimen>
-    <dimen name="small_text">12dp</dimen>
+    <dimen name="text_size_extra_large">20dp</dimen>
+    <dimen name="text_size_large">16dp</dimen>
+    <dimen name="text_size_medium">14dp</dimen>
+    <dimen name="text_size_small">12dp</dimen>
 
     <dimen name="card_radius">5dp</dimen>
 </resources>

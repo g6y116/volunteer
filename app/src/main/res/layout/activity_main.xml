@@ -27,5 +27,5 @@
         style="@style/bottom_navigation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:menu="@menu/menu" />
+        app:menu="@menu/menu_bottom_navigation" />
 </LinearLayout>

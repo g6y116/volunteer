@@ -14,32 +14,12 @@
         android:layout_height="match_parent"
         android:background="@color/gray_2">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/appLabel"
-            style="@style/app_label"
+        <include
+            android:id="@+id/toolbar"
+            layout="@layout/item_toolbar"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent">
-
-            <TextView
-                android:layout_marginStart="@dimen/large_margin"
-                android:layout_marginBottom="@dimen/small_margin"
-                style="@style/label_text"
-                android:text="세부정보"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"/>
-
-            <ImageView
-                android:id="@+id/ivBookMark"
-                android:layout_marginEnd="@dimen/medium_margin"
-                android:layout_marginBottom="@dimen/small_margin"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:background="@drawable/ic_bookmark_border_24"
-                android:backgroundTint="@color/green"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"/>
-        </androidx.constraintlayout.widget.ConstraintLayout>
+            app:layout_constraintEnd_toEndOf="parent"/>
 
         <ScrollView
             android:id="@+id/container"
@@ -48,7 +28,7 @@
             android:gravity="center"
             android:scrollbars="none"
             android:overScrollMode="never"
-            app:layout_constraintTop_toBottomOf="@+id/appLabel"
+            app:layout_constraintTop_toBottomOf="@+id/toolbar"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toTopOf="@+id/ll">
@@ -59,8 +39,8 @@
                 android:orientation="vertical">
 
                 <androidx.cardview.widget.CardView
-                    android:layout_marginTop="@dimen/extra_small_margin"
-                    android:layout_marginHorizontal="@dimen/small_margin"
+                    android:layout_marginTop="@dimen/margin_extra_small"
+                    android:layout_marginHorizontal="@dimen/margin_small"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     app:cardCornerRadius="@dimen/card_radius"
@@ -75,8 +55,8 @@
                         <TextView
                             android:id="@+id/tvField"
                             style="@style/small_dark_text"
-                            android:layout_marginTop="@dimen/extra_small_margin"
-                            android:layout_marginStart="@dimen/medium_margin"
+                            android:layout_marginTop="@dimen/margin_extra_small"
+                            android:layout_marginStart="@dimen/margin_medium"
                             tools:text="봉사 분야"
                             app:text="@{viewmodel.volunteer.field}"
                             app:layout_constraintTop_toTopOf="parent"
@@ -85,8 +65,8 @@
                         <TextView
                             android:id="@+id/tvState"
                             style="@style/small_dark_text"
-                            android:layout_marginTop="@dimen/extra_small_margin"
-                            android:layout_marginEnd="@dimen/medium_margin"
+                            android:layout_marginTop="@dimen/margin_extra_small"
+                            android:layout_marginEnd="@dimen/margin_medium"
                             app:state="@{viewmodel.volunteer.state}"
                             tools:text="모집 XX"
                             app:layout_constraintTop_toTopOf="parent"
@@ -94,7 +74,7 @@
 
                         <TextView
                             android:id="@+id/tvTitle"
-                            android:layout_margin="@dimen/large_margin"
+                            android:layout_margin="@dimen/margin_large"
                             style="@style/large_dark_text"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -108,15 +88,15 @@
 
                         <TextView
                             android:id="@+id/tvHost"
-                            android:layout_marginTop="@dimen/large_margin"
-                            android:layout_marginStart="@dimen/medium_margin"
+                            android:layout_marginTop="@dimen/margin_large"
+                            android:layout_marginStart="@dimen/margin_medium"
                             style="@style/medium_text"
                             android:text="모집 기관"
                             app:layout_constraintTop_toBottomOf="@+id/tvTitle"
                             app:layout_constraintStart_toStartOf="parent"/>
 
                         <TextView
-                            android:layout_marginStart="@dimen/small_margin"
+                            android:layout_marginStart="@dimen/margin_small"
                             style="@style/medium_dark_text"
                             tools:text="XXXX"
                             android:text="@{viewmodel.volunteer.host}"
@@ -125,15 +105,15 @@
 
                         <TextView
                             android:id="@+id/tvArea"
-                            android:layout_marginTop="@dimen/small_margin"
-                            android:layout_marginStart="@dimen/medium_margin"
+                            android:layout_marginTop="@dimen/margin_small"
+                            android:layout_marginStart="@dimen/margin_medium"
                             style="@style/medium_text"
                             android:text="등록 기관"
                             app:layout_constraintTop_toBottomOf="@+id/tvHost"
                             app:layout_constraintStart_toStartOf="parent"/>
 
                         <TextView
-                            android:layout_marginStart="@dimen/small_margin"
+                            android:layout_marginStart="@dimen/margin_small"
                             style="@style/medium_dark_text"
                             tools:text="XXXX"
                             android:text="@{viewmodel.volunteer.area}"
@@ -142,8 +122,8 @@
 
                         <TextView
                             android:id="@+id/tvPlace"
-                            android:layout_marginTop="@dimen/small_margin"
-                            android:layout_marginStart="@dimen/medium_margin"
+                            android:layout_marginTop="@dimen/margin_small"
+                            android:layout_marginStart="@dimen/margin_medium"
                             style="@style/medium_text"
                             android:text="봉사 장소"
                             app:layout_constraintTop_toBottomOf="@+id/tvArea"
@@ -151,7 +131,7 @@
 
                         <TextView
                             android:id="@+id/tvPlaceValue"
-                            android:layout_marginHorizontal="@dimen/small_margin"
+                            android:layout_marginHorizontal="@dimen/margin_small"
                             style="@style/medium_dark_text"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
@@ -164,15 +144,15 @@
 
                         <TextView
                             android:id="@+id/tvNum"
-                            android:layout_marginTop="@dimen/small_margin"
-                            android:layout_marginStart="@dimen/medium_margin"
+                            android:layout_marginTop="@dimen/margin_small"
+                            android:layout_marginStart="@dimen/margin_medium"
                             style="@style/medium_text"
                             android:text="모집 인원"
                             app:layout_constraintTop_toBottomOf="@+id/tvPlaceValue"
                             app:layout_constraintStart_toStartOf="parent"/>
 
                         <TextView
-                            android:layout_marginStart="@dimen/small_margin"
+                            android:layout_marginStart="@dimen/margin_small"
                             style="@style/medium_dark_text"
                             tools:text="XXXX"
                             android:text='@{String.valueOf(viewmodel.volunteer.num) + "명"}'
@@ -181,15 +161,15 @@
 
                         <TextView
                             android:id="@+id/tvPossible"
-                            android:layout_marginTop="@dimen/small_margin"
-                            android:layout_marginStart="@dimen/medium_margin"
+                            android:layout_marginTop="@dimen/margin_small"
+                            android:layout_marginStart="@dimen/margin_medium"
                             style="@style/medium_text"
                             android:text="지원 자격"
                             app:layout_constraintTop_toBottomOf="@+id/tvNum"
                             app:layout_constraintStart_toStartOf="parent"/>
 
                         <TextView
-                            android:layout_marginStart="@dimen/small_margin"
+                            android:layout_marginStart="@dimen/margin_small"
                             style="@style/medium_dark_text"
                             tools:text="XXXX"
                             app:adultPossible="@{viewmodel.volunteer.isAdultPossible}"
@@ -200,7 +180,7 @@
                 </androidx.cardview.widget.CardView>
 
                 <androidx.cardview.widget.CardView
-                    android:layout_marginHorizontal="@dimen/small_margin"
+                    android:layout_marginHorizontal="@dimen/margin_small"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     app:cardCornerRadius="@dimen/card_radius"
@@ -209,27 +189,27 @@
                     <TextView
                         android:id="@+id/tvContents"
                         style="@style/small_dark_text"
-                        android:padding="@dimen/medium_margin"
+                        android:padding="@dimen/margin_medium"
                         tools:text="내용"
                         app:text="@{viewmodel.volunteer.contents}" />
                 </androidx.cardview.widget.CardView>
 
                 <androidx.cardview.widget.CardView
-                    android:layout_marginHorizontal="@dimen/small_margin"
+                    android:layout_marginHorizontal="@dimen/margin_small"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     app:cardCornerRadius="@dimen/card_radius"
                     app:cardUseCompatPadding="true">
 
                     <LinearLayout
-                        android:paddingVertical="@dimen/small_margin"
+                        android:paddingVertical="@dimen/margin_small"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
                         android:gravity="center">
 
                         <LinearLayout
-                            android:layout_marginStart="@dimen/small_margin"
+                            android:layout_marginStart="@dimen/margin_small"
                             android:layout_weight="1"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
@@ -242,12 +222,12 @@
                                 android:background="@drawable/ic_recruitment" />
 
                             <TextView
-                                android:layout_marginTop="@dimen/extra_small_margin"
+                                android:layout_marginTop="@dimen/margin_extra_small"
                                 style="@style/small_text"
                                 android:text="모집 기간" />
 
                             <TextView
-                                android:layout_marginTop="@dimen/extra_small_margin"
+                                android:layout_marginTop="@dimen/margin_extra_small"
                                 style="@style/small_dark_text"
                                 app:sDate="@{viewmodel.volunteer.nsDate}"
                                 app:eDate="@{viewmodel.volunteer.neDate}"
@@ -267,12 +247,12 @@
                                 android:background="@drawable/ic_day" />
 
                             <TextView
-                                android:layout_marginTop="@dimen/extra_small_margin"
+                                android:layout_marginTop="@dimen/margin_extra_small"
                                 style="@style/small_text"
                                 android:text="봉사 기간" />
 
                             <TextView
-                                android:layout_marginTop="@dimen/extra_small_margin"
+                                android:layout_marginTop="@dimen/margin_extra_small"
                                 style="@style/small_dark_text"
                                 app:sDate="@{viewmodel.volunteer.sDate}"
                                 app:eDate="@{viewmodel.volunteer.eDate}"
@@ -292,7 +272,7 @@
                                 android:background="@drawable/ic_time" />
 
                             <TextView
-                                android:layout_marginTop="@dimen/extra_small_margin"
+                                android:layout_marginTop="@dimen/margin_extra_small"
                                 style="@style/small_text"
                                 android:text="봉사 시간" />
 
@@ -308,29 +288,29 @@
 
                 <androidx.cardview.widget.CardView
                     android:layout_marginBottom="6dp"
-                    android:layout_marginHorizontal="@dimen/small_margin"
+                    android:layout_marginHorizontal="@dimen/margin_small"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     app:cardCornerRadius="@dimen/card_radius"
                     app:cardUseCompatPadding="true">
 
                     <androidx.constraintlayout.widget.ConstraintLayout
-                        android:paddingVertical="@dimen/medium_margin"
+                        android:paddingVertical="@dimen/margin_medium"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="vertical">
 
                         <TextView
                             android:id="@+id/tvManager"
-                            android:layout_marginTop="@dimen/extra_small_margin"
-                            android:layout_marginStart="@dimen/medium_margin"
+                            android:layout_marginTop="@dimen/margin_extra_small"
+                            android:layout_marginStart="@dimen/margin_medium"
                             style="@style/medium_text"
                             android:text="담당자"
                             app:layout_constraintTop_toTopOf="parent"
                             app:layout_constraintStart_toStartOf="parent"/>
 
                         <TextView
-                            android:layout_marginStart="@dimen/small_margin"
+                            android:layout_marginStart="@dimen/margin_small"
                             style="@style/medium_dark_text"
                             tools:text="XXXX"
                             android:text="@{viewmodel.volunteer.manager}"
@@ -339,15 +319,15 @@
 
                         <TextView
                             android:id="@+id/tvTel"
-                            android:layout_marginTop="@dimen/medium_margin"
-                            android:layout_marginStart="@dimen/medium_margin"
+                            android:layout_marginTop="@dimen/margin_medium"
+                            android:layout_marginStart="@dimen/margin_medium"
                             style="@style/medium_text"
                             android:text="연락처"
                             app:layout_constraintTop_toBottomOf="@id/tvManager"
                             app:layout_constraintStart_toStartOf="parent"/>
 
                         <TextView
-                            android:layout_marginStart="@dimen/small_margin"
+                            android:layout_marginStart="@dimen/margin_small"
                             style="@style/medium_dark_text"
                             tools:text="XXXX"
                             android:text="@{viewmodel.volunteer.tel}"
@@ -356,15 +336,15 @@
 
                         <TextView
                             android:id="@+id/tvEmail"
-                            android:layout_marginTop="@dimen/medium_margin"
-                            android:layout_marginStart="@dimen/medium_margin"
+                            android:layout_marginTop="@dimen/margin_medium"
+                            android:layout_marginStart="@dimen/margin_medium"
                             style="@style/medium_text"
                             android:text="이메일"
                             app:layout_constraintTop_toBottomOf="@id/tvTel"
                             app:layout_constraintStart_toStartOf="parent"/>
 
                         <TextView
-                            android:layout_marginStart="@dimen/small_margin"
+                            android:layout_marginStart="@dimen/margin_small"
                             style="@style/medium_dark_text"
                             tools:text="XXXX"
                             android:text="@{viewmodel.volunteer.email}"
@@ -385,7 +365,7 @@
             app:layout_constraintBottom_toBottomOf="parent">
 
             <androidx.cardview.widget.CardView
-                android:layout_margin="@dimen/small_margin"
+                android:layout_margin="@dimen/margin_small"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:cardCornerRadius="@dimen/card_radius"

@@ -11,14 +11,14 @@
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_marginHorizontal="@dimen/large_margin"
-        android:layout_marginVertical="@dimen/extra_small_margin"
+        android:layout_marginHorizontal="@dimen/margin_large"
+        android:layout_marginVertical="@dimen/margin_extra_small"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
         <TextView
             android:id="@+id/tvDate"
-            android:layout_marginVertical="@dimen/small_margin"
+            android:layout_marginVertical="@dimen/margin_small"
             style="@style/small_dark_text"
             app:sDateInfo="@{item.sDate}"
             app:eDateInfo="@{item.eDate}"
@@ -29,8 +29,8 @@
 
         <TextView
             android:id="@+id/tvState"
-            android:layout_marginTop="@dimen/small_margin"
-            android:layout_marginStart="@dimen/small_margin"
+            android:layout_marginTop="@dimen/margin_small"
+            android:layout_marginStart="@dimen/margin_small"
             style="@style/small_dark_text"
             app:state="@{item.state}"
             tools:text="모집 XX"
@@ -43,7 +43,7 @@
             style="@style/medium_dark_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginVertical="@dimen/small_margin"
+            android:layout_marginVertical="@dimen/margin_small"
             app:layout_constraintHorizontal_bias="0"
             android:text="@{item.title}"
             app:layout_constraintEnd_toEndOf="parent"
@@ -53,7 +53,7 @@
 
         <TextView
             android:id="@+id/tvArea"
-            android:layout_marginVertical="@dimen/small_margin"
+            android:layout_marginVertical="@dimen/margin_small"
             style="@style/small_text"
             android:text="@{item.host}"
             tools:text="모집 기관"

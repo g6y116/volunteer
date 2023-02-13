@@ -6,7 +6,6 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.RecyclerView
@@ -41,12 +40,17 @@ class BookMarkFragment : Fragment(), ViewHolderBindListener {
         }
     }
 
+    override fun onResume() {
+        super.onResume()
+        activity?.let { mainActivity ->
+            (mainActivity as MainActivity).setToolbarTitle(getText(R.string.menu_2).toString())
+        }
+    }
+
     override fun onViewHolderBind(holder: RecyclerView.ViewHolder, item: Any) {
         val item = item as VolunteerInfo
 
-        val isBookMark = viewModel.bookMarkList.value?.let { item.isBookMark(it) } ?: false
-        holder.itemView.findViewById<ImageView>(R.id.ivBookMark).visibility = if (isBookMark) View.VISIBLE else View.GONE
-
+//        holder.itemView.findViewById<ImageView>(R.id.ivBookMark).visibility = if (item.isBookMark) View.VISIBLE else View.GONE
         holder.itemView.setOnClickListener {
             lifecycleScope.launch {
                 startActivity(Intent(context, DetailActivity::class.java).apply {

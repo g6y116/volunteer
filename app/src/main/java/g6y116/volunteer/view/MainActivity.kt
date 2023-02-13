@@ -23,24 +23,18 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
-
         setSupportActionBar(binding.toolbar.root)
-        supportActionBar?.title = "봉사 정보"
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
         setNavigation()
+    }
+
+    fun setToolbarTitle(text: String) {
+        supportActionBar?.title = text
     }
 
     private fun setNavigation() {
         val navHostFragment = supportFragmentManager.findFragmentById(R.id.nh) as NavHostFragment
         val navController = navHostFragment.navController
         NavigationUI.setupWithNavController(binding.bn, navController)
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-//            android.R.id.
-        }
-        return super.onOptionsItemSelected(item)
     }
 
     override fun onBackPressed() {

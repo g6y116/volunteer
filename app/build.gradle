@@ -79,12 +79,12 @@ dependencies {
     implementation 'androidx.paging:paging-runtime:3.1.1'
 
     // retrofit
-    implementation 'com.squareup.okhttp3:okhttp:4.9.0'
+    implementation 'com.squareup.okhttp3:okhttp:4.9.3'
     implementation 'com.squareup.retrofit2:retrofit:2.9.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
 
     // glide
-    implementation 'com.github.bumptech.glide:glide:4.12.0'
+    implementation 'com.github.bumptech.glide:glide:4.14.2'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.12.0'
 
     // tikxml (xml parser)
@@ -95,6 +95,9 @@ dependencies {
 
     // commons-text (special char parser)
     implementation 'org.apache.commons:commons-text:1.9'
+
+    // logger
+    implementation 'com.orhanobut:logger:2.2.0'
 
     // reviewer
 //    implementation 'com.google.android.play:review:2.0.1'

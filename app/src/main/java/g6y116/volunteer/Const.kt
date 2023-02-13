@@ -23,5 +23,6 @@ interface Const {
 
         const val HOME = "home"
         const val BOOK_MARK = "bookMark"
+        const val MORE = "more"
     }
 }

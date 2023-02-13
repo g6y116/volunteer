@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
+import g6y116.volunteer.R
 import g6y116.volunteer.databinding.FragmentMoreBinding
 import g6y116.volunteer.viewmodel.MainViewModel
 
@@ -16,5 +17,12 @@ class MoreFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         return binding.root
+    }
+
+    override fun onResume() {
+        super.onResume()
+        activity?.let { mainActivity ->
+            (mainActivity as MainActivity).setToolbarTitle(getText(R.string.menu_3).toString())
+        }
     }
 }
