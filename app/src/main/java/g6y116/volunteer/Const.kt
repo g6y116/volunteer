@@ -7,6 +7,10 @@ interface Const {
         const val DATABASE_NAME = "volunteer_db"
         const val DATASTORE_NAME = "volunteer_db"
 
+        const val BOTH = "전체"
+        const val ADULT = "어른"
+        const val YOUNG = "청소년"
+
         const val TRUE = "Y"
         const val FALSE = "N"
         const val ALL = ""

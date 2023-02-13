@@ -11,8 +11,9 @@ import androidx.activity.viewModels
 import androidx.appcompat.view.menu.ActionMenuItemView
 import dagger.hilt.android.AndroidEntryPoint
 import g6y116.volunteer.R
-import g6y116.volunteer.Util
 import g6y116.volunteer.databinding.ActivityDetailBinding
+import g6y116.volunteer.onClick
+import g6y116.volunteer.toast
 import g6y116.volunteer.viewmodel.DetailViewModel
 
 @AndroidEntryPoint
@@ -37,7 +38,7 @@ class DetailActivity : AppCompatActivity() {
         binding.lifecycleOwner = this
         binding.viewmodel = viewModel
 
-        binding.btn.setOnClickListener {
+        binding.btn.onClick {
             if (viewModel.url.isNotEmpty())
                 startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(viewModel.url)))
         }
@@ -50,7 +51,7 @@ class DetailActivity : AppCompatActivity() {
         }
 
         viewModel.errorLiveData.observe(this) {
-            Util.toast(this, "삭제된 봉사 정보입니다.")
+            toast(this, "삭제된 봉사 정보입니다.")
             finish()
         }
     }

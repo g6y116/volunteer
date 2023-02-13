@@ -15,6 +15,7 @@ import g6y116.volunteer.adapter.BookMarkAdapter
 import g6y116.volunteer.adapter.ViewHolderBindListener
 import g6y116.volunteer.data.VolunteerInfo
 import g6y116.volunteer.databinding.FragmentBookMarkBinding
+import g6y116.volunteer.onClick
 import g6y116.volunteer.viewmodel.MainViewModel
 import kotlinx.coroutines.launch
 
@@ -51,7 +52,7 @@ class BookMarkFragment : Fragment(), ViewHolderBindListener {
         val item = item as VolunteerInfo
 
 //        holder.itemView.findViewById<ImageView>(R.id.ivBookMark).visibility = if (item.isBookMark) View.VISIBLE else View.GONE
-        holder.itemView.setOnClickListener {
+        holder.itemView.onClick {
             lifecycleScope.launch {
                 startActivity(Intent(context, DetailActivity::class.java).apply {
                     putExtra("pID", item.pID)

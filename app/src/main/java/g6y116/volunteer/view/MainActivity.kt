@@ -2,14 +2,13 @@ package g6y116.volunteer.view
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.MenuItem
-import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI
 import dagger.hilt.android.AndroidEntryPoint
 import g6y116.volunteer.R
 import g6y116.volunteer.databinding.ActivityMainBinding
+import g6y116.volunteer.toast
 import g6y116.volunteer.viewmodel.MainViewModel
 
 @AndroidEntryPoint
@@ -40,7 +39,7 @@ class MainActivity : AppCompatActivity() {
     override fun onBackPressed() {
         if(System.currentTimeMillis() - waitTime >= 1000 ) {
             waitTime = System.currentTimeMillis()
-            Toast.makeText(this,"'뒤로' 버튼을 한번 더 누르면 종료됩니다.", Toast.LENGTH_SHORT).show()
+            toast(this, "'뒤로' 버튼을 한번 더 누르면 종료됩니다.")
         } else {
             finish()
         }

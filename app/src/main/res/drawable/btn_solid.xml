@@ -1,7 +1,22 @@
-<?xml version="1.0" encoding="utf-8"?>
-<shape
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:shape="rectangle">
-    <solid android:color="@color/blue" />
-    <corners android:radius="5dp" />
-</shape>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Focused and not pressed -->
+    <item
+        android:state_focused="true"
+        android:state_pressed="false"
+        android:drawable="@drawable/btn_solid_pressed" />
+
+    <!-- Focused and pressed -->
+    <item
+        android:state_focused="true"
+        android:state_pressed="true"
+        android:drawable="@drawable/btn_solid_pressed" />
+
+    <!-- Unfocused and pressed -->
+    <item
+        android:state_focused="false"
+        android:state_pressed="true"
+        android:drawable="@drawable/btn_solid_pressed" />
+
+    <!-- Default -->
+    <item android:drawable="@drawable/btn_solid_normal" />
+</selector>

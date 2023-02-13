@@ -14,4 +14,6 @@
     <color name="green">#00CB45</color>
     <color name="blue">#448AFF</color>
     <color name="sky_blue">#82B1FF</color>
+<!--    <color name="ripple">#20FFFFFF</color>-->
+    <color name="ripple">#20000000</color>
 </resources>

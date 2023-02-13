@@ -5,5 +5,7 @@
     <string name="menu_3">더보기</string>
     <string name="menu_4">세부정보</string>
     <string name="apply">신청하기</string>
+    <string name="book_mark">북마크</string>
     <string name="map">지도정보</string>
+    <string name="done">완료</string>
 </resources>

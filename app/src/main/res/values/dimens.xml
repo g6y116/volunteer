@@ -14,6 +14,8 @@
     <dimen name="text_size_large">16dp</dimen>
     <dimen name="text_size_medium">14dp</dimen>
     <dimen name="text_size_small">12dp</dimen>
+    <dimen name="text_size_item_list">18dp</dimen>
 
     <dimen name="card_radius">5dp</dimen>
+    <dimen name="sheet_radius">25dp</dimen>
 </resources>

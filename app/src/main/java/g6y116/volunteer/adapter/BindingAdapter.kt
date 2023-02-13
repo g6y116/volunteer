@@ -1,14 +1,11 @@
 package g6y116.volunteer.adapter
 
 import android.annotation.SuppressLint
-import android.view.View
-import android.widget.ImageView
 import androidx.databinding.BindingAdapter
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import g6y116.volunteer.Const
 import g6y116.volunteer.R
-import g6y116.volunteer.data.VolunteerInfo
 
 object BindingAdapter {
 

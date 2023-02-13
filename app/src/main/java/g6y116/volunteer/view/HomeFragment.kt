@@ -11,15 +11,18 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
-import g6y116.volunteer.Const
-import g6y116.volunteer.R
+import com.google.android.material.datepicker.CalendarConstraints
+import com.google.android.material.datepicker.MaterialDatePicker
+import g6y116.volunteer.*
 import g6y116.volunteer.adapter.HomeAdapter
 import g6y116.volunteer.adapter.ViewHolderBindListener
+import g6y116.volunteer.bottomsheet.RoundedBottomListSheet
 import g6y116.volunteer.data.VolunteerInfo
 import g6y116.volunteer.databinding.FragmentHomeBinding
 import g6y116.volunteer.viewmodel.MainViewModel
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
+import java.util.*
 
 
 class HomeFragment : Fragment(), ViewHolderBindListener {
@@ -47,6 +50,44 @@ class HomeFragment : Fragment(), ViewHolderBindListener {
         viewModel.bookMarkList.observe(viewLifecycleOwner) {
             adapter.notifyDataSetChanged()
         }
+
+        binding.chip1.onClick {
+            RoundedBottomListSheet("지역 선택", Code.전국.map { it.name }) { item ->
+                log("지역 선택 : ${item}")
+            }.show((activity as MainActivity).supportFragmentManager, tag)
+        }
+
+        binding.chip2.onClick {
+            RoundedBottomListSheet("지역 선택", Code.서울.map { it.name }) { item ->
+                log("지역 선택 : ${item}")
+            }.show((activity as MainActivity).supportFragmentManager, tag)
+        }
+
+        binding.chip3.onClick {
+            val today = MaterialDatePicker.todayInUtcMilliseconds()
+            val constraints = CalendarConstraints.Builder()
+                .setStart(Calendar.getInstance().apply { add(Calendar.MONTH, -2) }.time.time)
+                .setEnd(Calendar.getInstance().apply { add(Calendar.MONTH, 2) }.time.time)
+                .build()
+            val datePicker = MaterialDatePicker.Builder.datePicker()
+                .setTheme(R.style.date_picker)
+                .setTitleText("봉사일")
+                .setCalendarConstraints(constraints)
+                .setSelection(today)
+                .build()
+
+            datePicker.addOnPositiveButtonClickListener {
+                log("날짜 선택 : ${longTo8String(it)}")
+            }
+
+            datePicker.show((activity as MainActivity).supportFragmentManager, "")
+        }
+
+        binding.chip4.onClick {
+            RoundedBottomListSheet("유형 선택", listOf(Const.BOTH, Const.ADULT, Const.YOUNG)) { item ->
+                log("유형 선택 : ${item}")
+            }.show((activity as MainActivity).supportFragmentManager, tag)
+        }
     }
 
     override fun onResume() {
@@ -62,7 +103,7 @@ class HomeFragment : Fragment(), ViewHolderBindListener {
         holder.itemView.findViewById<ImageView>(R.id.ivBookMark).visibility =
             if (item.isBookMark(viewModel.bookMarkList.value)) View.VISIBLE else View.GONE
 
-        holder.itemView.setOnClickListener {
+        holder.itemView.onClick {
             lifecycleScope.launch {
                 startActivity(Intent(context, DetailActivity::class.java).apply {
                     putExtra("pID", item.pID)

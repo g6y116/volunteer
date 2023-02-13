@@ -9,14 +9,40 @@
         <item name="android:background">@color/white</item>
     </style>
 
-    <style name="app_label">
-        <item name="android:paddingBottom">@dimen/padding_extra_small</item>
-        <item name="android:layout_width">0dp</item>
-        <item name="android:layout_height">56dp</item>
-        <item name="android:orientation">horizontal</item>
-        <item name="android:gravity">bottom</item>
-        <item name="android:elevation">2.5dp</item>
-        <item name="android:background">@color/white</item>
+    <style name="chip">
+        <item name="android:textSize">@dimen/text_size_medium</item>
+        <item name="android:textColor">@color/gray_1</item>
+        <item name="android:fontFamily">@font/nanum_regular</item>
+        <item name="android:includeFontPadding">false</item>
+        <item name="chipBackgroundColor">@color/white</item>
+        <item name="chipStrokeWidth">0.75dp</item>
+        <item name="chipStrokeColor">@color/gray_3</item>
+        <item name="chipCornerRadius">@dimen/card_radius</item>
+    </style>
+
+    <style name="bottom_sheet" parent="Theme.Design.BottomSheetDialog">
+        <item name="bottomSheetStyle">@style/TransparentBottomSheetDialogFragmentChild</item>
+    </style>
+
+    <style name="TransparentBottomSheetDialogFragmentChild" parent="Widget.Design.BottomSheet.Modal">
+        <item name="android:background">#00000000</item>
+    </style>
+
+    <style name="date_picker" parent="ThemeOverlay.MaterialComponents.MaterialCalendar">
+        <item name="materialCalendarHeaderToggleButton">@style/Widget.AppTheme.MaterialCalendar.HeaderToggleButton</item>
+    </style>
+
+    <style name="Widget.AppTheme.MaterialCalendar.HeaderToggleButton" parent="Widget.MaterialComponents.MaterialCalendar.HeaderToggleButton">
+        <item name="android:visibility">gone</item>
+    </style>
+
+    <style name="list_item">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">@dimen/text_size_item_list</item>
+        <item name="android:textColor">@color/gray_0</item>
+        <item name="android:fontFamily">@font/nanum_bold</item>
+        <item name="android:includeFontPadding">true</item>
     </style>
 
     <style name="app_divide">
@@ -98,16 +124,6 @@
         <item name="android:fontFamily">@font/nanum_regular</item>
         <item name="android:includeFontPadding">false</item>
         <item name="android:background">@drawable/btn_solid</item>
-    </style>
-
-    <style name="ghost_button">
-        <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:textSize">@dimen/text_size_large</item>
-        <item name="android:textColor">@color/blue</item>
-        <item name="android:fontFamily">@font/nanum_regular</item>
-        <item name="android:includeFontPadding">false</item>
-        <item name="android:background">@drawable/btn_ghost</item>
     </style>
 
     <!-- etc -->
