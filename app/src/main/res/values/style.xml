@@ -45,6 +45,15 @@
         <item name="android:includeFontPadding">true</item>
     </style>
 
+    <style name="switch_material" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <!-- active thumb & track color (30% transparency) -->
+        <item name="colorControlActivated">@color/sky_blue</item>
+        <!-- inactive thumb color -->
+        <item name="colorSwitchThumbNormal">@color/white</item>
+        <!-- inactive track color (30% transparency) -->
+        <item name="android:colorForeground">@color/gray_0</item>
+    </style>
+
     <style name="app_divide">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">0.75dp</item>

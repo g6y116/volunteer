@@ -37,6 +37,14 @@ class BookMarkFragment : Fragment(), ViewHolderBindListener {
         lifecycleScope.launch {
             viewModel.bookMarkList.observe(viewLifecycleOwner) {
                 adapter.submitList(it)
+
+                if (it.isNullOrEmpty()) {
+                    binding.noResult.visibility = View.VISIBLE
+                    binding.rv.visibility = View.GONE
+                } else {
+                    binding.rv.visibility = View.VISIBLE
+                    binding.noResult.visibility = View.GONE
+                }
             }
         }
     }

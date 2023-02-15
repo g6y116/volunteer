@@ -60,6 +60,14 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="봉사 유형"/>
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chip_5"
+                    android:layout_marginStart="@dimen/margin_extra_small"
+                    style="@style/chip"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="초기화" />
             </LinearLayout>
         </HorizontalScrollView>
 
@@ -73,5 +81,29 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/sv" />
+
+        <LinearLayout
+            android:id="@+id/noResult"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:visibility="gone"
+            tools:visibility="visible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/sv">
+
+            <ImageView
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:background="@drawable/ic_no_result"/>
+
+            <TextView
+                android:layout_marginTop="@dimen/margin_small"
+                style="@style/small_dark_text"
+                android:text="검색 결과가 없습니다." />
+        </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

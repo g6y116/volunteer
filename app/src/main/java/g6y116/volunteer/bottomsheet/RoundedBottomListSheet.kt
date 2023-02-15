@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
@@ -28,6 +29,7 @@ class RoundedBottomListSheet<T: Any>(
         val binding = BottomSheetListBinding.inflate(layoutInflater)
         binding.labelTv.text = label
         binding.rv.adapter = Adapter()
+        binding.rv.layoutManager = GridLayoutManager(context, 3)
 
         (dialog as? BottomSheetDialog)?.behavior?.apply {
             state = BottomSheetBehavior.STATE_EXPANDED

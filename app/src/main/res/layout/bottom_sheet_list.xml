@@ -15,10 +15,9 @@
 
         <ImageView
             android:id="@+id/handleIv"
-            android:layout_width="48dp"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_remove_24"
-            android:scaleType="centerCrop"
+            android:layout_width="64dp"
+            android:layout_height="32dp"
+            android:src="@drawable/ic_handle"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
@@ -48,10 +47,9 @@
             android:layout_marginBottom="@dimen/margin_medium"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            app:layoutManager="LinearLayoutManager"
-            android:overScrollMode="always"
             app:layout_constraintTop_toBottomOf="@+id/v"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"/>
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>

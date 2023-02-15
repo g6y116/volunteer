@@ -10,6 +10,7 @@ import android.widget.ImageView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.paging.map
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.google.android.material.datepicker.CalendarConstraints
 import com.google.android.material.datepicker.MaterialDatePicker
@@ -44,6 +45,14 @@ class HomeFragment : Fragment(), ViewHolderBindListener {
         lifecycleScope.launch {
             viewModel.homeList.collectLatest {
                 adapter.submitData(it)
+
+                if (adapter.itemCount == 0) {
+                    binding.noResult.visibility = View.VISIBLE
+                    binding.rv.visibility = View.GONE
+                } else {
+                    binding.rv.visibility = View.VISIBLE
+                    binding.noResult.visibility = View.GONE
+                }
             }
         }
 
