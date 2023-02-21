@@ -9,8 +9,9 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
-import androidx.paging.map
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.google.android.material.datepicker.CalendarConstraints
 import com.google.android.material.datepicker.MaterialDatePicker
@@ -42,16 +43,18 @@ class HomeFragment : Fragment(), ViewHolderBindListener {
         binding.viewmodel = viewModel
         binding.adapter = adapter
 
-        lifecycleScope.launch {
-            viewModel.homeList.collectLatest {
-                adapter.submitData(it)
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.homeList.collectLatest {
+                    adapter.submitData(it)
 
-                if (adapter.itemCount == 0) {
-                    binding.noResult.visibility = View.VISIBLE
-                    binding.rv.visibility = View.GONE
-                } else {
-                    binding.rv.visibility = View.VISIBLE
-                    binding.noResult.visibility = View.GONE
+//                    if (adapter.itemCount == 0) {
+//                        binding.noResult.visibility = View.VISIBLE
+//                        binding.rv.visibility = View.GONE
+//                    } else {
+//                        binding.rv.visibility = View.VISIBLE
+//                        binding.noResult.visibility = View.GONE
+//                    }
                 }
             }
         }
@@ -60,16 +63,49 @@ class HomeFragment : Fragment(), ViewHolderBindListener {
             adapter.notifyDataSetChanged()
         }
 
+        viewModel.recentSearch.observe(viewLifecycleOwner) {
+            if (it.siDoCode.isNotBlank()) {
+                binding.chip1.text = Code.getSiDoName(it.siDoCode)
+            } else {
+                binding.chip1.text = "시 · 도"
+            }
+
+            if (it.gooGunCode.isNotBlank()) {
+                binding.chip2.text = Code.getGooGunName(it.siDoCode, it.gooGunCode)
+            } else {
+                binding.chip2.text = "구 · 군"
+            }
+
+            if (it.sDate.isNotBlank() && it.eDate.isNotBlank()) {
+                binding.chip3.text = "${it.sDate.substring(4, 6).toInt()}월 ${it.sDate.substring(6, 8).toInt()}일"
+            } else {
+                binding.chip3.text = "봉사일"
+            }
+
+            binding.chip4.text = when {
+                it.isAdultPossible == Const.TRUE && it.isYoungPossible == Const.TRUE -> "성인/청소년"
+                it.isAdultPossible == Const.TRUE && it.isYoungPossible == Const.FALSE -> "성인"
+                it.isAdultPossible == Const.FALSE && it.isYoungPossible == Const.TRUE -> "청소년"
+                else -> "봉사유형"
+            }
+        }
+
         binding.chip1.onClick {
             RoundedBottomListSheet("지역 선택", Code.전국.map { it.name }) { item ->
-                log("지역 선택 : ${item}")
+                viewModel.recentSearch.value?.let {
+                    viewModel.saveRecentSearch(it.copy(siDoCode = Code.getSiDoCode(item)))
+                }
             }.show((activity as MainActivity).supportFragmentManager, tag)
         }
 
         binding.chip2.onClick {
-            RoundedBottomListSheet("지역 선택", Code.서울.map { it.name }) { item ->
-                log("지역 선택 : ${item}")
-            }.show((activity as MainActivity).supportFragmentManager, tag)
+            if (viewModel.recentSearch.value != null) {
+                RoundedBottomListSheet("지역 선택", Code.getGooGunList(viewModel.recentSearch.value!!.siDoCode).map { it.name }) { item ->
+                    viewModel.recentSearch.value?.let {
+                        viewModel.saveRecentSearch(it.copy(gooGunCode = Code.getGooGunCode(viewModel.recentSearch.value!!.siDoCode, item)))
+                    }
+                }.show((activity as MainActivity).supportFragmentManager, tag)
+            }
         }
 
         binding.chip3.onClick {
@@ -87,6 +123,12 @@ class HomeFragment : Fragment(), ViewHolderBindListener {
 
             datePicker.addOnPositiveButtonClickListener {
                 log("날짜 선택 : ${longTo8String(it)}")
+                viewModel.recentSearch.value?.let { recentSearch ->
+                    viewModel.saveRecentSearch(recentSearch.copy(
+                        sDate = longTo8String(it),
+                        eDate = longTo8String(it),
+                    ))
+                }
             }
 
             datePicker.show((activity as MainActivity).supportFragmentManager, "")
@@ -94,8 +136,35 @@ class HomeFragment : Fragment(), ViewHolderBindListener {
 
         binding.chip4.onClick {
             RoundedBottomListSheet("유형 선택", listOf(Const.BOTH, Const.ADULT, Const.YOUNG)) { item ->
-                log("유형 선택 : ${item}")
+                when(item) {
+                    Const.BOTH -> viewModel.recentSearch.value?.let { recentSearch ->
+                        viewModel.saveRecentSearch(recentSearch.copy(
+                            isYoungPossible = Const.TRUE,
+                            isAdultPossible = Const.TRUE,
+                        ))
+                    }
+
+                    Const.ADULT -> viewModel.recentSearch.value?.let { recentSearch ->
+                        viewModel.saveRecentSearch(recentSearch.copy(
+                            isYoungPossible = Const.FALSE,
+                            isAdultPossible = Const.TRUE,
+                        ))
+                    }
+
+                    Const.YOUNG -> viewModel.recentSearch.value?.let { recentSearch ->
+                        viewModel.saveRecentSearch(recentSearch.copy(
+                            isYoungPossible = Const.TRUE,
+                            isAdultPossible = Const.FALSE,
+                        ))
+                    }
+                }
             }.show((activity as MainActivity).supportFragmentManager, tag)
+        }
+
+        binding.chip5.onClick {
+            viewModel.recentSearch.value?.let {
+                viewModel.resetRecentSearch()
+            }
         }
     }
 

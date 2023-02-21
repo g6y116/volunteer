@@ -5,6 +5,8 @@ data class Area(val name: String, val code: String)
 object Code {
     fun getSiDoCode(name: String): String = 전국.find { it.name == name }?.code ?: ""
 
+    fun getSiDoName(code: String): String = 전국.find { it.code == code }?.name ?: ""
+
     fun getGooGunCode(siDoNameOrCode: String, GooGunName: String) = when(siDoNameOrCode) {
         "경기도", "6410000" -> 경기도.find { it.name == GooGunName }?.code ?: ""
         "서울", "6110000" -> 서울.find { it.name == GooGunName }?.code ?: ""
@@ -22,6 +24,46 @@ object Code {
         "광주", "6290000" -> 광주.find { it.name == GooGunName }?.code ?: ""
         "울산", "6310000" -> 울산.find { it.name == GooGunName }?.code ?: ""
         else -> "" // 제주, 세종은 구군이 없음
+    }
+
+    fun getGooGunName(siDoNameOrCode: String, GooGunCode: String) = when(siDoNameOrCode) {
+        "경기도", "6410000" -> 경기도.find { it.code == GooGunCode }?.name ?: ""
+        "서울", "6110000" -> 서울.find { it.code == GooGunCode }?.name ?: ""
+        "부산", "6260000" -> 부산.find { it.code == GooGunCode }?.name ?: ""
+        "경상남도", "6480000" -> 경상남도.find { it.code == GooGunCode }?.name ?: ""
+        "인천", "6280000" -> 인천.find { it.code == GooGunCode }?.name ?: ""
+        "경상북도", "6470000" -> 경상북도.find { it.code == GooGunCode }?.name ?: ""
+        "대구", "6270000" -> 대구.find { it.code == GooGunCode }?.name ?: ""
+        "충청남도", "6440000" -> 충청남도.find { it.code == GooGunCode }?.name ?: ""
+        "전라남도", "6460000" -> 전라남도.find { it.code == GooGunCode }?.name ?: ""
+        "전라북도", "6450000" -> 전라북도.find { it.code == GooGunCode }?.name ?: ""
+        "충청북도", "6430000" -> 충청북도.find { it.code == GooGunCode }?.name ?: ""
+        "강원도", "6420000" -> 강원도.find { it.code == GooGunCode }?.name ?: ""
+        "대전", "6300000" -> 대전.find { it.code == GooGunCode }?.name ?: ""
+        "광주", "6290000" -> 광주.find { it.code == GooGunCode }?.name ?: ""
+        "울산", "6310000" -> 울산.find { it.code == GooGunCode }?.name ?: ""
+        else -> "" // 제주, 세종은 구군이 없음
+    }
+
+    fun getGooGunList(siDoNameOrCode: String): List<Area> {
+        return when(siDoNameOrCode) {
+            "경기도", "6410000" -> 경기도
+            "서울", "6110000" -> 서울
+            "부산", "6260000" -> 부산
+            "경상남도", "6480000" -> 경상남도
+            "인천", "6280000" -> 인천
+            "경상북도", "6470000" -> 경상북도
+            "대구", "6270000" -> 대구
+            "충청남도", "6440000" -> 충청남도
+            "전라남도", "6460000" -> 전라남도
+            "전라북도", "6450000" -> 전라북도
+            "충청북도", "6430000" -> 충청북도
+            "강원도", "6420000" -> 강원도
+            "대전", "6300000" -> 대전
+            "광주", "6290000" -> 광주
+            "울산", "6310000" -> 울산
+            else -> emptyList()
+        }
     }
 
     val 전국 = listOf<Area>(

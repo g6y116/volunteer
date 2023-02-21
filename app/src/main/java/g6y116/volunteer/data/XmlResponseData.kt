@@ -56,7 +56,7 @@ data class DetailBody(
 @Xml(name= "items")
 data class HomeItems(
     @Element(name="item")
-    val item: List<VolunteerInfoRes>
+    val item: List<VolunteerInfoRes>?
 )
 
 @Xml(name= "items")

@@ -8,7 +8,7 @@ interface Const {
         const val DATASTORE_NAME = "volunteer_db"
 
         const val BOTH = "전체"
-        const val ADULT = "어른"
+        const val ADULT = "성인"
         const val YOUNG = "청소년"
 
         const val TRUE = "Y"
@@ -23,10 +23,18 @@ interface Const {
         const val DOING_TEXT = "모집 중"
         const val DONE_TEXT = "모집 완료"
 
+        const val INIT_PAGE_NUM = 1
         const val LOAD_SIZE = 40
 
         const val HOME = "home"
         const val BOOK_MARK = "bookMark"
         const val MORE = "more"
+
+        const val RECENT_SEARCH = "recentSearch"
+        const val MODE = "mode"
+
+        const val SYSTEM_MODE = 0
+        const val LIGHT_MODE = 1
+        const val DARK_MODE = 2
     }
 }
