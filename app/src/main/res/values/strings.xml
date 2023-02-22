@@ -30,7 +30,7 @@
     <string name="use_1_q">Q. Can\'t I apply for service right from this app?</string>
     <string name="use_1_a">Unfortunately, this app does\'t have permission to apply.</string>
     <string name="use_2_q">Q. How do I add bookmarks?</string>
-    <string name="use_2_a">Tap the bookmark icon on the details screen.</string>
+    <string name="use_2_a">Tap the bookmark icon</string>
 
     <string name="mode">Theme</string>
     <string name="locale">Language</string>

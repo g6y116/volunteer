@@ -1,11 +1,11 @@
 <resources>
     <string name="app_name">1365 봉사활동</string>
     <string name="menu_1">봉사 정보</string>
-    <string name="menu_2">북마크</string>
+    <string name="menu_2">책갈피</string>
     <string name="menu_3">더보기</string>
     <string name="menu_4">세부 정보</string>
     <string name="apply">신청하기</string>
-    <string name="book_mark">북마크</string>
+    <string name="book_mark">책갈피</string>
     <string name="map">지도 정보</string>
     <string name="done">완료</string>
 
@@ -21,7 +21,7 @@
     <string name="date">봉사 일</string>
     <string name="type">봉사 유형</string>
     <string name="reset">초기화</string>
-    <string name="no_bookmark">북마크가 없습니다.</string>
+    <string name="no_bookmark">책갈피가 없습니다.</string>
 
     <string name="adult_young">성인/청소년</string>
     <string name="adult">성인</string>
@@ -29,8 +29,8 @@
 
     <string name="use_1_q">Q. 봉사 신청을 앱에서 바로 할 수 없나요?</string>
     <string name="use_1_a">아쉽게도 현재 앱은 신청에 대한 권한이 없습니다.</string>
-    <string name="use_2_q">Q. 북마크 추가는 어떻게 하나요?</string>
-    <string name="use_2_a">세부정보 화면에서 북마크 아이콘을 눌러보세요.</string>
+    <string name="use_2_q">Q. 책갈피 추가는 어떻게 하나요?</string>
+    <string name="use_2_a">세부정보 화면에서 책갈피를 눌러보세요.</string>
 
     <string name="mode">테마</string>
     <string name="locale">언어</string>

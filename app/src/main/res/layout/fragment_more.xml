@@ -109,6 +109,7 @@
         </androidx.cardview.widget.CardView>
 
         <androidx.cardview.widget.CardView
+            android:id="@+id/localeCardView"
             android:layout_marginHorizontal="@dimen/margin_medium"
             android:layout_width="match_parent"
             android:layout_height="64dp"

@@ -2,6 +2,7 @@ package g6y116.volunteer.view
 
 import android.app.AlertDialog
 import android.content.Context
+import android.os.Build
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -27,6 +28,11 @@ class MoreFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         binding.viewmodel = viewModel
+
+        binding.localeCardView.visibility =
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) View.VISIBLE
+            else View.GONE
+
         setOnclick()
         setObserver()
         return binding.root
