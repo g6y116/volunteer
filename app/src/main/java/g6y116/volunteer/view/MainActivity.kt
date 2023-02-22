@@ -24,6 +24,8 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
         setSupportActionBar(binding.toolbar.root)
         setNavigation()
+        viewModel.getMode()
+        viewModel.getLocale()
     }
 
     fun setToolbarTitle(text: String) {

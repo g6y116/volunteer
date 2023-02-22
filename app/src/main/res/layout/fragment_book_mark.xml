@@ -3,6 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
+
     <data>
         <variable
             name="viewmodel"
@@ -13,13 +14,11 @@
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/bookMarkFragment"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:context=".view.BookMarkFragment">
+        android:layout_height="match_parent">
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv"
+            android:id="@+id/recyclerView"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:adapter="@{adapter}"
@@ -45,12 +44,14 @@
             <ImageView
                 android:layout_width="48dp"
                 android:layout_height="48dp"
-                android:background="@drawable/ic_no_result"/>
+                android:background="@drawable/ic_no_result" />
 
             <TextView
                 android:layout_marginTop="@dimen/margin_small"
-                style="@style/small_dark_text"
-                android:text="북마크가 없습니다." />
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/small_text"
+                android:text="@string/no_bookmark" />
         </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

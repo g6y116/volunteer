@@ -22,25 +22,24 @@
     <color name="gray_9">#212529</color>
 
     <!-- semantic color -->
-    <color name="base">@color/white</color>
-    <color name="light_text">@color/gray_6</color>
-    <color name="text">@color/gray_8</color>
-    <color name="dark_text">@color/black</color>
-    <color name="ripple">#20000000</color>
-    <color name="divide_line">@color/gray_3</color>
-    <color name="active_line">@color/gray_4</color>
-    <color name="inactive_line">@color/gray_2</color>
-    <color name="background">@color/gray_1</color>
-    <color name="detail_background">@color/gray_1</color>
-    <color name="card">@color/white</color>
-    <color name="sheet">@color/white</color>
-    <color name="handle">@color/black</color>
+    <color name="base">#F5000000</color>
+    <color name="light_text">@color/gray_5</color>
+    <color name="text">@color/gray_0</color>
+    <color name="dark_text">@color/white</color>
+    <color name="ripple">#40FFFFFF</color>
+    <color name="divide_line">@color/gray_8</color>
+    <color name="active_line">@color/gray_7</color>
+    <color name="inactive_line">@color/gray_6</color>
+    <color name="background">#FF121212</color>
+    <color name="detail_background">#F5000000</color>
+    <color name="card">#FF121212</color>
+    <color name="sheet">#FF121212</color>
+    <color name="handle">@color/white</color>
 
     <color name="colorPrimary">@color/blue</color>
     <color name="colorOnPrimary">@color/white</color>
     <color name="colorSecondary">@color/sky_blue</color>
-    <color name="colorOnSecondary">@color/black</color>
+    <color name="colorOnSecondary">#F5000000</color>
 
     <!-- https://yeun.github.io/2016/09/25/general-usage-of-gray.html -->
-    <!-- https://m2.material.io/design/color/dark-theme.html#behavior -->
 </resources>

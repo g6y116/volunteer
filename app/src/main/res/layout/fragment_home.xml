@@ -3,6 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
+
     <data>
         <variable
             name="viewmodel"
@@ -17,9 +18,10 @@
         android:layout_height="match_parent">
 
         <HorizontalScrollView
-            android:id="@+id/sv"
+            android:id="@+id/scrollView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@color/base"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent">
@@ -31,48 +33,48 @@
                 android:orientation="horizontal">
 
                 <com.google.android.material.chip.Chip
-                    android:id="@+id/chip_1"
+                    android:id="@+id/sidoChip"
                     style="@style/chip"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="시 · 도"/>
+                    android:text="@string/sido"/>
 
                 <com.google.android.material.chip.Chip
-                    android:id="@+id/chip_2"
-                    android:layout_marginStart="@dimen/margin_extra_small"
+                    android:id="@+id/googunChip"
                     style="@style/chip"
+                    android:layout_marginStart="@dimen/margin_extra_small"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="구 · 군"/>
+                    android:text="@string/googun"/>
 
                 <com.google.android.material.chip.Chip
-                    android:id="@+id/chip_3"
-                    android:layout_marginStart="@dimen/margin_extra_small"
+                    android:id="@+id/dateChip"
                     style="@style/chip"
+                    android:layout_marginStart="@dimen/margin_extra_small"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="봉사일"/>
+                    android:text="@string/date"/>
 
                 <com.google.android.material.chip.Chip
-                    android:id="@+id/chip_4"
-                    android:layout_marginStart="@dimen/margin_extra_small"
+                    android:id="@+id/typeChip"
                     style="@style/chip"
+                    android:layout_marginStart="@dimen/margin_extra_small"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="봉사 유형"/>
+                    android:text="@string/type"/>
 
                 <com.google.android.material.chip.Chip
-                    android:id="@+id/chip_5"
-                    android:layout_marginStart="@dimen/margin_extra_small"
+                    android:id="@+id/resetChip"
                     style="@style/chip"
+                    android:layout_marginStart="@dimen/margin_extra_small"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="초기화" />
+                    android:text="@string/reset" />
             </LinearLayout>
         </HorizontalScrollView>
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv"
+            android:id="@+id/recyclerView"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:adapter="@{adapter}"
@@ -80,30 +82,6 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/sv" />
-
-        <LinearLayout
-            android:id="@+id/noResult"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:gravity="center"
-            android:visibility="gone"
-            tools:visibility="visible"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/sv">
-
-            <ImageView
-                android:layout_width="48dp"
-                android:layout_height="48dp"
-                android:background="@drawable/ic_no_result"/>
-
-            <TextView
-                android:layout_marginTop="@dimen/margin_small"
-                style="@style/small_dark_text"
-                android:text="검색 결과가 없습니다." />
-        </LinearLayout>
+            app:layout_constraintTop_toBottomOf="@+id/scrollView" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

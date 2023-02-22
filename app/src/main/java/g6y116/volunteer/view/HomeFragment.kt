@@ -42,19 +42,87 @@ class HomeFragment : Fragment(), ViewHolderBindListener {
         super.onViewCreated(view, savedInstanceState)
         binding.viewmodel = viewModel
         binding.adapter = adapter
+        binding.recyclerView.itemAnimator = null
 
+        setOnclick()
+        setObserver()
+    }
+
+    private fun setOnclick() {
+        binding.sidoChip.onClick {
+            viewModel.recentSearchLiveData.value?.let { recentSearch ->
+                RoundedBottomListSheet(getString(R.string.choice_area), Code.전국.map { it.name }) { siDoName ->
+                    viewModel.setRecentSearch(recentSearch.copy(siDoCode = Code.getSiDo(siDoName)?.code, gooGunCode = null))
+                }.show((activity as MainActivity).supportFragmentManager, tag)
+            }
+        }
+
+        binding.googunChip.onClick {
+            viewModel.recentSearchLiveData.value?.let { recentSearch ->
+                RoundedBottomListSheet(getString(R.string.choice_area), Code.getGooGunList(recentSearch.siDoCode).map { it.name }) { gooGunName ->
+                    val gooGunCode = if (recentSearch.siDoCode != null) Code.getGooGun(recentSearch.siDoCode, gooGunName)?.code else null
+                    viewModel.setRecentSearch(recentSearch.copy(gooGunCode = gooGunCode))
+                }.show((activity as MainActivity).supportFragmentManager, tag)
+            }
+        }
+
+        binding.dateChip.onClick {
+            val today = MaterialDatePicker.todayInUtcMilliseconds()
+            val constraints = CalendarConstraints.Builder()
+                .setStart(Calendar.getInstance().apply { add(Calendar.MONTH, -2) }.time.time)
+                .setEnd(Calendar.getInstance().apply { add(Calendar.MONTH, 2) }.time.time)
+                .build()
+            val datePicker = MaterialDatePicker.Builder.datePicker()
+                .setTheme(R.style.date_picker)
+                .setTitleText(getString(R.string.date))
+                .setCalendarConstraints(constraints)
+                .setSelection(today)
+                .build()
+
+            datePicker.addOnPositiveButtonClickListener {
+                viewModel.recentSearchLiveData.value?.let { recentSearch ->
+                    viewModel.setRecentSearch(recentSearch.copy(sDate = longTo8String(it), eDate = longTo8String(it)))
+                }
+            }
+
+            datePicker.addOnNegativeButtonClickListener {
+                viewModel.recentSearchLiveData.value?.let { recentSearch ->
+                    viewModel.setRecentSearch(recentSearch.copy(sDate = null, eDate = null))
+                }
+            }
+
+            datePicker.show((activity as MainActivity).supportFragmentManager, "")
+        }
+
+        binding.typeChip.onClick {
+            RoundedBottomListSheet(getString(R.string.choice_type), listOf(Const.TYPE.BOTH, Const.TYPE.ADULT, Const.TYPE.YOUNG)) { item ->
+                when(item) {
+                    Const.TYPE.BOTH -> viewModel.recentSearchLiveData.value?.let { recentSearch ->
+                        viewModel.setRecentSearch(recentSearch.copy(isAdultPossible = Const.TYPE.NO_MATTER, isYoungPossible = Const.TYPE.NO_MATTER))
+                    }
+                    Const.TYPE.ADULT -> viewModel.recentSearchLiveData.value?.let { recentSearch ->
+                        viewModel.setRecentSearch(recentSearch.copy(isAdultPossible = Const.TYPE.TRUE, isYoungPossible = Const.TYPE.NO_MATTER))
+                    }
+                    Const.TYPE.YOUNG -> viewModel.recentSearchLiveData.value?.let { recentSearch ->
+                        viewModel.setRecentSearch(recentSearch.copy(isAdultPossible = Const.TYPE.NO_MATTER, isYoungPossible = Const.TYPE.TRUE))
+                    }
+                }
+            }.show((activity as MainActivity).supportFragmentManager, tag)
+        }
+
+        binding.resetChip.onClick {
+            viewModel.recentSearchLiveData.value?.let {
+                viewModel.removeRecentSearch()
+            }
+        }
+    }
+
+    @SuppressLint("NotifyDataSetChanged", "SuspiciousIndentation")
+    private fun setObserver() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.homeList.collectLatest {
                     adapter.submitData(it)
-
-//                    if (adapter.itemCount == 0) {
-//                        binding.noResult.visibility = View.VISIBLE
-//                        binding.rv.visibility = View.GONE
-//                    } else {
-//                        binding.rv.visibility = View.VISIBLE
-//                        binding.noResult.visibility = View.GONE
-//                    }
                 }
             }
         }
@@ -63,107 +131,34 @@ class HomeFragment : Fragment(), ViewHolderBindListener {
             adapter.notifyDataSetChanged()
         }
 
-        viewModel.recentSearch.observe(viewLifecycleOwner) {
-            if (it.siDoCode.isNotBlank()) {
-                binding.chip1.text = Code.getSiDoName(it.siDoCode)
-            } else {
-                binding.chip1.text = "시 · 도"
-            }
+        viewModel.recentSearchLiveData.observe(viewLifecycleOwner) {
 
-            if (it.gooGunCode.isNotBlank()) {
-                binding.chip2.text = Code.getGooGunName(it.siDoCode, it.gooGunCode)
-            } else {
-                binding.chip2.text = "구 · 군"
-            }
+            var sidoString = Code.getSiDo(it.siDoCode)?.name ?: getString(R.string.sido)
+                if (sidoString == "전국") sidoString = getString(R.string.sido)
+            val googunString =
+                if (it.siDoCode != null && it.gooGunCode != null)
+                    Code.getGooGun(it.siDoCode, it.gooGunCode)?.name ?: getString(R.string.googun)
+                else
+                    getString(R.string.googun)
 
-            if (it.sDate.isNotBlank() && it.eDate.isNotBlank()) {
-                binding.chip3.text = "${it.sDate.substring(4, 6).toInt()}월 ${it.sDate.substring(6, 8).toInt()}일"
-            } else {
-                binding.chip3.text = "봉사일"
-            }
+            binding.sidoChip.text = sidoString
+            binding.googunChip.text = googunString
 
-            binding.chip4.text = when {
-                it.isAdultPossible == Const.TRUE && it.isYoungPossible == Const.TRUE -> "성인/청소년"
-                it.isAdultPossible == Const.TRUE && it.isYoungPossible == Const.FALSE -> "성인"
-                it.isAdultPossible == Const.FALSE && it.isYoungPossible == Const.TRUE -> "청소년"
-                else -> "봉사유형"
-            }
-        }
+            if (sidoString == getString(R.string.sido) || sidoString == "제주도" || sidoString == "세종")
+                binding.googunChip.visibility = View.GONE
+            else
+                binding.googunChip.visibility = View.VISIBLE
 
-        binding.chip1.onClick {
-            RoundedBottomListSheet("지역 선택", Code.전국.map { it.name }) { item ->
-                viewModel.recentSearch.value?.let {
-                    viewModel.saveRecentSearch(it.copy(siDoCode = Code.getSiDoCode(item)))
-                }
-            }.show((activity as MainActivity).supportFragmentManager, tag)
-        }
+            binding.dateChip.text =
+                if (!it.sDate.isNullOrBlank() && !it.eDate.isNullOrBlank())
+                    "${it.sDate.substring(4, 6).toInt()}월 ${it.sDate.substring(6, 8).toInt()}일"
+                else getString(R.string.date)
 
-        binding.chip2.onClick {
-            if (viewModel.recentSearch.value != null) {
-                RoundedBottomListSheet("지역 선택", Code.getGooGunList(viewModel.recentSearch.value!!.siDoCode).map { it.name }) { item ->
-                    viewModel.recentSearch.value?.let {
-                        viewModel.saveRecentSearch(it.copy(gooGunCode = Code.getGooGunCode(viewModel.recentSearch.value!!.siDoCode, item)))
-                    }
-                }.show((activity as MainActivity).supportFragmentManager, tag)
-            }
-        }
-
-        binding.chip3.onClick {
-            val today = MaterialDatePicker.todayInUtcMilliseconds()
-            val constraints = CalendarConstraints.Builder()
-                .setStart(Calendar.getInstance().apply { add(Calendar.MONTH, -2) }.time.time)
-                .setEnd(Calendar.getInstance().apply { add(Calendar.MONTH, 2) }.time.time)
-                .build()
-            val datePicker = MaterialDatePicker.Builder.datePicker()
-                .setTheme(R.style.date_picker)
-                .setTitleText("봉사일")
-                .setCalendarConstraints(constraints)
-                .setSelection(today)
-                .build()
-
-            datePicker.addOnPositiveButtonClickListener {
-                log("날짜 선택 : ${longTo8String(it)}")
-                viewModel.recentSearch.value?.let { recentSearch ->
-                    viewModel.saveRecentSearch(recentSearch.copy(
-                        sDate = longTo8String(it),
-                        eDate = longTo8String(it),
-                    ))
-                }
-            }
-
-            datePicker.show((activity as MainActivity).supportFragmentManager, "")
-        }
-
-        binding.chip4.onClick {
-            RoundedBottomListSheet("유형 선택", listOf(Const.BOTH, Const.ADULT, Const.YOUNG)) { item ->
-                when(item) {
-                    Const.BOTH -> viewModel.recentSearch.value?.let { recentSearch ->
-                        viewModel.saveRecentSearch(recentSearch.copy(
-                            isYoungPossible = Const.TRUE,
-                            isAdultPossible = Const.TRUE,
-                        ))
-                    }
-
-                    Const.ADULT -> viewModel.recentSearch.value?.let { recentSearch ->
-                        viewModel.saveRecentSearch(recentSearch.copy(
-                            isYoungPossible = Const.FALSE,
-                            isAdultPossible = Const.TRUE,
-                        ))
-                    }
-
-                    Const.YOUNG -> viewModel.recentSearch.value?.let { recentSearch ->
-                        viewModel.saveRecentSearch(recentSearch.copy(
-                            isYoungPossible = Const.TRUE,
-                            isAdultPossible = Const.FALSE,
-                        ))
-                    }
-                }
-            }.show((activity as MainActivity).supportFragmentManager, tag)
-        }
-
-        binding.chip5.onClick {
-            viewModel.recentSearch.value?.let {
-                viewModel.resetRecentSearch()
+            binding.typeChip.text = when {
+                it.isAdultPossible == Const.TYPE.NO_MATTER && it.isYoungPossible == Const.TYPE.NO_MATTER -> getString(R.string.adult_young)
+                it.isAdultPossible == Const.TYPE.TRUE && it.isYoungPossible == Const.TYPE.NO_MATTER -> getString(R.string.adult)
+                it.isAdultPossible == Const.TYPE.NO_MATTER && it.isYoungPossible == Const.TYPE.TRUE -> getString(R.string.young)
+                else -> getString(R.string.type)
             }
         }
     }

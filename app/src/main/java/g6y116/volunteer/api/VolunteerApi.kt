@@ -11,13 +11,13 @@ interface VolunteerApi {
     @GET("getVltrSearchWordList")
     suspend fun getVolunteerList(
         @Query("pageNo") pageNum: Int,
-        @Query("schSido") siDoCode: String,
-        @Query("schSign1") gooGunCode: String,
-        @Query("progrmBgnde") sDate: String,
-        @Query("progrmEndde") eDate: String,
-        @Query("keyword") keyWord: String,
-        @Query("adultPosblAt") isAdultPossible: String,
-        @Query("yngbgsPosblAt") isYoungPossible: String,
+        @Query("schSido") siDoCode: String?,
+        @Query("schSign1") gooGunCode: String?,
+        @Query("progrmBgnde") sDate: String?,
+        @Query("progrmEndde") eDate: String?,
+        @Query("keyword") keyWord: String?,
+        @Query("adultPosblAt") isAdultPossible: String?,
+        @Query("yngbgsPosblAt") isYoungPossible: String?,
         @Query("serviceKey") serviceKey: String = Const.SERVICE_KEY,
         @Query("numOfRows") numOfRows: Int = Const.LOAD_SIZE,
     ) : Response<HomeResponse>

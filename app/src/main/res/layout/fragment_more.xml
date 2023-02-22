@@ -1,208 +1,275 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<layout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/moreFragment"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context=".view.MoreFragment"
-    android:background="@color/gray_2">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <androidx.cardview.widget.CardView
-        android:layout_marginTop="@dimen/margin_extra_small"
-        android:layout_marginHorizontal="@dimen/margin_medium"
+    <data>
+        <variable
+            name="viewmodel"
+            type="g6y116.volunteer.viewmodel.MainViewModel" />
+    </data>
+
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:cardCornerRadius="@dimen/card_radius"
-        app:cardUseCompatPadding="true">
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="@color/background">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:paddingVertical="@dimen/padding_small"
+        <androidx.cardview.widget.CardView
+            android:layout_marginTop="@dimen/margin_extra_small"
+            android:layout_marginHorizontal="@dimen/margin_medium"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:clickable="true"
-            android:focusable="true"
-            android:background="@drawable/ripple">
+            android:layout_height="64dp"
+            app:cardCornerRadius="@dimen/card_radius"
+            app:cardUseCompatPadding="true">
 
-            <TextView
-                android:id="@+id/use1Tv"
-                android:layout_marginStart="@dimen/margin_medium"
-                style="@style/medium_dark_text"
-                android:text="Q. 봉사 신청을 앱에서 바로 할 수 없나요?"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintBottom_toTopOf="@+id/use1TvSub"/>
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:paddingVertical="@dimen/padding_small"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:clickable="true"
+                android:focusable="true"
+                android:background="@drawable/ripple">
 
-            <TextView
-                android:id="@+id/use1TvSub"
-                android:layout_marginTop="@dimen/margin_small"
-                android:layout_marginStart="@dimen/margin_medium"
-                style="@style/small_text"
-                android:text="아쉽게도 현재 앱은 신청에 대한 권한이 없습니다."
-                app:layout_constraintTop_toBottomOf="@+id/use1Tv"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent" />
+                <TextView
+                    android:id="@+id/use1Tv"
+                    style="@style/medium_text"
+                    android:layout_marginStart="@dimen/margin_medium"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/use_1_q"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintBottom_toTopOf="@+id/use1TvSub"/>
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </androidx.cardview.widget.CardView>
+                <TextView
+                    android:id="@+id/use1TvSub"
+                    style="@style/small_light_text"
+                    android:layout_marginTop="@dimen/margin_small"
+                    android:layout_marginStart="@dimen/margin_medium"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/use_1_a"
+                    app:layout_constraintTop_toBottomOf="@+id/use1Tv"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.cardview.widget.CardView>
 
-    <androidx.cardview.widget.CardView
-        android:layout_marginTop="@dimen/margin_extra_small"
-        android:layout_marginHorizontal="@dimen/margin_medium"
-        android:layout_width="match_parent"
-        android:layout_height="64dp"
-        app:cardCornerRadius="@dimen/card_radius"
-        app:cardUseCompatPadding="true">
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:paddingVertical="@dimen/padding_small"
+        <androidx.cardview.widget.CardView
+            android:layout_marginTop="@dimen/margin_extra_small"
+            android:layout_marginHorizontal="@dimen/margin_medium"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:clickable="true"
-            android:focusable="true"
-            android:background="@drawable/ripple">
+            android:layout_height="64dp"
+            app:cardCornerRadius="@dimen/card_radius"
+            app:cardUseCompatPadding="true">
 
-            <TextView
-                android:id="@+id/use2Tv"
-                android:layout_marginStart="@dimen/margin_medium"
-                style="@style/medium_dark_text"
-                android:text="Q. 북마크 추가는 어떻게 하나요?"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintBottom_toTopOf="@+id/use2TvSub"/>
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:paddingVertical="@dimen/padding_small"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:clickable="true"
+                android:focusable="true"
+                android:background="@drawable/ripple">
 
-            <TextView
-                android:id="@+id/use2TvSub"
-                android:layout_marginTop="@dimen/margin_small"
-                android:layout_marginStart="@dimen/margin_medium"
-                style="@style/small_text"
-                android:text="세부정보 화면에서 북마크 아이콘을 눌러보세요."
-                app:layout_constraintTop_toBottomOf="@+id/use2Tv"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent" />
+                <TextView
+                    android:id="@+id/use2Tv"
+                    style="@style/medium_text"
+                    android:layout_marginStart="@dimen/margin_medium"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/use_2_q"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintBottom_toTopOf="@+id/use2TvSub"/>
 
-            <ImageView
-                android:layout_marginEnd="@dimen/margin_medium"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/ic_bookmark_border_24"
-                android:backgroundTint="@color/green"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </androidx.cardview.widget.CardView>
+                <TextView
+                    android:id="@+id/use2TvSub"
+                    style="@style/small_light_text"
+                    android:layout_marginTop="@dimen/margin_small"
+                    android:layout_marginStart="@dimen/margin_medium"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/use_2_a"
+                    app:layout_constraintTop_toBottomOf="@+id/use2Tv"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent" />
 
-    <androidx.cardview.widget.CardView
-        android:layout_marginHorizontal="@dimen/margin_medium"
-        android:layout_width="match_parent"
-        android:layout_height="64dp"
-        app:cardCornerRadius="@dimen/card_radius"
-        app:cardUseCompatPadding="true">
+                <ImageView
+                    android:layout_marginEnd="@dimen/margin_medium"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/ic_bookmark_border_24"
+                    android:backgroundTint="@color/green"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.cardview.widget.CardView>
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:paddingVertical="@dimen/padding_small"
+        <androidx.cardview.widget.CardView
+            android:layout_marginHorizontal="@dimen/margin_medium"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:clickable="true"
-            android:focusable="true"
-            android:background="@drawable/ripple">
+            android:layout_height="64dp"
+            app:cardCornerRadius="@dimen/card_radius"
+            app:cardUseCompatPadding="true">
 
-            <TextView
-                android:layout_marginStart="@dimen/margin_medium"
-                style="@style/medium_dark_text"
-                android:text="다크 모드"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"/>
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/localeLayout"
+                android:paddingVertical="@dimen/padding_small"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:clickable="true"
+                android:focusable="true"
+                android:background="@drawable/ripple">
 
-            <com.google.android.material.switchmaterial.SwitchMaterial
-                android:id="@+id/mode2Switch"
-                android:theme="@style/switch_material"
-                android:layout_marginEnd="@dimen/margin_medium"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </androidx.cardview.widget.CardView>
+                <TextView
+                    android:id="@+id/localeTv"
+                    style="@style/medium_text"
+                    android:layout_marginStart="@dimen/margin_medium"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/locale"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintBottom_toTopOf="@+id/localeTvSub"/>
 
-    <androidx.cardview.widget.CardView
-        android:layout_marginTop="@dimen/margin_extra_small"
-        android:layout_marginHorizontal="@dimen/margin_medium"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:cardCornerRadius="@dimen/card_radius"
-        app:cardUseCompatPadding="true">
+                <TextView
+                    android:id="@+id/localeTvSub"
+                    style="@style/small_light_text"
+                    android:layout_marginTop="@dimen/margin_small"
+                    android:layout_marginStart="@dimen/margin_medium"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    tools:text="@string/ko"
+                    app:layout_constraintTop_toBottomOf="@+id/localeTv"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.cardview.widget.CardView>
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:paddingVertical="@dimen/padding_small"
+        <androidx.cardview.widget.CardView
+            android:layout_marginHorizontal="@dimen/margin_medium"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:clickable="true"
-            android:focusable="true"
-            android:background="@drawable/ripple">
+            android:layout_height="64dp"
+            app:cardCornerRadius="@dimen/card_radius"
+            app:cardUseCompatPadding="true">
 
-            <TextView
-                android:id="@+id/emailTv"
-                android:layout_marginStart="@dimen/margin_medium"
-                style="@style/medium_dark_text"
-                android:text="Email"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintBottom_toTopOf="@+id/emailTvTvSub"/>
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/modeLayout"
+                android:paddingVertical="@dimen/padding_small"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:clickable="true"
+                android:focusable="true"
+                android:background="@drawable/ripple">
 
-            <TextView
-                android:id="@+id/emailTvTvSub"
-                android:layout_marginTop="@dimen/margin_small"
-                android:layout_marginStart="@dimen/margin_medium"
-                style="@style/small_text"
-                android:text="g6y116@naver.com"
-                app:layout_constraintTop_toBottomOf="@+id/emailTv"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent" />
+                <TextView
+                    android:id="@+id/modeTv"
+                    style="@style/medium_text"
+                    android:layout_marginStart="@dimen/margin_medium"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/mode"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintBottom_toTopOf="@+id/modeTvSub"/>
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </androidx.cardview.widget.CardView>
+                <TextView
+                    android:id="@+id/modeTvSub"
+                    style="@style/small_light_text"
+                    android:layout_marginTop="@dimen/margin_small"
+                    android:layout_marginStart="@dimen/margin_medium"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    tools:text="@string/system_mode"
+                    app:layout_constraintTop_toBottomOf="@+id/modeTv"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.cardview.widget.CardView>
 
-    <androidx.cardview.widget.CardView
-        android:layout_marginTop="@dimen/margin_extra_small"
-        android:layout_marginHorizontal="@dimen/margin_medium"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:cardCornerRadius="@dimen/card_radius"
-        app:cardUseCompatPadding="true">
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:paddingVertical="@dimen/padding_small"
+        <androidx.cardview.widget.CardView
+            android:layout_marginTop="@dimen/margin_extra_small"
+            android:layout_marginHorizontal="@dimen/margin_medium"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:clickable="true"
-            android:focusable="true"
-            android:background="@drawable/ripple">
+            android:layout_height="64dp"
+            app:cardCornerRadius="@dimen/card_radius"
+            app:cardUseCompatPadding="true">
 
-            <TextView
-                android:id="@+id/versionTv"
-                android:layout_marginStart="@dimen/margin_medium"
-                style="@style/medium_dark_text"
-                android:text="Version"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintBottom_toTopOf="@+id/versionTvSub"/>
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:paddingVertical="@dimen/padding_small"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:clickable="true"
+                android:focusable="true"
+                android:background="@drawable/ripple">
 
-            <TextView
-                android:id="@+id/versionTvSub"
-                android:layout_marginTop="@dimen/margin_small"
-                android:layout_marginStart="@dimen/margin_medium"
-                style="@style/small_text"
-                android:text="1.0"
-                app:layout_constraintTop_toBottomOf="@+id/versionTv"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent" />
+                <TextView
+                    android:id="@+id/emailTv"
+                    style="@style/medium_text"
+                    android:layout_marginStart="@dimen/margin_medium"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/email"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintBottom_toTopOf="@+id/emailTvSub"/>
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </androidx.cardview.widget.CardView>
-</LinearLayout>
+                <TextView
+                    android:id="@+id/emailTvSub"
+                    style="@style/small_light_text"
+                    android:layout_marginTop="@dimen/margin_small"
+                    android:layout_marginStart="@dimen/margin_medium"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/email_address"
+                    app:layout_constraintTop_toBottomOf="@+id/emailTv"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:layout_marginTop="@dimen/margin_extra_small"
+            android:layout_marginHorizontal="@dimen/margin_medium"
+            android:layout_width="match_parent"
+            android:layout_height="64dp"
+            app:cardCornerRadius="@dimen/card_radius"
+            app:cardUseCompatPadding="true">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:paddingVertical="@dimen/padding_small"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:clickable="true"
+                android:focusable="true"
+                android:background="@drawable/ripple">
+
+                <TextView
+                    android:id="@+id/versionTv"
+                    style="@style/medium_text"
+                    android:layout_marginStart="@dimen/margin_medium"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/version"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintBottom_toTopOf="@+id/versionTvSub"/>
+
+                <TextView
+                    android:id="@+id/versionTvSub"
+                    style="@style/small_light_text"
+                    android:layout_marginTop="@dimen/margin_small"
+                    android:layout_marginStart="@dimen/margin_medium"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/version_number"
+                    app:layout_constraintTop_toBottomOf="@+id/versionTv"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.cardview.widget.CardView>
+    </LinearLayout>
+</layout>

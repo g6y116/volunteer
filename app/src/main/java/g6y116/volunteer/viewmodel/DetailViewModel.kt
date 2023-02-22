@@ -28,8 +28,14 @@ class DetailViewModel @Inject constructor(private val repository: VolunteerRepos
             viewModelScope.launch(Dispatchers.IO) {
                 try {
                     val v = repository.getDetail(pID)
-                    volunteer.postValue(v)
-                    isBookMark.postValue(repository.getBookMarkList().any { it.pID == v.pID })
+                    if (v != null) {
+                        volunteer.postValue(v!!)
+                        isBookMark.postValue(repository.getBookMarkList().any { it.pID == v.pID })
+                    } else {
+                        repository.removeBookMark(pID)
+                        errorLiveData.postValue(true)
+                    }
+
                 } catch (e: Exception) {
                     repository.removeBookMark(pID)
                     errorLiveData.postValue(true)

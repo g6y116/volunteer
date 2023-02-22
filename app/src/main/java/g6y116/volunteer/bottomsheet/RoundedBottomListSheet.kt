@@ -28,8 +28,8 @@ class RoundedBottomListSheet<T: Any>(
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         val binding = BottomSheetListBinding.inflate(layoutInflater)
         binding.labelTv.text = label
-        binding.rv.adapter = Adapter()
-        binding.rv.layoutManager = GridLayoutManager(context, 3)
+        binding.recyclerView.adapter = Adapter()
+        binding.recyclerView.layoutManager = GridLayoutManager(context, 3)
 
         (dialog as? BottomSheetDialog)?.behavior?.apply {
             state = BottomSheetBehavior.STATE_EXPANDED

@@ -20,11 +20,11 @@ class HomeAdapter(private val viewHolderBindListener: ViewHolderBindListener):
 
     inner class ViewHolder(
         private val binding: ItemVolrunteerInfoBinding,
-        private val listener: ViewHolderBindListener
+        private val viewHolderBindListener: ViewHolderBindListener
     ): RecyclerView.ViewHolder(binding.root) {
         fun bind(item: VolunteerInfo) {
             binding.item = item
-            listener.onViewHolderBind(this, item)
+            viewHolderBindListener.onViewHolderBind(this, item)
         }
     }
 

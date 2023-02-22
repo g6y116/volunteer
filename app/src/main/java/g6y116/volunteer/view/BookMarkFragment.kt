@@ -40,9 +40,9 @@ class BookMarkFragment : Fragment(), ViewHolderBindListener {
 
                 if (it.isNullOrEmpty()) {
                     binding.noResult.visibility = View.VISIBLE
-                    binding.rv.visibility = View.GONE
+                    binding.recyclerView.visibility = View.GONE
                 } else {
-                    binding.rv.visibility = View.VISIBLE
+                    binding.recyclerView.visibility = View.VISIBLE
                     binding.noResult.visibility = View.GONE
                 }
             }
@@ -59,7 +59,6 @@ class BookMarkFragment : Fragment(), ViewHolderBindListener {
     override fun onViewHolderBind(holder: RecyclerView.ViewHolder, item: Any) {
         val item = item as VolunteerInfo
 
-//        holder.itemView.findViewById<ImageView>(R.id.ivBookMark).visibility = if (item.isBookMark) View.VISIBLE else View.GONE
         holder.itemView.onClick {
             lifecycleScope.launch {
                 startActivity(Intent(context, DetailActivity::class.java).apply {

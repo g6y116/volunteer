@@ -7,34 +7,61 @@ interface Const {
         const val DATABASE_NAME = "volunteer_db"
         const val DATASTORE_NAME = "volunteer_db"
 
-        const val BOTH = "전체"
-        const val ADULT = "성인"
-        const val YOUNG = "청소년"
-
-        const val TRUE = "Y"
-        const val FALSE = "N"
-        const val ALL = ""
-
-        const val TODO_NUM = 1
-        const val DOING_NUM = 2
-        const val DONE_NUM = 3
-
-        const val TODO_TEXT = "모집 예정"
-        const val DOING_TEXT = "모집 중"
-        const val DONE_TEXT = "모집 완료"
-
         const val INIT_PAGE_NUM = 1
         const val LOAD_SIZE = 40
 
         const val HOME = "home"
         const val BOOK_MARK = "bookMark"
         const val MORE = "more"
+    }
 
-        const val RECENT_SEARCH = "recentSearch"
-        const val MODE = "mode"
+    interface TYPE {
+        companion object {
+            const val BOTH = "성인/청소년"
+            const val ADULT = "성인"
+            const val YOUNG = "청소년"
 
-        const val SYSTEM_MODE = 0
-        const val LIGHT_MODE = 1
-        const val DARK_MODE = 2
+            const val TRUE = "Y"
+            const val FALSE = "N"
+            val NO_MATTER = null
+        }
+    }
+
+    interface STATE {
+        companion object {
+            const val TODO_NUM = 1
+            const val DOING_NUM = 2
+            const val DONE_NUM = 3
+        }
+    }
+
+    interface MODE {
+        companion object {
+            const val SYSTEM_MODE = "system_mode"
+            const val LIGHT_MODE = "light_mode"
+            const val DARK_MODE = "dark_mode"
+        }
+    }
+
+    interface LOCALE {
+        companion object {
+            const val KO = "korean"
+            const val EN = "english"
+        }
+    }
+
+    interface PrefKey {
+        companion object {
+            const val MODE = "mode"
+            const val LOCALE = "locale"
+            const val RECENT_SEARCH = "recentSearch"
+            const val SI_DO_CODE = "siDoCode"
+            const val GOO_GUN_CODE = "gooGunCode"
+            const val S_DATE = "sDate"
+            const val E_DATE = "eDate"
+            const val IS_ADULT_POSSIBLE = "isAdultPossible"
+            const val IS_YOUNG_POSSIBLE = "isYoungPossible"
+            const val KEY_WORD = "keyWord"
+        }
     }
 }

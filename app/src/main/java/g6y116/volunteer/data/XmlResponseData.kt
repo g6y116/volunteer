@@ -62,7 +62,7 @@ data class HomeItems(
 @Xml(name= "items")
 data class DetailItems(
     @Element(name="item")
-    val item: VolunteerRes
+    val item: VolunteerRes?
 )
 
 @Xml(name= "item")

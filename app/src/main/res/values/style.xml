@@ -3,131 +3,128 @@
     <!-- common -->
     <style name="toolbar">
         <item name="android:paddingBottom">@dimen/padding_extra_small</item>
-        <item name="android:elevation">2.5dp</item>
-        <item name="android:textColor">@color/black</item>
+        <item name="android:textColor">@color/dark_text</item>
         <item name="android:fontFamily">@font/nanum_bold</item>
-        <item name="android:background">@color/white</item>
+        <item name="android:background">@color/base</item>
+        <item name="android:elevation">@dimen/elevation</item>
+    </style>
+
+    <style name="card">
+        <item name="android:background">@color/card</item>
     </style>
 
     <style name="chip">
         <item name="android:textSize">@dimen/text_size_medium</item>
-        <item name="android:textColor">@color/gray_1</item>
+        <item name="android:textColor">@color/text</item>
         <item name="android:fontFamily">@font/nanum_regular</item>
         <item name="android:includeFontPadding">false</item>
-        <item name="chipBackgroundColor">@color/white</item>
-        <item name="chipStrokeWidth">0.75dp</item>
-        <item name="chipStrokeColor">@color/gray_3</item>
-        <item name="chipCornerRadius">@dimen/card_radius</item>
+        <item name="chipBackgroundColor">@color/base</item>
+        <item name="chipStrokeWidth">@dimen/line</item>
+        <item name="chipStrokeColor">@color/active_line</item>
+        <item name="chipCornerRadius">@dimen/chip_radius</item>
     </style>
 
     <style name="bottom_sheet" parent="Theme.Design.BottomSheetDialog">
-        <item name="bottomSheetStyle">@style/TransparentBottomSheetDialogFragmentChild</item>
+        <item name="bottomSheetStyle">@style/bottom_sheet_background</item>
     </style>
 
-    <style name="TransparentBottomSheetDialogFragmentChild" parent="Widget.Design.BottomSheet.Modal">
-        <item name="android:background">#00000000</item>
+    <style name="bottom_sheet_background" parent="Widget.Design.BottomSheet.Modal">
+        <item name="android:background">@color/transparent</item>
+    </style>
+
+    <style name="bottom_sheet_item">
+        <item name="android:textSize">@dimen/text_size_bottom_sheet_item</item>
+        <item name="android:textColor">@color/text</item>
+        <item name="android:fontFamily">@font/nanum_bold</item>
+        <item name="android:includeFontPadding">false</item>
     </style>
 
     <style name="date_picker" parent="ThemeOverlay.MaterialComponents.MaterialCalendar">
-        <item name="materialCalendarHeaderToggleButton">@style/Widget.AppTheme.MaterialCalendar.HeaderToggleButton</item>
+        <item name="materialCalendarHeaderToggleButton">@style/toggle_button</item>
     </style>
 
-    <style name="Widget.AppTheme.MaterialCalendar.HeaderToggleButton" parent="Widget.MaterialComponents.MaterialCalendar.HeaderToggleButton">
+    <style name="toggle_button" parent="Widget.MaterialComponents.MaterialCalendar.HeaderToggleButton">
         <item name="android:visibility">gone</item>
     </style>
 
-    <style name="list_item">
-        <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:textSize">@dimen/text_size_item_list</item>
-        <item name="android:textColor">@color/gray_0</item>
-        <item name="android:fontFamily">@font/nanum_bold</item>
-        <item name="android:includeFontPadding">true</item>
-    </style>
-
-    <style name="switch_material" parent="Theme.MaterialComponents.DayNight.NoActionBar">
-        <!-- active thumb & track color (30% transparency) -->
-        <item name="colorControlActivated">@color/sky_blue</item>
-        <!-- inactive thumb color -->
-        <item name="colorSwitchThumbNormal">@color/white</item>
-        <!-- inactive track color (30% transparency) -->
-        <item name="android:colorForeground">@color/gray_0</item>
-    </style>
-
     <style name="app_divide">
-        <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">0.75dp</item>
-        <item name="android:background">@color/gray_3</item>
+        <item name="android:layout_height">@dimen/line</item>
+        <item name="android:background">@color/divide_line</item>
     </style>
 
     <!-- textView -->
     <style name="label_text">
-        <item name="android:layout_width">wrap_content</item>
-        <item name="android:layout_height">wrap_content</item>
         <item name="android:textSize">@dimen/text_size_extra_large</item>
-        <item name="android:textColor">@color/black</item>
+        <item name="android:textColor">@color/dark_text</item>
         <item name="android:fontFamily">@font/nanum_bold</item>
+        <item name="android:includeFontPadding">false</item>
+    </style>
+
+    <style name="large_light_text">
+        <item name="android:textSize">@dimen/text_size_large</item>
+        <item name="android:textColor">@color/light_text</item>
+        <item name="android:fontFamily">@font/nanum_regular</item>
         <item name="android:includeFontPadding">false</item>
     </style>
 
     <style name="large_text">
-        <item name="android:layout_width">wrap_content</item>
-        <item name="android:layout_height">wrap_content</item>
         <item name="android:textSize">@dimen/text_size_large</item>
-        <item name="android:textColor">@color/gray_0</item>
-        <item name="android:fontFamily">@font/nanum_regular</item>
+        <item name="android:textColor">@color/text</item>
+        <item name="android:fontFamily">@font/nanum_bold</item>
         <item name="android:includeFontPadding">false</item>
     </style>
 
     <style name="large_dark_text">
-        <item name="android:layout_width">wrap_content</item>
-        <item name="android:layout_height">wrap_content</item>
         <item name="android:textSize">@dimen/text_size_large</item>
-        <item name="android:textColor">@color/gray_1</item>
+        <item name="android:textColor">@color/dark_text</item>
         <item name="android:fontFamily">@font/nanum_bold</item>
+        <item name="android:includeFontPadding">false</item>
+    </style>
+
+    <style name="medium_light_text">
+        <item name="android:textSize">@dimen/text_size_medium</item>
+        <item name="android:textColor">@color/light_text</item>
+        <item name="android:fontFamily">@font/nanum_regular</item>
         <item name="android:includeFontPadding">false</item>
     </style>
 
     <style name="medium_text">
-        <item name="android:layout_width">wrap_content</item>
-        <item name="android:layout_height">wrap_content</item>
         <item name="android:textSize">@dimen/text_size_medium</item>
-        <item name="android:textColor">@color/gray_0</item>
-        <item name="android:fontFamily">@font/nanum_regular</item>
-        <item name="android:includeFontPadding">false</item>
-    </style>
-
-    <style name="medium_dark_text">
-        <item name="android:layout_width">wrap_content</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:textSize">@dimen/text_size_medium</item>
-        <item name="android:textColor">@color/gray_1</item>
+        <item name="android:textColor">@color/text</item>
         <item name="android:fontFamily">@font/nanum_bold</item>
         <item name="android:includeFontPadding">false</item>
     </style>
 
-    <style name="small_text">
-        <item name="android:layout_width">wrap_content</item>
-        <item name="android:layout_height">wrap_content</item>
+    <style name="medium_dark_text">
+        <item name="android:textSize">@dimen/text_size_medium</item>
+        <item name="android:textColor">@color/dark_text</item>
+        <item name="android:fontFamily">@font/nanum_bold</item>
+        <item name="android:includeFontPadding">false</item>
+    </style>
+
+    <style name="small_light_text">
         <item name="android:textSize">@dimen/text_size_small</item>
-        <item name="android:textColor">@color/gray_0</item>
+        <item name="android:textColor">@color/light_text</item>
         <item name="android:fontFamily">@font/nanum_regular</item>
         <item name="android:includeFontPadding">false</item>
     </style>
 
-    <style name="small_dark_text">
-        <item name="android:layout_width">wrap_content</item>
-        <item name="android:layout_height">wrap_content</item>
+    <style name="small_text">
         <item name="android:textSize">@dimen/text_size_small</item>
-        <item name="android:textColor">@color/gray_1</item>
+        <item name="android:textColor">@color/text</item>
+        <item name="android:fontFamily">@font/nanum_bold</item>
+        <item name="android:includeFontPadding">false</item>
+    </style>
+
+    <style name="small_dark_text">
+        <item name="android:textSize">@dimen/text_size_small</item>
+        <item name="android:textColor">@color/dark_text</item>
         <item name="android:fontFamily">@font/nanum_bold</item>
         <item name="android:includeFontPadding">false</item>
     </style>
 
     <!-- button -->
     <style name="solid_button">
-        <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">wrap_content</item>
         <item name="android:textSize">@dimen/text_size_large</item>
         <item name="android:textColor">@color/white</item>
         <item name="android:fontFamily">@font/nanum_regular</item>
@@ -136,8 +133,8 @@
     </style>
 
     <!-- etc -->
-    <style name="bottom_navigation" parent="Theme.MaterialComponents.Light.DarkActionBar">
-        <item name="colorPrimary">@color/black</item>
-        <item name="colorSecondary">@color/gray_0</item>
+    <style name="bottom_navigation">
+        <item name="android:background">@color/base</item>
+        <item name="itemBackground">@color/base</item>
     </style>
 </resources>

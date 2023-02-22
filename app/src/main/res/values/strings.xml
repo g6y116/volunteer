@@ -1,11 +1,61 @@
 <resources>
-    <string name="app_name">1365 봉사활동</string>
-    <string name="menu_1">봉사정보</string>
-    <string name="menu_2">북마크</string>
-    <string name="menu_3">더보기</string>
-    <string name="menu_4">세부정보</string>
-    <string name="apply">신청하기</string>
-    <string name="book_mark">북마크</string>
-    <string name="map">지도정보</string>
-    <string name="done">완료</string>
+    <string name="app_name">1365 Volunteer</string>
+    <string name="menu_1">Home</string>
+    <string name="menu_2">BookMark</string>
+    <string name="menu_3">More</string>
+    <string name="menu_4">Detail</string>
+    <string name="apply">Apply</string>
+    <string name="book_mark">BookMark</string>
+    <string name="map">Map</string>
+    <string name="done">Done</string>
+
+    <string name="system_mode">System Mode</string>
+    <string name="light_mode">Light Mode</string>
+    <string name="dark_mode">Dark Mode</string>
+
+    <string name="ko">Korean</string>
+    <string name="en">English</string>
+
+    <string name="sido">All</string>
+    <string name="googun">All</string>
+    <string name="date">Date</string>
+    <string name="type">Type</string>
+    <string name="reset">Reset</string>
+    <string name="no_bookmark">There are no bookmarks.</string>
+
+    <string name="adult_young">Adult/Young</string>
+    <string name="adult">Adult</string>
+    <string name="young">Young</string>
+
+    <string name="use_1_q">Q. Can\'t I apply for service right from this app?</string>
+    <string name="use_1_a">Unfortunately, this app does\'t have permission to apply.</string>
+    <string name="use_2_q">Q. How do I add bookmarks?</string>
+    <string name="use_2_a">Tap the bookmark icon on the details screen.</string>
+
+    <string name="mode">Theme</string>
+    <string name="locale">Language</string>
+    <string name="email">Email</string>
+    <string name="email_address">g6y116@naver.com</string>
+    <string name="version">Version</string>
+    <string name="version_number">1.0</string>
+
+    <string name="host">Host</string>
+    <string name="area">Area</string>
+    <string name="place">Place</string>
+    <string name="person_num">Person</string>
+    <string name="possible">Possible</string>
+    <string name="notice_period">Recruitment</string>
+    <string name="volunteer_period">Volunteer period</string>
+    <string name="volunteer_time">Volunteer hours</string>
+    <string name="manager">Manager</string>
+    <string name="tel">Contact</string>
+
+    <string name="choice_area">Area</string>
+    <string name="choice_type">Type</string>
+
+    <string name="volunteer_todo">ToDo</string>
+    <string name="volunteer_doing">Doing</string>
+    <string name="volunteer_done">Done</string>
+
+    <string name="error_deleted_volunteer">This volunteer has been deleted.</string>
 </resources>

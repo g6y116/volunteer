@@ -13,17 +13,17 @@ object BindingAdapter {
     @BindingAdapter("state")
     fun setStateText(view: TextView, state: Int?) {
         when(state) {
-            Const.TODO_NUM -> {
-                view.text = Const.TODO_TEXT
-                view.setTextColor(ContextCompat.getColor(view.context, R.color.gray_1))
+            Const.STATE.TODO_NUM -> {
+                view.text = view.context.getString(R.string.volunteer_todo)
+                view.setTextColor(ContextCompat.getColor(view.context, R.color.light_text))
             }
-            Const.DOING_NUM -> {
-                view.text = Const.DOING_TEXT
+            Const.STATE.DOING_NUM -> {
+                view.text = view.context.getString(R.string.volunteer_doing)
                 view.setTextColor(ContextCompat.getColor(view.context, R.color.sky_blue))
             }
-            Const.DONE_NUM -> {
-                view.text = Const.DONE_TEXT
-                view.setTextColor(ContextCompat.getColor(view.context, R.color.gray_0))
+            Const.STATE.DONE_NUM -> {
+                view.text = view.context.getString(R.string.volunteer_done)
+                view.setTextColor(ContextCompat.getColor(view.context, R.color.light_text))
             }
         }
     }
@@ -32,8 +32,13 @@ object BindingAdapter {
     @JvmStatic
     @BindingAdapter(value = ["sDateInfo", "eDateInfo"], requireAll = true)
     fun setDateInfoText(view: TextView, startDate: String?, endDate: String?) {
-        if (startDate != null && endDate != null)
-            view.text = "${startDate.substring(4, 6)}/${startDate.substring(6, 8)} ~ ${endDate.substring(4, 6)}/${endDate.substring(6, 8)}"
+        if (startDate != null && endDate != null) {
+            if (startDate == endDate) {
+                view.text = "${startDate.substring(4, 6)}/${startDate.substring(6, 8)}"
+            } else {
+                view.text = "${startDate.substring(4, 6)}/${startDate.substring(6, 8)} ~ ${endDate.substring(4, 6)}/${endDate.substring(6, 8)}"
+            }
+        }
     }
 
     @SuppressLint("SetTextI18n")
@@ -61,9 +66,9 @@ object BindingAdapter {
     fun setPossibleText(view: TextView, adultPossible: String?, youngPossible: String?) {
         if (adultPossible != null || youngPossible != null) {
             view.text = when {
-                adultPossible == Const.TRUE && youngPossible == Const.TRUE -> "성인/청소년 가능"
-                adultPossible == Const.TRUE && youngPossible == Const.FALSE -> "성인 가능"
-                adultPossible == Const.FALSE && youngPossible == Const.TRUE -> "청소년 가능"
+                adultPossible == Const.TYPE.TRUE && youngPossible == Const.TYPE.TRUE -> "성인/청소년 가능"
+                adultPossible == Const.TYPE.TRUE && youngPossible == Const.TYPE.FALSE -> "성인 가능"
+                adultPossible == Const.TYPE.FALSE && youngPossible == Const.TYPE.TRUE -> "청소년 가능"
                 else -> ""
             }
         }

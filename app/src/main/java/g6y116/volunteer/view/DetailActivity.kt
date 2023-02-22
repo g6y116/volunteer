@@ -1,8 +1,6 @@
 package g6y116.volunteer.view
 
 import android.content.Intent
-import android.graphics.PorterDuff
-import android.graphics.PorterDuffColorFilter
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -53,7 +51,7 @@ class DetailActivity : AppCompatActivity() {
         }
 
         viewModel.errorLiveData.observe(this) {
-            toast(this, "삭제된 봉사 정보입니다.")
+            toast(this, getString(R.string.error_deleted_volunteer))
             finish()
         }
     }

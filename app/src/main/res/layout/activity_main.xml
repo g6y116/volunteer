@@ -6,8 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:weightSum="1"
-    tools:context=".view.MainActivity">
+    android:weightSum="1">
 
     <include
         android:id="@+id/toolbar"
