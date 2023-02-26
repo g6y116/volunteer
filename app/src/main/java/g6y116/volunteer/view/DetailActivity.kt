@@ -33,7 +33,9 @@ class DetailActivity : AppCompatActivity() {
         viewModel.pID = intent?.getStringExtra("pID").toString()
         viewModel.url = intent?.getStringExtra("url").toString()
         viewModel.from = intent?.getStringExtra("from").toString()
+
         viewModel.getVolunteer(viewModel.pID)
+        viewModel.addRead(viewModel.pID)
 
         binding.lifecycleOwner = this
         binding.viewmodel = viewModel

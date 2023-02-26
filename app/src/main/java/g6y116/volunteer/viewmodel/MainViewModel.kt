@@ -11,6 +11,7 @@ import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import dagger.hilt.android.lifecycle.HiltViewModel
 import g6y116.volunteer.Const
+import g6y116.volunteer.data.Read
 import g6y116.volunteer.data.RecentSearch
 import g6y116.volunteer.data.VolunteerInfo
 import g6y116.volunteer.repository.VolunteerRepository
@@ -26,6 +27,7 @@ class MainViewModel @Inject constructor(private val repository: VolunteerReposit
 
     var homeList: MutableStateFlow<PagingData<VolunteerInfo>> = MutableStateFlow(PagingData.empty())
     val bookMarkList: LiveData<List<VolunteerInfo>> = repository.getBookMarkLiveList()
+    val readList: LiveData<List<Read>> = repository.getReadLiveList()
     val recentSearchLiveData: MutableLiveData<RecentSearch> = MutableLiveData()
     val modeLiveData: MutableLiveData<String> = MutableLiveData()
     val localeLiveData: MutableLiveData<String> = MutableLiveData()
@@ -114,5 +116,11 @@ class MainViewModel @Inject constructor(private val repository: VolunteerReposit
                 else -> koLocale
             }
         )
+    }
+
+    fun removeRead() {
+        viewModelScope.launch {
+            repository.removeRead()
+        }
     }
 }

@@ -17,7 +17,16 @@ data class VolunteerInfo(
 ) {
     fun isBookMark(items: List<VolunteerInfo>?): Boolean =
         if (items.isNullOrEmpty()) false else items.any { it.pID == this.pID }
+
+    fun isRead(items: List<Read>?): Boolean =
+        if (items.isNullOrEmpty()) false else items.any { it.pID == this.pID }
 }
+
+@Entity(tableName = "volunteer_read")
+data class Read(
+    @PrimaryKey(autoGenerate = false)
+    @ColumnInfo(name = "p_id") val pID: String,
+)
 
 data class Volunteer(
     val pID: String,
@@ -44,9 +53,6 @@ data class Volunteer(
     val contents: String,
     val address: String,
 ) {
-    fun isBookMark(items: List<VolunteerInfo>?): Boolean =
-        if (items.isNullOrEmpty()) false else items.any { it.pID == this.pID }
-
     fun toVolunteerInfo(url: String) = this.run {
         VolunteerInfo(
             pID = pID,

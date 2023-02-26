@@ -40,6 +40,4 @@
     <color name="colorOnPrimary">@color/white</color>
     <color name="colorSecondary">@color/sky_blue</color>
     <color name="colorOnSecondary">#F5000000</color>
-
-    <!-- https://yeun.github.io/2016/09/25/general-usage-of-gray.html -->
 </resources>

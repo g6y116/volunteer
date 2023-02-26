@@ -74,6 +74,19 @@ class MoreFragment : Fragment() {
                 }
                 .show()
         }
+
+        binding.readLayout.onClick {
+            AlertDialog.Builder(context)
+                .setTitle(getString(R.string.read))
+                .setMessage(getString(R.string.delete_msg))
+                .setPositiveButton(getString(R.string.yes)) { _, _ ->
+                    viewModel.removeRead()
+                }
+                .setNegativeButton(getString(R.string.no)) { _, _ ->
+
+                }
+                .show()
+        }
     }
 
     private fun setObserver() {

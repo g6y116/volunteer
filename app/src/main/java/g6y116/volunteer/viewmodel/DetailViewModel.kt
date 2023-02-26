@@ -6,6 +6,7 @@ import androidx.lifecycle.viewModelScope
 import com.orhanobut.logger.AndroidLogAdapter
 import com.orhanobut.logger.Logger
 import dagger.hilt.android.lifecycle.HiltViewModel
+import g6y116.volunteer.data.Read
 import g6y116.volunteer.data.Volunteer
 import g6y116.volunteer.repository.VolunteerRepository
 import kotlinx.coroutines.Dispatchers
@@ -45,7 +46,6 @@ class DetailViewModel @Inject constructor(private val repository: VolunteerRepos
     }
 
     fun clickBookMark() {
-        Logger.addLogAdapter(AndroidLogAdapter())
         viewModelScope.launch {
             if (volunteer.value != null && isBookMark.value != null) {
                 if (isBookMark.value!!) {
@@ -56,6 +56,12 @@ class DetailViewModel @Inject constructor(private val repository: VolunteerRepos
                     isBookMark.postValue(true)
                 }
             }
+        }
+    }
+
+    fun addRead(pID: String) {
+        viewModelScope.launch {
+            repository.addRead(Read(pID = pID))
         }
     }
 }

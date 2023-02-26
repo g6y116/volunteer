@@ -131,6 +131,10 @@ class HomeFragment : Fragment(), ViewHolderBindListener {
             adapter.notifyDataSetChanged()
         }
 
+        viewModel.readList.observe(viewLifecycleOwner) {
+            adapter.notifyDataSetChanged()
+        }
+
         viewModel.recentSearchLiveData.observe(viewLifecycleOwner) {
 
             var sidoString = Code.getSiDo(it.siDoCode)?.name ?: getString(R.string.sido)
@@ -175,6 +179,9 @@ class HomeFragment : Fragment(), ViewHolderBindListener {
 
         holder.itemView.findViewById<ImageView>(R.id.ivBookMark).visibility =
             if (item.isBookMark(viewModel.bookMarkList.value)) View.VISIBLE else View.GONE
+
+        holder.itemView.findViewById<ImageView>(R.id.ivRead).visibility =
+            if (item.isRead(viewModel.readList.value)) View.VISIBLE else View.GONE
 
         holder.itemView.onClick {
             lifecycleScope.launch {

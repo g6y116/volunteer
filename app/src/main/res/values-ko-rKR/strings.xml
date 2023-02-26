@@ -33,11 +33,13 @@
     <string name="use_2_a">세부정보 화면에서 책갈피를 눌러보세요.</string>
 
     <string name="mode">테마</string>
+    <string name="read">기록 삭제</string>
+    <string name="delete_msg">정말 삭제 하시겠습니까?</string>
     <string name="locale">언어</string>
     <string name="email">이메일</string>
     <string name="email_address">g6y116@naver.com</string>
     <string name="version">버전</string>
-    <string name="version_number">1.0</string>
+    <string name="version_number">1.2</string>
 
     <string name="host">모집 기관</string>
     <string name="area">등록 기관</string>
@@ -58,4 +60,7 @@
     <string name="volunteer_done">모집 완료</string>
 
     <string name="error_deleted_volunteer">삭제된 봉사 정보입니다.</string>
+
+    <string name="yes">예</string>
+    <string name="no">아니오</string>
 </resources>

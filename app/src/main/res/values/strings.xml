@@ -33,11 +33,13 @@
     <string name="use_2_a">Tap the bookmark icon</string>
 
     <string name="mode">Theme</string>
+    <string name="read">Delete Read history</string>
+    <string name="delete_msg">Are you sure delete it?</string>
     <string name="locale">Language</string>
     <string name="email">Email</string>
     <string name="email_address">g6y116@naver.com</string>
     <string name="version">Version</string>
-    <string name="version_number">1.0</string>
+    <string name="version_number">1.2</string>
 
     <string name="host">Host</string>
     <string name="area">Area</string>
@@ -58,4 +60,7 @@
     <string name="volunteer_done">Done</string>
 
     <string name="error_deleted_volunteer">This volunteer has been deleted.</string>
+
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
 </resources>

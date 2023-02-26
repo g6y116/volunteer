@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.RecyclerView
@@ -59,6 +60,7 @@ class BookMarkFragment : Fragment(), ViewHolderBindListener {
     override fun onViewHolderBind(holder: RecyclerView.ViewHolder, item: Any) {
         val item = item as VolunteerInfo
 
+        holder.itemView.findViewById<ImageView>(R.id.ivRead).visibility = View.GONE
         holder.itemView.onClick {
             lifecycleScope.launch {
                 startActivity(Intent(context, DetailActivity::class.java).apply {

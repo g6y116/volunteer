@@ -11,11 +11,9 @@ import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import g6y116.volunteer.Const
 import g6y116.volunteer.api.VolunteerApi
-import g6y116.volunteer.dao.VolunteerDao
-import g6y116.volunteer.data.DetailResponse
-import g6y116.volunteer.data.RecentSearch
-import g6y116.volunteer.data.Volunteer
-import g6y116.volunteer.data.VolunteerInfo
+import g6y116.volunteer.dao.BookMarkDao
+import g6y116.volunteer.dao.ReadDao
+import g6y116.volunteer.data.*
 import g6y116.volunteer.datasource.HomePagingSource
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
@@ -28,9 +26,13 @@ interface VolunteerRepository {
     fun getHomeList(recentSearch: RecentSearch): Flow<PagingData<VolunteerInfo>>
     fun getBookMarkLiveList(): LiveData<List<VolunteerInfo>>
     suspend fun getBookMarkList(): List<VolunteerInfo>
+    fun getReadLiveList(): LiveData<List<Read>>
+    suspend fun getReadList(): List<Read>
     suspend fun getDetail(pID: String): Volunteer?
     suspend fun addBookMark(volunteerInfo: VolunteerInfo)
     suspend fun removeBookMark(pID: String)
+    suspend fun addRead(read: Read)
+    suspend fun removeRead()
     suspend fun setRecentSearch(recentSearch: RecentSearch)
     suspend fun getRecentSearch(): Flow<RecentSearch>
     suspend fun setMode(mode: String)
@@ -41,7 +43,8 @@ interface VolunteerRepository {
 
 class VolunteerRepositoryImpl @Inject constructor(
     private val api: VolunteerApi,
-    private val volunteerDao: VolunteerDao,
+    private val bookMarkDao: BookMarkDao,
+    private val readDao: ReadDao,
     private val dataStore: DataStore<Preferences>
 ) : VolunteerRepository {
 
@@ -52,11 +55,16 @@ class VolunteerRepositoryImpl @Inject constructor(
         ).flow
     }
 
-    override fun getBookMarkLiveList(): LiveData<List<VolunteerInfo>> = volunteerDao.getVolunteerLiveList()
-    override suspend fun getBookMarkList(): List<VolunteerInfo> = volunteerDao.getVolunteerList()
+    override fun getBookMarkLiveList(): LiveData<List<VolunteerInfo>> = bookMarkDao.getBookMarkLiveList()
+    override suspend fun getBookMarkList(): List<VolunteerInfo> = bookMarkDao.getBookMarkList()
+    override fun getReadLiveList(): LiveData<List<Read>> = readDao.getReadLiveList()
+    override suspend fun getReadList(): List<Read> = readDao.getReadList()
+
     override suspend fun getDetail(pID: String): Volunteer? = (api.getVolunteerDetail(pID).body() as DetailResponse).body.items.item?.toVolunteer()
-    override suspend fun addBookMark(volunteerInfo: VolunteerInfo) = volunteerDao.addVolunteer(volunteerInfo)
-    override suspend fun removeBookMark(pID: String) = volunteerDao.removeVolunteer(pID)
+    override suspend fun addBookMark(volunteerInfo: VolunteerInfo) = bookMarkDao.addBookMark(volunteerInfo)
+    override suspend fun removeBookMark(pID: String) = bookMarkDao.removeBookMark(pID)
+    override suspend fun addRead(read: Read) = readDao.addRead(read)
+    override suspend fun removeRead() = readDao.removeRead()
 
     override suspend fun setRecentSearch(recentSearch: RecentSearch) {
         dataStore.edit { prefs ->

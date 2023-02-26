@@ -192,6 +192,47 @@
         </androidx.cardview.widget.CardView>
 
         <androidx.cardview.widget.CardView
+            android:layout_marginHorizontal="@dimen/margin_medium"
+            android:layout_width="match_parent"
+            android:layout_height="64dp"
+            app:cardCornerRadius="@dimen/card_radius"
+            app:cardUseCompatPadding="true">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/readLayout"
+                android:paddingVertical="@dimen/padding_small"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:clickable="true"
+                android:focusable="true"
+                android:background="@drawable/ripple">
+
+                <TextView
+                    android:id="@+id/readTv"
+                    style="@style/medium_text"
+                    android:layout_marginStart="@dimen/margin_medium"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/read"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintBottom_toTopOf="@+id/readTvSub"/>
+
+                <TextView
+                    android:id="@+id/readTvSub"
+                    style="@style/small_light_text"
+                    android:layout_marginTop="@dimen/margin_small"
+                    android:layout_marginStart="@dimen/margin_medium"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text=""
+                    app:layout_constraintTop_toBottomOf="@+id/readTv"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
             android:layout_marginTop="@dimen/margin_extra_small"
             android:layout_marginHorizontal="@dimen/margin_medium"
             android:layout_width="match_parent"

@@ -80,6 +80,17 @@
             app:layout_constraintBottom_toBottomOf="@+id/tvDate"
             app:layout_constraintStart_toEndOf="@+id/tvState"/>
 
+        <ImageView
+            android:id="@+id/ivRead"
+            android:layout_marginStart="@dimen/margin_extra_small"
+            android:layout_width="12dp"
+            android:layout_height="12dp"
+            android:background="@drawable/ic_check_24"
+            android:backgroundTint="@color/inactive_line"
+            app:layout_constraintTop_toTopOf="@+id/tvArea"
+            app:layout_constraintBottom_toBottomOf="@+id/tvArea"
+            app:layout_constraintStart_toEndOf="@+id/tvArea"/>
+
         <View
             style="@style/app_divide"
             android:layout_marginTop="@dimen/margin_small"
