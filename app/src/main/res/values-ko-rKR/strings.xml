@@ -18,7 +18,8 @@
 
     <string name="sido">전국</string>
     <string name="googun">전체</string>
-    <string name="date">봉사 일</string>
+    <string name="start_date">시작일</string>
+    <string name="end_date">종료일</string>
     <string name="type">봉사 유형</string>
     <string name="reset">초기화</string>
     <string name="no_bookmark">책갈피가 없습니다.</string>

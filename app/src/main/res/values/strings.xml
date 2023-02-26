@@ -18,7 +18,8 @@
 
     <string name="sido">All</string>
     <string name="googun">All</string>
-    <string name="date">Date</string>
+    <string name="start_date">Start</string>
+    <string name="end_date">End</string>
     <string name="type">Type</string>
     <string name="reset">Reset</string>
     <string name="no_bookmark">There are no bookmarks.</string>

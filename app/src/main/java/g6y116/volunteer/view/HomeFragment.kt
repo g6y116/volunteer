@@ -24,7 +24,9 @@ import g6y116.volunteer.databinding.FragmentHomeBinding
 import g6y116.volunteer.viewmodel.MainViewModel
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
+import java.lang.Math.min
 import java.util.*
+import kotlin.math.max
 
 
 class HomeFragment : Fragment(), ViewHolderBindListener {
@@ -66,32 +68,48 @@ class HomeFragment : Fragment(), ViewHolderBindListener {
             }
         }
 
-        binding.dateChip.onClick {
-            val today = MaterialDatePicker.todayInUtcMilliseconds()
-            val constraints = CalendarConstraints.Builder()
-                .setStart(Calendar.getInstance().apply { add(Calendar.MONTH, -2) }.time.time)
-                .setEnd(Calendar.getInstance().apply { add(Calendar.MONTH, 2) }.time.time)
-                .build()
-            val datePicker = MaterialDatePicker.Builder.datePicker()
-                .setTheme(R.style.date_picker)
-                .setTitleText(getString(R.string.date))
-                .setCalendarConstraints(constraints)
-                .setSelection(today)
-                .build()
+        binding.startDateChip.onClick {
+            callDatePicker(
+                getString(R.string.start_date),
+                positive = { time ->
+                    viewModel.recentSearchLiveData.value?.let { recentSearch ->
+                        viewModel.setRecentSearch(
+                            if (recentSearch.eDate.isNullOrEmpty()) recentSearch.copy(sDate = longTo8String(time), eDate = longTo8String(time))
+                            else {
+                                val sDate = min(longTo8String(time).toInt(), recentSearch.eDate.toInt()).toString()
+                                val eDate = max(longTo8String(time).toInt(), recentSearch.eDate.toInt()).toString()
+                                recentSearch.copy(sDate = sDate, eDate = eDate)
+                            }
+                        )
+                    }
+                },
+                negative = {
+                    viewModel.recentSearchLiveData.value?.let { recentSearch ->
+                        viewModel.setRecentSearch(recentSearch.copy(sDate = null, eDate = null))
+                    }
+                })
+        }
 
-            datePicker.addOnPositiveButtonClickListener {
-                viewModel.recentSearchLiveData.value?.let { recentSearch ->
-                    viewModel.setRecentSearch(recentSearch.copy(sDate = longTo8String(it), eDate = longTo8String(it)))
-                }
-            }
-
-            datePicker.addOnNegativeButtonClickListener {
-                viewModel.recentSearchLiveData.value?.let { recentSearch ->
-                    viewModel.setRecentSearch(recentSearch.copy(sDate = null, eDate = null))
-                }
-            }
-
-            datePicker.show((activity as MainActivity).supportFragmentManager, "")
+        binding.endDateChip.onClick {
+            callDatePicker(
+                getString(R.string.end_date),
+                positive = { time ->
+                    viewModel.recentSearchLiveData.value?.let { recentSearch ->
+                        viewModel.setRecentSearch(
+                            if (recentSearch.sDate.isNullOrEmpty()) recentSearch.copy(sDate = longTo8String(time), eDate = longTo8String(time))
+                            else {
+                                val sDate = min(longTo8String(time).toInt(), recentSearch.sDate.toInt()).toString()
+                                val eDate = max(longTo8String(time).toInt(), recentSearch.sDate.toInt()).toString()
+                                recentSearch.copy(sDate = sDate, eDate = eDate)
+                            }
+                        )
+                    }
+                },
+                negative = {
+                    viewModel.recentSearchLiveData.value?.let { recentSearch ->
+                        viewModel.setRecentSearch(recentSearch.copy(sDate = null, eDate = null))
+                    }
+                })
         }
 
         binding.typeChip.onClick {
@@ -115,6 +133,32 @@ class HomeFragment : Fragment(), ViewHolderBindListener {
                 viewModel.removeRecentSearch()
             }
         }
+    }
+
+    private fun callDatePicker(titleMsg: String, positive: (Long) -> Unit, negative: () -> Unit) {
+        val today = MaterialDatePicker.todayInUtcMilliseconds()
+
+        val constraints = CalendarConstraints.Builder()
+            .setStart(Calendar.getInstance().apply { add(Calendar.DATE, -60) }.time.time)
+            .setEnd(Calendar.getInstance().apply { add(Calendar.DATE, 60) }.time.time)
+            .build()
+
+        val datePicker = MaterialDatePicker.Builder.datePicker()
+            .setTheme(R.style.date_picker)
+            .setTitleText(titleMsg)
+            .setCalendarConstraints(constraints)
+            .setSelection(today)
+            .build()
+
+        datePicker.addOnPositiveButtonClickListener {
+            positive(it)
+        }
+
+        datePicker.addOnNegativeButtonClickListener {
+            negative()
+        }
+
+        datePicker.show((activity as MainActivity).supportFragmentManager, "")
     }
 
     @SuppressLint("NotifyDataSetChanged", "SuspiciousIndentation")
@@ -153,10 +197,15 @@ class HomeFragment : Fragment(), ViewHolderBindListener {
             else
                 binding.googunChip.visibility = View.VISIBLE
 
-            binding.dateChip.text =
-                if (!it.sDate.isNullOrBlank() && !it.eDate.isNullOrBlank())
+            binding.startDateChip.text =
+                if (!it.sDate.isNullOrBlank())
                     "${it.sDate.substring(4, 6).toInt()}월 ${it.sDate.substring(6, 8).toInt()}일"
-                else getString(R.string.date)
+                else getString(R.string.start_date)
+
+            binding.endDateChip.text =
+                if (!it.eDate.isNullOrBlank())
+                    "${it.eDate.substring(4, 6).toInt()}월 ${it.eDate.substring(6, 8).toInt()}일"
+                else getString(R.string.end_date)
 
             binding.typeChip.text = when {
                 it.isAdultPossible == Const.TYPE.NO_MATTER && it.isYoungPossible == Const.TYPE.NO_MATTER -> getString(R.string.adult_young)

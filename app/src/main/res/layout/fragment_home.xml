@@ -48,12 +48,20 @@
                     android:text="@string/googun"/>
 
                 <com.google.android.material.chip.Chip
-                    android:id="@+id/dateChip"
+                    android:id="@+id/startDateChip"
                     style="@style/chip"
                     android:layout_marginStart="@dimen/margin_extra_small"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/date"/>
+                    android:text="@string/start_date"/>
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/endDateChip"
+                    style="@style/chip"
+                    android:layout_marginStart="@dimen/margin_extra_small"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/end_date"/>
 
                 <com.google.android.material.chip.Chip
                     android:id="@+id/typeChip"
