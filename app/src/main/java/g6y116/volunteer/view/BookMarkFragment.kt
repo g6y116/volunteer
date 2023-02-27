@@ -4,7 +4,9 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
+import android.view.MenuItem
 import android.view.View
+import android.view.View.OnCreateContextMenuListener
 import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.fragment.app.activityViewModels
@@ -17,6 +19,7 @@ import g6y116.volunteer.adapter.ViewHolderBindListener
 import g6y116.volunteer.data.VolunteerInfo
 import g6y116.volunteer.databinding.FragmentBookMarkBinding
 import g6y116.volunteer.onClick
+import g6y116.volunteer.toast
 import g6y116.volunteer.viewmodel.MainViewModel
 import kotlinx.coroutines.launch
 
@@ -57,8 +60,20 @@ class BookMarkFragment : Fragment(), ViewHolderBindListener {
         }
     }
 
+    override fun onContextItemSelected(item: MenuItem): Boolean {
+        if (getString(R.string.context_menu_delete_bookmark) == item.toString()) {
+            viewModel.contextMenuDelete(item.itemId.toString())
+        }
+
+        return true
+    }
+
     override fun onViewHolderBind(holder: RecyclerView.ViewHolder, item: Any) {
         val item = item as VolunteerInfo
+
+        holder.itemView.setOnCreateContextMenuListener { contextMenu, view, contextMenuInfo ->
+            contextMenu.add(0, item.pID.toInt(), 0, getString(R.string.context_menu_delete_bookmark))
+        }
 
         holder.itemView.findViewById<ImageView>(R.id.ivRead).visibility = View.GONE
         holder.itemView.onClick {

@@ -9,11 +9,13 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
+import androidx.paging.map
 import dagger.hilt.android.lifecycle.HiltViewModel
 import g6y116.volunteer.Const
 import g6y116.volunteer.data.Read
 import g6y116.volunteer.data.RecentSearch
 import g6y116.volunteer.data.VolunteerInfo
+import g6y116.volunteer.log
 import g6y116.volunteer.repository.VolunteerRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -151,6 +153,26 @@ class MainViewModel @Inject constructor(private val repository: VolunteerReposit
         viewModelScope.launch(Dispatchers.Main) {
             repository.setStateOption(mode)
             stateLiveData.value = mode
+        }
+    }
+
+    fun contextMenuDelete(pID: String) {
+        viewModelScope.launch {
+            bookMarkList.value?.let {
+                val isBookMark = it.any { it.pID == pID }
+                if (isBookMark) repository.removeBookMark(pID)
+            }
+        }
+    }
+
+    fun contextMenuAdd(pID: String, homeList: List<VolunteerInfo>) {
+        viewModelScope.launch {
+            bookMarkList.value?.let { list ->
+                val isBookMark = list.any { it.pID == pID }
+                if (!isBookMark) {
+                    repository.addBookMark(homeList.first { it.pID == pID })
+                }
+            }
         }
     }
 }

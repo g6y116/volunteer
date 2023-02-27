@@ -71,4 +71,7 @@
 
     <string name="yes">예</string>
     <string name="no">아니오</string>
+
+    <string name="context_menu_delete_bookmark">북마크 삭제</string>
+    <string name="context_menu_add_bookmark">북마크 추가</string>
 </resources>

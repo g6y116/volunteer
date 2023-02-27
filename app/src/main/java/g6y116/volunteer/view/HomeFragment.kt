@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
@@ -210,10 +211,6 @@ class HomeFragment : Fragment(), ViewHolderBindListener {
             adapter.notifyDataSetChanged()
         }
 
-        viewModel.readLiveData.observe(viewLifecycleOwner) {
-            adapter.notifyDataSetChanged()
-        }
-
         viewModel.recentSearchLiveData.observe(viewLifecycleOwner) {
 
             var sidoString = Code.getSiDo(it.siDoCode)?.name ?: getString(R.string.sido)
@@ -258,9 +255,26 @@ class HomeFragment : Fragment(), ViewHolderBindListener {
         }
     }
 
+    override fun onContextItemSelected(item: MenuItem): Boolean {
+        if (getString(R.string.context_menu_delete_bookmark) == item.toString()) {
+            viewModel.contextMenuDelete(item.itemId.toString())
+        }
+
+        if (getString(R.string.context_menu_add_bookmark) == item.toString()) {
+            viewModel.contextMenuAdd(item.itemId.toString(), adapter.snapshot().items)
+        }
+        return true
+    }
+
     override fun onViewHolderBind(holder: ViewHolder, item: Any) {
         val item = item as VolunteerInfo
 
+        holder.itemView.setOnCreateContextMenuListener { contextMenu, view, contextMenuInfo ->
+            if (item.isBookMark(viewModel.bookMarkList.value))
+                contextMenu.add(0, item.pID.toInt(), 0, getString(R.string.context_menu_delete_bookmark))
+            else
+                contextMenu.add(0, item.pID.toInt(), 0, getString(R.string.context_menu_add_bookmark))
+        }
 
         viewModel.stateLiveData.value?.let {
             val isVisible = when(it) {

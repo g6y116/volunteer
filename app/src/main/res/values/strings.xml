@@ -71,4 +71,7 @@
 
     <string name="yes">Yes</string>
     <string name="no">No</string>
+
+    <string name="context_menu_delete_bookmark">Delete BookMark</string>
+    <string name="context_menu_add_bookmark">Add BookMark</string>
 </resources>
