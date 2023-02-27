@@ -76,14 +76,31 @@ class MoreFragment : Fragment() {
         }
 
         binding.readLayout.onClick {
+            val menus = arrayOf(
+                getString(R.string.read_visible),
+                getString(R.string.read_invisible),
+                getString(R.string.read_delete),
+            )
+
             AlertDialog.Builder(context)
                 .setTitle(getString(R.string.read))
-                .setMessage(getString(R.string.delete_msg))
-                .setPositiveButton(getString(R.string.yes)) { _, _ ->
-                    viewModel.removeRead()
-                }
-                .setNegativeButton(getString(R.string.no)) { _, _ ->
+                .setItems(menus) { _, which ->
+                    when(which) {
+                        0 -> viewModel.setRead(Const.READ.VISIBLE)
+                        1 -> viewModel.setRead(Const.READ.INVISIBLE)
+                        2 -> {
+                            AlertDialog.Builder(context)
+                                .setTitle(getString(R.string.read))
+                                .setMessage(getString(R.string.delete_read_msg))
+                                .setPositiveButton(getString(R.string.yes)) { _, _ ->
+                                    viewModel.removeRead()
+                                }
+                                .setNegativeButton(getString(R.string.no)) { _, _ ->
 
+                                }
+                                .show()
+                        }
+                    }
                 }
                 .show()
         }
@@ -102,6 +119,13 @@ class MoreFragment : Fragment() {
             when(it) {
                 Const.LOCALE.KO -> binding.localeTvSub.text = getString(R.string.ko)
                 Const.LOCALE.EN -> binding.localeTvSub.text = getString(R.string.en)
+            }
+        }
+
+        viewModel.readLiveData.observe(viewLifecycleOwner) {
+            when(it) {
+                Const.READ.VISIBLE -> binding.readTvSub.text = getString(R.string.read_visible)
+                Const.READ.INVISIBLE -> binding.readTvSub.text = getString(R.string.read_invisible)
             }
         }
     }

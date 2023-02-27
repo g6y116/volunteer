@@ -31,11 +31,15 @@ class MainViewModel @Inject constructor(private val repository: VolunteerReposit
     val recentSearchLiveData: MutableLiveData<RecentSearch> = MutableLiveData()
     val modeLiveData: MutableLiveData<String> = MutableLiveData()
     val localeLiveData: MutableLiveData<String> = MutableLiveData()
+    val stateLiveData: MutableLiveData<String> = MutableLiveData()
+    val readLiveData: MutableLiveData<String> = MutableLiveData()
 
     init {
         viewModelScope.launch {
             recentSearchLiveData.postValue(getRecentSearch())
             changeOption(getRecentSearch())
+            getState()
+            getRead()
         }
     }
 
@@ -121,6 +125,32 @@ class MainViewModel @Inject constructor(private val repository: VolunteerReposit
     fun removeRead() {
         viewModelScope.launch {
             repository.removeRead()
+        }
+    }
+
+    fun getRead() {
+        viewModelScope.launch(Dispatchers.Main) {
+            readLiveData.value = repository.getReadOption()
+        }
+    }
+
+    fun setRead(mode: String) {
+        viewModelScope.launch(Dispatchers.Main) {
+            repository.setReadOption(mode)
+            readLiveData.value = mode
+        }
+    }
+
+    fun getState() {
+        viewModelScope.launch(Dispatchers.Main) {
+            stateLiveData.value = repository.getStateOption()
+        }
+    }
+
+    fun setState(mode: String) {
+        viewModelScope.launch(Dispatchers.Main) {
+            repository.setStateOption(mode)
+            stateLiveData.value = mode
         }
     }
 }

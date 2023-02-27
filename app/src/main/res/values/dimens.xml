@@ -22,4 +22,5 @@
 
     <dimen name="elevation">2.5dp</dimen>
     <dimen name="line">0.75dp</dimen>
+    <dimen name="zero">0dp</dimen>
 </resources>

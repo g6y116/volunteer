@@ -7,11 +7,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.google.android.material.datepicker.CalendarConstraints
 import com.google.android.material.datepicker.MaterialDatePicker
@@ -128,6 +130,22 @@ class HomeFragment : Fragment(), ViewHolderBindListener {
             }.show((activity as MainActivity).supportFragmentManager, tag)
         }
 
+        binding.stateChip.onClick {
+            RoundedBottomListSheet(getString(R.string.state_chip), listOf(Const.STATE.ALL, Const.STATE.DOING, Const.STATE.DONE)) { item ->
+                when(item) {
+                    Const.STATE.ALL -> viewModel.stateLiveData.value?.let {
+                        viewModel.setState(Const.STATE.ALL)
+                    }
+                    Const.STATE.DOING -> viewModel.stateLiveData.value?.let {
+                        viewModel.setState(Const.STATE.DOING)
+                    }
+                    Const.STATE.DONE -> viewModel.stateLiveData.value?.let {
+                        viewModel.setState(Const.STATE.DONE)
+                    }
+                }
+            }.show((activity as MainActivity).supportFragmentManager, tag)
+        }
+
         binding.resetChip.onClick {
             viewModel.recentSearchLiveData.value?.let {
                 viewModel.removeRecentSearch()
@@ -179,6 +197,23 @@ class HomeFragment : Fragment(), ViewHolderBindListener {
             adapter.notifyDataSetChanged()
         }
 
+        viewModel.stateLiveData.observe(viewLifecycleOwner) {
+            it?.let {
+                binding.stateChip.text =
+                    when (it) {
+                        Const.STATE.DOING -> Const.STATE.DOING
+                        Const.STATE.DONE -> Const.STATE.DONE
+                        else -> Const.STATE.ALL
+                    }
+            }
+
+            adapter.notifyDataSetChanged()
+        }
+
+        viewModel.readLiveData.observe(viewLifecycleOwner) {
+            adapter.notifyDataSetChanged()
+        }
+
         viewModel.recentSearchLiveData.observe(viewLifecycleOwner) {
 
             var sidoString = Code.getSiDo(it.siDoCode)?.name ?: getString(R.string.sido)
@@ -226,11 +261,34 @@ class HomeFragment : Fragment(), ViewHolderBindListener {
     override fun onViewHolderBind(holder: ViewHolder, item: Any) {
         val item = item as VolunteerInfo
 
+
+        viewModel.stateLiveData.value?.let {
+            val isVisible = when(it) {
+                Const.STATE.DOING -> item.state == Const.STATE.DOING_NUM
+                Const.STATE.DONE -> item.state == Const.STATE.DONE_NUM
+                else -> true
+            }
+
+            if (isVisible) {
+                holder.itemView.visibility = View.VISIBLE
+                holder.itemView.layoutParams = RecyclerView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
+            } else {
+                holder.itemView.visibility = View.GONE
+                holder.itemView.layoutParams = RecyclerView.LayoutParams(0, 0)
+            }
+        }
+
+        if (viewModel.readLiveData.value != null
+            && viewModel.readLiveData.value == Const.READ.VISIBLE) {
+            holder.itemView.findViewById<ImageView>(R.id.ivRead).visibility =
+                if (item.isRead(viewModel.readList.value)) View.VISIBLE else View.GONE
+        } else if (viewModel.readLiveData.value != null
+            && viewModel.readLiveData.value == Const.READ.INVISIBLE) {
+            holder.itemView.findViewById<ImageView>(R.id.ivRead).visibility = View.GONE
+        }
+
         holder.itemView.findViewById<ImageView>(R.id.ivBookMark).visibility =
             if (item.isBookMark(viewModel.bookMarkList.value)) View.VISIBLE else View.GONE
-
-        holder.itemView.findViewById<ImageView>(R.id.ivRead).visibility =
-            if (item.isRead(viewModel.readList.value)) View.VISIBLE else View.GONE
 
         holder.itemView.onClick {
             lifecycleScope.launch {

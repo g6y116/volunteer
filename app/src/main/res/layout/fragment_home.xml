@@ -18,7 +18,9 @@
         android:layout_height="match_parent">
 
         <HorizontalScrollView
-            android:id="@+id/scrollView"
+            android:id="@+id/topScrollView"
+            android:layout_marginTop="@dimen/margin_small"
+            android:layout_marginHorizontal="@dimen/margin_medium"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/base"
@@ -27,7 +29,6 @@
             app:layout_constraintEnd_toEndOf="parent">
 
             <LinearLayout
-                android:layout_marginHorizontal="@dimen/margin_medium"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
@@ -64,14 +65,6 @@
                     android:text="@string/end_date"/>
 
                 <com.google.android.material.chip.Chip
-                    android:id="@+id/typeChip"
-                    style="@style/chip"
-                    android:layout_marginStart="@dimen/margin_extra_small"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/type"/>
-
-                <com.google.android.material.chip.Chip
                     android:id="@+id/resetChip"
                     style="@style/chip"
                     android:layout_marginStart="@dimen/margin_extra_small"
@@ -81,8 +74,42 @@
             </LinearLayout>
         </HorizontalScrollView>
 
+        <HorizontalScrollView
+            android:id="@+id/bottomScrollView"
+            android:layout_marginTop="@dimen/margin_small"
+            android:layout_marginHorizontal="@dimen/margin_medium"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/base"
+            app:layout_constraintTop_toBottomOf="@+id/topScrollView"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/typeChip"
+                    style="@style/chip"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/type"/>
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/stateChip"
+                    style="@style/chip"
+                    android:layout_marginStart="@dimen/margin_extra_small"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/state_chip" />
+            </LinearLayout>
+        </HorizontalScrollView>
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerView"
+            android:layout_marginTop="@dimen/margin_small"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:adapter="@{adapter}"
@@ -90,6 +117,6 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/scrollView" />
+            app:layout_constraintTop_toBottomOf="@+id/bottomScrollView" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

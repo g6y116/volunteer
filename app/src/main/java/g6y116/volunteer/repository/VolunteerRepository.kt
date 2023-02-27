@@ -39,6 +39,10 @@ interface VolunteerRepository {
     suspend fun getMode(): String
     suspend fun setLocale(mode: String)
     suspend fun getLocale(): String
+    suspend fun setStateOption(mode: String)
+    suspend fun getStateOption(): String
+    suspend fun setReadOption(mode: String)
+    suspend fun getReadOption(): String
 }
 
 class VolunteerRepositoryImpl @Inject constructor(
@@ -132,6 +136,45 @@ class VolunteerRepositoryImpl @Inject constructor(
             }
             .map { prefs ->
                 prefs[stringPreferencesKey(Const.PrefKey.LOCALE)] ?: Const.LOCALE.KO
+            }
+            .first()
+
+    override suspend fun setStateOption(mode: String) {
+        dataStore.edit { prefs ->
+            prefs[stringPreferencesKey(Const.PrefKey.STATE)] = mode
+        }
+    }
+
+    override suspend fun getStateOption(): String =
+        dataStore.data
+            .catch { exception ->
+                if (exception is IOException) {
+                    exception.printStackTrace()
+                    emit(emptyPreferences())
+                } else { throw exception }
+            }
+            .map { prefs ->
+                prefs[stringPreferencesKey(Const.PrefKey.STATE)] ?: Const.STATE.ALL
+            }
+            .first()
+
+
+    override suspend fun setReadOption(mode: String) {
+        dataStore.edit { prefs ->
+            prefs[stringPreferencesKey(Const.PrefKey.READ)] = mode
+        }
+    }
+
+    override suspend fun getReadOption(): String =
+        dataStore.data
+            .catch { exception ->
+                if (exception is IOException) {
+                    exception.printStackTrace()
+                    emit(emptyPreferences())
+                } else { throw exception }
+            }
+            .map { prefs ->
+                prefs[stringPreferencesKey(Const.PrefKey.READ)] ?: Const.READ.VISIBLE
             }
             .first()
 }

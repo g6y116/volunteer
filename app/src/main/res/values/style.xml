@@ -22,6 +22,7 @@
         <item name="chipStrokeWidth">@dimen/line</item>
         <item name="chipStrokeColor">@color/active_line</item>
         <item name="chipCornerRadius">@dimen/chip_radius</item>
+        <item name="chipMinTouchTargetSize">@dimen/zero</item>
     </style>
 
     <style name="bottom_sheet" parent="Theme.Design.BottomSheetDialog">

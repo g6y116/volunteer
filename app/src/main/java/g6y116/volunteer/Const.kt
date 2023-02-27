@@ -28,6 +28,10 @@ interface Const {
 
     interface STATE {
         companion object {
+            const val ALL = "전체"
+            const val DOING = "모집 중"
+            const val DONE = "모집 완료"
+
             const val TODO_NUM = 1
             const val DOING_NUM = 2
             const val DONE_NUM = 3
@@ -49,6 +53,13 @@ interface Const {
         }
     }
 
+    interface READ {
+        companion object {
+            const val VISIBLE = "보이게"
+            const val INVISIBLE = "안보이게"
+        }
+    }
+
     interface PrefKey {
         companion object {
             const val MODE = "mode"
@@ -61,6 +72,8 @@ interface Const {
             const val IS_ADULT_POSSIBLE = "isAdultPossible"
             const val IS_YOUNG_POSSIBLE = "isYoungPossible"
             const val KEY_WORD = "keyWord"
+            const val READ = "read"
+            const val STATE = "state"
         }
     }
 }

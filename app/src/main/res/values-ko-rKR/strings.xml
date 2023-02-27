@@ -1,4 +1,6 @@
 <resources>
+    <string name="version_number">1.2</string>
+
     <string name="app_name">1365 봉사활동</string>
     <string name="menu_1">봉사 정보</string>
     <string name="menu_2">책갈피</string>
@@ -22,6 +24,8 @@
     <string name="end_date">종료일</string>
     <string name="type">봉사 유형</string>
     <string name="reset">초기화</string>
+    <string name="state_chip">봉사 상태</string>
+    <string name="read_chip">읽음 여부</string>
     <string name="no_bookmark">책갈피가 없습니다.</string>
 
     <string name="adult_young">성인/청소년</string>
@@ -34,13 +38,15 @@
     <string name="use_2_a">세부정보 화면에서 책갈피를 눌러보세요.</string>
 
     <string name="mode">테마</string>
-    <string name="read">기록 삭제</string>
-    <string name="delete_msg">정말 삭제 하시겠습니까?</string>
+    <string name="read">읽은 봉사활동</string>
+    <string name="read_visible">보이게</string>
+    <string name="read_invisible">안보이게</string>
+    <string name="read_delete">기록 삭제</string>
+    <string name="delete_read_msg">정말 삭제 하시겠습니까?</string>
     <string name="locale">언어</string>
     <string name="email">이메일</string>
     <string name="email_address">g6y116@naver.com</string>
     <string name="version">버전</string>
-    <string name="version_number">1.2</string>
 
     <string name="host">모집 기관</string>
     <string name="area">등록 기관</string>
@@ -55,6 +61,7 @@
 
     <string name="choice_area">지역 선택</string>
     <string name="choice_type">유형 선택</string>
+    <string name="choice_all">전체</string>
 
     <string name="volunteer_todo">모집 예정</string>
     <string name="volunteer_doing">모집 중</string>
