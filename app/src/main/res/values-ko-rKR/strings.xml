@@ -1,77 +1,71 @@
 <resources>
-    <string name="version_number">1.2</string>
-
     <string name="app_name">1365 봉사활동</string>
-    <string name="menu_1">봉사 정보</string>
-    <string name="menu_2">책갈피</string>
-    <string name="menu_3">더보기</string>
-    <string name="menu_4">세부 정보</string>
-    <string name="apply">신청하기</string>
-    <string name="book_mark">책갈피</string>
-    <string name="map">지도 정보</string>
-    <string name="done">완료</string>
-
-    <string name="system_mode">시스템 모드</string>
-    <string name="light_mode">라이트 모드</string>
-    <string name="dark_mode">다크 모드</string>
-
-    <string name="ko">한국어</string>
-    <string name="en">영어</string>
-
-    <string name="sido">전국</string>
-    <string name="googun">전체</string>
-    <string name="start_date">시작일</string>
-    <string name="end_date">종료일</string>
-    <string name="type">봉사 유형</string>
-    <string name="reset">초기화</string>
-    <string name="state_chip">봉사 상태</string>
-    <string name="read_chip">읽음 여부</string>
-    <string name="no_bookmark">책갈피가 없습니다.</string>
-
-    <string name="adult_young">성인/청소년</string>
-    <string name="adult">성인</string>
-    <string name="young">청소년</string>
-
-    <string name="use_1_q">Q. 봉사 신청을 앱에서 바로 할 수 없나요?</string>
-    <string name="use_1_a">아쉽게도 현재 앱은 신청에 대한 권한이 없습니다.</string>
-    <string name="use_2_q">Q. 책갈피 추가는 어떻게 하나요?</string>
-    <string name="use_2_a">세부정보 화면에서 책갈피를 눌러보세요.</string>
-
-    <string name="mode">테마</string>
-    <string name="read">읽은 봉사활동</string>
-    <string name="read_visible">보이게</string>
-    <string name="read_invisible">안보이게</string>
-    <string name="read_delete">기록 삭제</string>
-    <string name="delete_read_msg">정말 삭제 하시겠습니까?</string>
-    <string name="locale">언어</string>
-    <string name="email">이메일</string>
+    <string name="version_number">1.2</string>
     <string name="email_address">g6y116@naver.com</string>
-    <string name="version">버전</string>
 
-    <string name="host">모집 기관</string>
-    <string name="area">등록 기관</string>
-    <string name="place">봉사 장소</string>
-    <string name="person_num">모집 인원</string>
-    <string name="possible">지원 자격</string>
-    <string name="notice_period">모집 기간</string>
-    <string name="volunteer_period">봉사 기간</string>
-    <string name="volunteer_time">봉사 시간</string>
-    <string name="manager">담당자</string>
-    <string name="tel">연락처</string>
+    <string name="toolbar_home">봉사활동</string>
+    <string name="toolbar_bookmark">책갈피</string>
+    <string name="toolbar_more">더보기</string>
+    <string name="toolbar_detail">세부정보</string>
 
-    <string name="choice_area">지역 선택</string>
-    <string name="choice_type">유형 선택</string>
-    <string name="choice_all">전체</string>
-
-    <string name="volunteer_todo">모집 예정</string>
-    <string name="volunteer_doing">모집 중</string>
-    <string name="volunteer_done">모집 완료</string>
-
-    <string name="error_deleted_volunteer">삭제된 봉사 정보입니다.</string>
-
+    <string name="all">전체</string>
     <string name="yes">예</string>
     <string name="no">아니오</string>
+    <string name="confirm">확인</string>
+    <string name="cancel">취소</string>
+    <string name="apply">신청</string>
 
-    <string name="context_menu_delete_bookmark">북마크 삭제</string>
-    <string name="context_menu_add_bookmark">북마크 추가</string>
+    <!-- home fragment -->
+    <string name="chip_area">지역</string>
+    <string name="chip_area_all">전국</string>
+    <string name="chip_start_date">시작일</string>
+    <string name="chip_end_date">종료일</string>
+    <string name="chip_type">봉사자유형</string>
+    <string name="chip_type_all">전체</string>
+    <string name="chip_type_adult">성인</string>
+    <string name="chip_type_young">청소년</string>
+    <string name="chip_state">모집상태</string>
+    <string name="chip_state_all">전체</string>
+    <string name="chip_state_todo">모집예정</string>
+    <string name="chip_state_doing">모집중</string>
+    <string name="chip_state_done">모집완료</string>
+    <string name="chip_reset">초기화</string>
+
+    <!-- more fragment -->
+    <string name="language">언어</string>
+    <string name="language_ko">한국어</string>
+    <string name="language_en">영어</string>
+    <string name="theme">테마</string>
+    <string name="theme_system">시스템</string>
+    <string name="theme_light">라이트</string>
+    <string name="theme_dark">다크</string>
+    <string name="visit">방문기록</string>
+    <string name="visit_visible">보이게</string>
+    <string name="visit_invisible">안보이게</string>
+    <string name="visit_delete">기록삭제</string>
+    <string name="msg_visit_delete">정말 삭제하시겠습니까?</string>
+    <string name="email">이메일</string>
+    <string name="version">버전</string>
+
+    <!-- detail fragment -->
+    <string name="host">모집기관</string>
+    <string name="area">등록기관</string>
+    <string name="place">봉사장소</string>
+    <string name="person">모집인원</string>
+    <string name="type">봉사자유형</string>
+    <string name="notice_period">모집기간</string>
+    <string name="volunteer_period">봉사기간</string>
+    <string name="volunteer_time">봉사시간</string>
+    <string name="manager">담당자</string>
+    <string name="tel">연락처</string>
+    <string name="map">지도정보</string>
+
+    <!-- etc -->
+    <string name="dete_form_short">%s/%s</string>
+    <string name="dete_form">%s/%s ~ %s/%s</string>
+    <string name="time_form">%s시 ~ %s시</string>
+    <string name="msg_bookmark_empty">책갈피가 없습니다.</string>
+    <string name="msg_volunteer_deleted">삭제된 봉사정보입니다.</string>
+    <string name="add_bookmark">북마크 추가</string>
+    <string name="delete_bookmark">북마크 삭제</string>
 </resources>

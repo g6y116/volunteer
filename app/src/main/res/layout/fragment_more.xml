@@ -17,98 +17,6 @@
         android:background="@color/background">
 
         <androidx.cardview.widget.CardView
-            android:layout_marginTop="@dimen/margin_extra_small"
-            android:layout_marginHorizontal="@dimen/margin_medium"
-            android:layout_width="match_parent"
-            android:layout_height="64dp"
-            app:cardCornerRadius="@dimen/card_radius"
-            app:cardUseCompatPadding="true">
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:paddingVertical="@dimen/padding_small"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:clickable="true"
-                android:focusable="true"
-                android:background="@drawable/ripple">
-
-                <TextView
-                    android:id="@+id/use1Tv"
-                    style="@style/medium_text"
-                    android:layout_marginStart="@dimen/margin_medium"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/use_1_q"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintBottom_toTopOf="@+id/use1TvSub"/>
-
-                <TextView
-                    android:id="@+id/use1TvSub"
-                    style="@style/small_light_text"
-                    android:layout_marginTop="@dimen/margin_small"
-                    android:layout_marginStart="@dimen/margin_medium"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/use_1_a"
-                    app:layout_constraintTop_toBottomOf="@+id/use1Tv"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintBottom_toBottomOf="parent" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
-        </androidx.cardview.widget.CardView>
-
-        <androidx.cardview.widget.CardView
-            android:layout_marginTop="@dimen/margin_extra_small"
-            android:layout_marginHorizontal="@dimen/margin_medium"
-            android:layout_width="match_parent"
-            android:layout_height="64dp"
-            app:cardCornerRadius="@dimen/card_radius"
-            app:cardUseCompatPadding="true">
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:paddingVertical="@dimen/padding_small"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:clickable="true"
-                android:focusable="true"
-                android:background="@drawable/ripple">
-
-                <TextView
-                    android:id="@+id/use2Tv"
-                    style="@style/medium_text"
-                    android:layout_marginStart="@dimen/margin_medium"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/use_2_q"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintBottom_toTopOf="@+id/use2TvSub"/>
-
-                <TextView
-                    android:id="@+id/use2TvSub"
-                    style="@style/small_light_text"
-                    android:layout_marginTop="@dimen/margin_small"
-                    android:layout_marginStart="@dimen/margin_medium"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/use_2_a"
-                    app:layout_constraintTop_toBottomOf="@+id/use2Tv"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintBottom_toBottomOf="parent" />
-
-                <ImageView
-                    android:layout_marginEnd="@dimen/margin_medium"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/ic_bookmark_border_24"
-                    android:backgroundTint="@color/green"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintBottom_toBottomOf="parent" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
-        </androidx.cardview.widget.CardView>
-
-        <androidx.cardview.widget.CardView
             android:id="@+id/localeCardView"
             android:layout_marginHorizontal="@dimen/margin_medium"
             android:layout_width="match_parent"
@@ -131,7 +39,7 @@
                     android:layout_marginStart="@dimen/margin_medium"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/locale"
+                    android:text="@string/language"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintBottom_toTopOf="@+id/localeTvSub"/>
@@ -143,7 +51,7 @@
                     android:layout_marginStart="@dimen/margin_medium"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    tools:text="@string/ko"
+                    tools:text="@string/language_ko"
                     app:layout_constraintTop_toBottomOf="@+id/localeTv"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintBottom_toBottomOf="parent" />
@@ -172,7 +80,7 @@
                     android:layout_marginStart="@dimen/margin_medium"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/mode"
+                    android:text="@string/theme"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintBottom_toTopOf="@+id/modeTvSub"/>
@@ -184,7 +92,7 @@
                     android:layout_marginStart="@dimen/margin_medium"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    tools:text="@string/system_mode"
+                    tools:text="@string/theme_system"
                     app:layout_constraintTop_toBottomOf="@+id/modeTv"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintBottom_toBottomOf="parent" />
@@ -213,7 +121,7 @@
                     android:layout_marginStart="@dimen/margin_medium"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/read"
+                    android:text="@string/visit"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintBottom_toTopOf="@+id/readTvSub"/>
@@ -225,7 +133,7 @@
                     android:layout_marginStart="@dimen/margin_medium"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/read_visible"
+                    android:text="@string/visit_visible"
                     app:layout_constraintTop_toBottomOf="@+id/readTv"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintBottom_toBottomOf="parent" />

@@ -11,8 +11,8 @@ import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import g6y116.volunteer.Const
 import g6y116.volunteer.api.VolunteerApi
-import g6y116.volunteer.dao.BookMarkDao
-import g6y116.volunteer.dao.ReadDao
+import g6y116.volunteer.dao.BookmarkDao
+import g6y116.volunteer.dao.VisitDao
 import g6y116.volunteer.data.*
 import g6y116.volunteer.datasource.HomePagingSource
 import kotlinx.coroutines.flow.Flow
@@ -23,158 +23,135 @@ import java.io.IOException
 import javax.inject.Inject
 
 interface VolunteerRepository {
-    fun getHomeList(recentSearch: RecentSearch): Flow<PagingData<VolunteerInfo>>
-    fun getBookMarkLiveList(): LiveData<List<VolunteerInfo>>
-    suspend fun getBookMarkList(): List<VolunteerInfo>
-    fun getReadLiveList(): LiveData<List<Read>>
-    suspend fun getReadList(): List<Read>
-    suspend fun getDetail(pID: String): Volunteer?
-    suspend fun addBookMark(volunteerInfo: VolunteerInfo)
-    suspend fun removeBookMark(pID: String)
-    suspend fun addRead(read: Read)
-    suspend fun removeRead()
-    suspend fun setRecentSearch(recentSearch: RecentSearch)
-    suspend fun getRecentSearch(): Flow<RecentSearch>
-    suspend fun setMode(mode: String)
-    suspend fun getMode(): String
-    suspend fun setLocale(mode: String)
-    suspend fun getLocale(): String
-    suspend fun setStateOption(mode: String)
-    suspend fun getStateOption(): String
-    suspend fun setReadOption(mode: String)
-    suspend fun getReadOption(): String
+    suspend fun getVolunteer(pID: String): Volunteer?
+    fun getVolunteerFlowList(searchOption: SearchOption): Flow<PagingData<Info>>
+
+    fun getBookmarkLiveList(): LiveData<List<Info>>
+    suspend fun getBookmarkList(): List<Info>
+    fun getVisitLiveList(): LiveData<List<Visit>>
+    suspend fun getVisitList(): List<Visit>
+
+    suspend fun addBookmark(info: Info)
+    suspend fun removeBookmark(pID: String)
+    suspend fun addVisit(visit: Visit)
+    suspend fun removeVisit()
+
+    suspend fun setSearchOption(searchOption: SearchOption)
+    suspend fun getSearchOption(): SearchOption
+    suspend fun setThemeOption(option: String)
+    suspend fun getThemeOption(): String
+    suspend fun setLanguageOption(language: String)
+    suspend fun getLanguageOption(): String
+    suspend fun setVisitOption(option: String)
+    suspend fun getVisitOption(): String
 }
 
 class VolunteerRepositoryImpl @Inject constructor(
     private val api: VolunteerApi,
-    private val bookMarkDao: BookMarkDao,
-    private val readDao: ReadDao,
+    private val bookmarkDao: BookmarkDao,
+    private val visitDao: VisitDao,
     private val dataStore: DataStore<Preferences>
 ) : VolunteerRepository {
 
-    override fun getHomeList(recentSearch: RecentSearch): Flow<PagingData<VolunteerInfo>> {
-        return Pager(
+    override suspend fun getVolunteer(pID: String): Volunteer? = (api.getVolunteer(pID).body() as DetailResponse).body.items.item?.toVolunteer()
+    override fun getVolunteerFlowList(searchOption: SearchOption): Flow<PagingData<Info>> =
+        Pager(
             config = PagingConfig(pageSize = Const.LOAD_SIZE, enablePlaceholders = true),
-            pagingSourceFactory = { HomePagingSource(api, recentSearch) },
+            pagingSourceFactory = { HomePagingSource(api, searchOption) },
         ).flow
-    }
 
-    override fun getBookMarkLiveList(): LiveData<List<VolunteerInfo>> = bookMarkDao.getBookMarkLiveList()
-    override suspend fun getBookMarkList(): List<VolunteerInfo> = bookMarkDao.getBookMarkList()
-    override fun getReadLiveList(): LiveData<List<Read>> = readDao.getReadLiveList()
-    override suspend fun getReadList(): List<Read> = readDao.getReadList()
+    override fun getBookmarkLiveList(): LiveData<List<Info>> = bookmarkDao.getLiveList()
+    override suspend fun getBookmarkList(): List<Info> = bookmarkDao.getList()
+    override fun getVisitLiveList(): LiveData<List<Visit>> = visitDao.getLiveList()
+    override suspend fun getVisitList(): List<Visit> = visitDao.getList()
 
-    override suspend fun getDetail(pID: String): Volunteer? = (api.getVolunteerDetail(pID).body() as DetailResponse).body.items.item?.toVolunteer()
-    override suspend fun addBookMark(volunteerInfo: VolunteerInfo) = bookMarkDao.addBookMark(volunteerInfo)
-    override suspend fun removeBookMark(pID: String) = bookMarkDao.removeBookMark(pID)
-    override suspend fun addRead(read: Read) = readDao.addRead(read)
-    override suspend fun removeRead() = readDao.removeRead()
+    override suspend fun addBookmark(info: Info) = bookmarkDao.add(info)
+    override suspend fun removeBookmark(pID: String) = bookmarkDao.remove(pID)
+    override suspend fun addVisit(visit: Visit) = visitDao.add(visit)
+    override suspend fun removeVisit() = visitDao.remove()
 
-    override suspend fun setRecentSearch(recentSearch: RecentSearch) {
+    override suspend fun setSearchOption(searchOption: SearchOption) {
         dataStore.edit { prefs ->
-            prefs[stringPreferencesKey(Const.PrefKey.SI_DO_CODE)] = recentSearch.siDoCode ?: ""
-            prefs[stringPreferencesKey(Const.PrefKey.GOO_GUN_CODE)] = recentSearch.gooGunCode ?: ""
-            prefs[stringPreferencesKey(Const.PrefKey.S_DATE)] = recentSearch.sDate ?: ""
-            prefs[stringPreferencesKey(Const.PrefKey.E_DATE)] = recentSearch.eDate ?: ""
-            prefs[stringPreferencesKey(Const.PrefKey.IS_ADULT_POSSIBLE)] = recentSearch.isAdultPossible ?: ""
-            prefs[stringPreferencesKey(Const.PrefKey.IS_YOUNG_POSSIBLE)] = recentSearch.isYoungPossible ?: ""
-            prefs[stringPreferencesKey(Const.PrefKey.KEY_WORD)] = recentSearch.keyWord ?: ""
+            prefs[stringPreferencesKey(Const.PrefKey.SIDO)] = searchOption.siDoCode ?: ""
+            prefs[stringPreferencesKey(Const.PrefKey.GOOGUN)] = searchOption.gooGunCode ?: ""
+            prefs[stringPreferencesKey(Const.PrefKey.START_DATE)] = searchOption.sDate ?: ""
+            prefs[stringPreferencesKey(Const.PrefKey.END_DATE)] = searchOption.eDate ?: ""
+            prefs[stringPreferencesKey(Const.PrefKey.ADULT)] = searchOption.isAdult ?: ""
+            prefs[stringPreferencesKey(Const.PrefKey.YOUNG)] = searchOption.isYoung ?: ""
+            prefs[stringPreferencesKey(Const.PrefKey.STATE)] = searchOption.state ?: ""
+            prefs[stringPreferencesKey(Const.PrefKey.KEY_WORD)] = searchOption.keyWord ?: ""
         }
     }
-    override suspend fun getRecentSearch(): Flow<RecentSearch> {
-        return dataStore.data.catch { exception ->
+
+    override suspend fun getSearchOption(): SearchOption =
+        dataStore.data.catch { exception ->
             if (exception is IOException) {
                 exception.printStackTrace()
                 emit(emptyPreferences())
             } else { throw exception }
         }
-            .map { prefs ->
-                RecentSearch(
-                    prefs[stringPreferencesKey(Const.PrefKey.SI_DO_CODE)].let { if (it != "") it else null},
-                    prefs[stringPreferencesKey(Const.PrefKey.GOO_GUN_CODE)].let { if (it != "") it else null},
-                    prefs[stringPreferencesKey(Const.PrefKey.S_DATE)].let { if (it != "") it else null},
-                    prefs[stringPreferencesKey(Const.PrefKey.E_DATE)].let { if (it != "") it else null},
-                    prefs[stringPreferencesKey(Const.PrefKey.IS_ADULT_POSSIBLE)].let { if (it != "") it else null},
-                    prefs[stringPreferencesKey(Const.PrefKey.IS_YOUNG_POSSIBLE)].let { if (it != "") it else null},
-                    prefs[stringPreferencesKey(Const.PrefKey.KEY_WORD)].let { if (it != "") it else null},
-                )
-            }
-    }
+        .map { prefs ->
+            SearchOption(
+                prefs[stringPreferencesKey(Const.PrefKey.SIDO)].let { if (it != "") it else null},
+                prefs[stringPreferencesKey(Const.PrefKey.GOOGUN)].let { if (it != "") it else null},
+                prefs[stringPreferencesKey(Const.PrefKey.START_DATE)].let { if (it != "") it else null},
+                prefs[stringPreferencesKey(Const.PrefKey.END_DATE)].let { if (it != "") it else null},
+                prefs[stringPreferencesKey(Const.PrefKey.ADULT)].let { if (it != "") it else null},
+                prefs[stringPreferencesKey(Const.PrefKey.YOUNG)].let { if (it != "") it else null},
+                prefs[stringPreferencesKey(Const.PrefKey.KEY_WORD)].let { if (it != "") it else null},
+                prefs[stringPreferencesKey(Const.PrefKey.STATE)].let { if (it != "") it else null},
+            )
+        }.first()
 
-    override suspend fun setMode(mode: String) {
+
+    override suspend fun setThemeOption(option: String) {
         dataStore.edit { prefs ->
-            prefs[stringPreferencesKey(Const.PrefKey.MODE)] = mode
+            prefs[stringPreferencesKey(Const.PrefKey.THEME)] = option
         }
     }
 
-    override suspend fun getMode(): String =
-        dataStore.data
-            .catch { exception ->
-                if (exception is IOException) {
-                    exception.printStackTrace()
-                    emit(emptyPreferences())
-                } else { throw exception }
-            }
-            .map { prefs ->
-                prefs[stringPreferencesKey(Const.PrefKey.MODE)] ?: Const.MODE.SYSTEM_MODE
-            }
-            .first()
+    override suspend fun getThemeOption(): String =
+        dataStore.data.catch { exception ->
+            if (exception is IOException) {
+                exception.printStackTrace()
+                emit(emptyPreferences())
+            } else { throw exception }
+        }
+        .map { prefs ->
+            prefs[stringPreferencesKey(Const.PrefKey.THEME)] ?: Const.THEME.SYSTEM
+        }.first()
 
-    override suspend fun setLocale(mode: String) {
+    override suspend fun setLanguageOption(language: String) {
         dataStore.edit { prefs ->
-            prefs[stringPreferencesKey(Const.PrefKey.LOCALE)] = mode
+            prefs[stringPreferencesKey(Const.PrefKey.LANGUAGE)] = language
         }
     }
 
-    override suspend fun getLocale(): String =
-        dataStore.data
-            .catch { exception ->
-                if (exception is IOException) {
-                    exception.printStackTrace()
-                    emit(emptyPreferences())
-                } else { throw exception }
-            }
-            .map { prefs ->
-                prefs[stringPreferencesKey(Const.PrefKey.LOCALE)] ?: Const.LOCALE.KO
-            }
-            .first()
+    override suspend fun getLanguageOption(): String =
+        dataStore.data.catch { exception ->
+            if (exception is IOException) {
+                exception.printStackTrace()
+                emit(emptyPreferences())
+            } else { throw exception }
+        }
+        .map { prefs ->
+            prefs[stringPreferencesKey(Const.PrefKey.LANGUAGE)] ?: Const.LANGUAGE.KOREAN
+        }.first()
 
-    override suspend fun setStateOption(mode: String) {
+    override suspend fun setVisitOption(option: String) {
         dataStore.edit { prefs ->
-            prefs[stringPreferencesKey(Const.PrefKey.STATE)] = mode
+            prefs[stringPreferencesKey(Const.PrefKey.VISIT)] = option
         }
     }
 
-    override suspend fun getStateOption(): String =
-        dataStore.data
-            .catch { exception ->
-                if (exception is IOException) {
-                    exception.printStackTrace()
-                    emit(emptyPreferences())
-                } else { throw exception }
-            }
-            .map { prefs ->
-                prefs[stringPreferencesKey(Const.PrefKey.STATE)] ?: Const.STATE.ALL
-            }
-            .first()
-
-
-    override suspend fun setReadOption(mode: String) {
-        dataStore.edit { prefs ->
-            prefs[stringPreferencesKey(Const.PrefKey.READ)] = mode
+    override suspend fun getVisitOption(): String =
+        dataStore.data.catch { exception ->
+            if (exception is IOException) {
+                exception.printStackTrace()
+                emit(emptyPreferences())
+            } else { throw exception }
         }
-    }
-
-    override suspend fun getReadOption(): String =
-        dataStore.data
-            .catch { exception ->
-                if (exception is IOException) {
-                    exception.printStackTrace()
-                    emit(emptyPreferences())
-                } else { throw exception }
-            }
-            .map { prefs ->
-                prefs[stringPreferencesKey(Const.PrefKey.READ)] ?: Const.READ.VISIBLE
-            }
-            .first()
+        .map { prefs ->
+            prefs[stringPreferencesKey(Const.PrefKey.VISIT)] ?: Const.VISIT.VISIBLE
+        }.first()
 }

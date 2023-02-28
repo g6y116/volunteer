@@ -16,8 +16,8 @@ import dagger.hilt.components.SingletonComponent
 import g6y116.volunteer.AppDatabase
 import g6y116.volunteer.Const
 import g6y116.volunteer.api.VolunteerApi
-import g6y116.volunteer.dao.BookMarkDao
-import g6y116.volunteer.dao.ReadDao
+import g6y116.volunteer.dao.BookmarkDao
+import g6y116.volunteer.dao.VisitDao
 import retrofit2.Retrofit
 import javax.inject.Singleton
 
@@ -25,10 +25,10 @@ import javax.inject.Singleton
 object AppModule {
 
     @Singleton @Provides
-    fun provideBookMarkDao(database: AppDatabase): BookMarkDao = database.getBookMarkDao()
+    fun provideBookmarkDao(database: AppDatabase): BookmarkDao = database.getBookmarkDao()
 
     @Singleton @Provides
-    fun provideReadDao(database: AppDatabase): ReadDao = database.getReadDao()
+    fun provideVisitDao(database: AppDatabase): VisitDao = database.getVisitDao()
 
     @Singleton @Provides
     fun provideVolunteerApi(retrofit: Retrofit): VolunteerApi = retrofit.create(VolunteerApi::class.java)

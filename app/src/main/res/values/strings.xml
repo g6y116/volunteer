@@ -1,77 +1,71 @@
 <resources>
-    <string name="version_number">1.2</string>
-
     <string name="app_name">1365 Volunteer</string>
-    <string name="menu_1">Home</string>
-    <string name="menu_2">BookMark</string>
-    <string name="menu_3">More</string>
-    <string name="menu_4">Detail</string>
-    <string name="apply">Apply</string>
-    <string name="book_mark">BookMark</string>
-    <string name="map">Map</string>
-    <string name="done">Done</string>
-
-    <string name="system_mode">System Mode</string>
-    <string name="light_mode">Light Mode</string>
-    <string name="dark_mode">Dark Mode</string>
-
-    <string name="ko">Korean</string>
-    <string name="en">English</string>
-
-    <string name="sido">All</string>
-    <string name="googun">All</string>
-    <string name="start_date">Start</string>
-    <string name="end_date">End</string>
-    <string name="type">Type</string>
-    <string name="reset">Reset</string>
-    <string name="state_chip">State</string>
-    <string name="read_chip">Read Or Not</string>
-    <string name="no_bookmark">There are no bookmarks.</string>
-
-    <string name="adult_young">Adult/Young</string>
-    <string name="adult">Adult</string>
-    <string name="young">Young</string>
-
-    <string name="use_1_q">Q. Can\'t I apply for service right from this app?</string>
-    <string name="use_1_a">Unfortunately, this app does\'t have permission to apply.</string>
-    <string name="use_2_q">Q. How do I add bookmarks?</string>
-    <string name="use_2_a">Tap the bookmark icon</string>
-
-    <string name="mode">Theme</string>
-    <string name="read">Read Volunteer</string>
-    <string name="read_visible">Visible</string>
-    <string name="read_invisible">Invisible</string>
-    <string name="read_delete">Delete History</string>
-    <string name="delete_read_msg">Are you sure delete it?</string>
-    <string name="locale">Language</string>
-    <string name="email">Email</string>
+    <string name="version_number">1.2</string>
     <string name="email_address">g6y116@naver.com</string>
+
+    <string name="toolbar_home">Volunteer</string>
+    <string name="toolbar_bookmark">Bookmark</string>
+    <string name="toolbar_more">More</string>
+    <string name="toolbar_detail">Detail</string>
+
+    <string name="all">All</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="confirm">Confirm</string>
+    <string name="cancel">Cancel</string>
+    <string name="apply">Apply</string>
+
+    <!-- home fragment -->
+    <string name="chip_area">Area</string>
+    <string name="chip_area_all">All</string>
+    <string name="chip_start_date">Start</string>
+    <string name="chip_end_date">End</string>
+    <string name="chip_type">Type</string>
+    <string name="chip_type_all">All</string>
+    <string name="chip_type_adult">Adult</string>
+    <string name="chip_type_young">Young</string>
+    <string name="chip_state">State</string>
+    <string name="chip_state_all">All</string>
+    <string name="chip_state_todo">Todo</string>
+    <string name="chip_state_doing">Doing</string>
+    <string name="chip_state_done">Done</string>
+    <string name="chip_reset">Reset</string>
+
+    <!-- more fragment -->
+    <string name="language">Language</string>
+    <string name="language_ko">Korean</string>
+    <string name="language_en">English</string>
+    <string name="theme">Theme</string>
+    <string name="theme_system">System</string>
+    <string name="theme_light">Light</string>
+    <string name="theme_dark">Dark</string>
+    <string name="visit">Visit History</string>
+    <string name="visit_visible">Visible</string>
+    <string name="visit_invisible">Invisible</string>
+    <string name="visit_delete">Delete History</string>
+    <string name="msg_visit_delete">Are you sure delete it?</string>
+    <string name="email">Email</string>
     <string name="version">Version</string>
 
+    <!-- detail fragment -->
     <string name="host">Host</string>
     <string name="area">Area</string>
     <string name="place">Place</string>
-    <string name="person_num">Person</string>
-    <string name="possible">Possible</string>
+    <string name="person">Person</string>
+    <string name="type">Type</string>
     <string name="notice_period">Recruitment</string>
-    <string name="volunteer_period">Volunteer period</string>
-    <string name="volunteer_time">Volunteer hours</string>
+    <string name="volunteer_period">Volunteer Period</string>
+    <string name="volunteer_time">Volunteer Time</string>
     <string name="manager">Manager</string>
-    <string name="tel">Contact</string>
+    <string name="tel">Tel</string>
+    <string name="map">Map</string>
 
-    <string name="choice_area">Area</string>
-    <string name="choice_type">Type</string>
-    <string name="choice_all">All</string>
-
-    <string name="volunteer_todo">ToDo</string>
-    <string name="volunteer_doing">Doing</string>
-    <string name="volunteer_done">Done</string>
-
-    <string name="error_deleted_volunteer">This volunteer has been deleted.</string>
-
-    <string name="yes">Yes</string>
-    <string name="no">No</string>
-
-    <string name="context_menu_delete_bookmark">Delete BookMark</string>
-    <string name="context_menu_add_bookmark">Add BookMark</string>
+    <!-- etc -->
+    <string name="dete_form_short">%s/%s</string>
+    <string name="dete_form">%s/%s ~ %s/%s</string>
+    <string name="time_form">%s ~ %s</string>
+    <string name="msg_bookmark_empty">There are no bookmarks.</string>
+    <string name="msg_volunteer_deleted">This volunteer has been deleted.</string>
+    <string name="add_bookmark">Add Bookmark</string>
+    <string name="delete_bookmark">Delete Bookmark</string>
 </resources>

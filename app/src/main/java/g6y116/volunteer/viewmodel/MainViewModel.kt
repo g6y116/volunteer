@@ -9,88 +9,79 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
-import androidx.paging.map
 import dagger.hilt.android.lifecycle.HiltViewModel
 import g6y116.volunteer.Const
-import g6y116.volunteer.data.Read
-import g6y116.volunteer.data.RecentSearch
-import g6y116.volunteer.data.VolunteerInfo
-import g6y116.volunteer.log
+import g6y116.volunteer.data.Info
+import g6y116.volunteer.data.Visit
+import g6y116.volunteer.data.SearchOption
 import g6y116.volunteer.repository.VolunteerRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 @HiltViewModel
 class MainViewModel @Inject constructor(private val repository: VolunteerRepository) : ViewModel() {
 
-    var homeList: MutableStateFlow<PagingData<VolunteerInfo>> = MutableStateFlow(PagingData.empty())
-    val bookMarkList: LiveData<List<VolunteerInfo>> = repository.getBookMarkLiveList()
-    val readList: LiveData<List<Read>> = repository.getReadLiveList()
-    val recentSearchLiveData: MutableLiveData<RecentSearch> = MutableLiveData()
-    val modeLiveData: MutableLiveData<String> = MutableLiveData()
-    val localeLiveData: MutableLiveData<String> = MutableLiveData()
-    val stateLiveData: MutableLiveData<String> = MutableLiveData()
-    val readLiveData: MutableLiveData<String> = MutableLiveData()
+    var infoFlowList: MutableStateFlow<PagingData<Info>> = MutableStateFlow(PagingData.empty())
+    val bookmarkLiveList: LiveData<List<Info>> = repository.getBookmarkLiveList()
+    val visitLiveList: LiveData<List<Visit>> = repository.getVisitLiveList()
+
+    val searchOptionLiveData: MutableLiveData<SearchOption> = MutableLiveData()
+    val themeOptionLiveData: MutableLiveData<String> = MutableLiveData()
+    val languageOptionLiveData: MutableLiveData<String> = MutableLiveData()
+    val visitOptionLiveData: MutableLiveData<String> = MutableLiveData()
+
+    var contextMenuClickPosition: MutableLiveData<Int> = MutableLiveData()
 
     init {
-        viewModelScope.launch {
-            recentSearchLiveData.postValue(getRecentSearch())
-            changeOption(getRecentSearch())
-            getState()
-            getRead()
-        }
+        getSearchOption()
+        getThemeOption()
+        getLanguageOption()
+        getVisitOption()
     }
 
-    private fun changeOption(recentSearch: RecentSearch) {
-        viewModelScope.launch {
-            repository.getHomeList(recentSearch).cachedIn(viewModelScope).collect {
-                homeList.value = it
+    private fun getSearchOption() {
+        viewModelScope.launch(Dispatchers.Main) {
+            val searchOption = repository.getSearchOption()
+            searchOptionLiveData.value = searchOption
+            repository.getVolunteerFlowList(searchOption).cachedIn(viewModelScope).collect {
+                infoFlowList.value = it
             }
         }
     }
 
-    fun removeRecentSearch() = viewModelScope.launch(Dispatchers.IO) {
-        val recentSearch = RecentSearch.reset()
-        repository.setRecentSearch(recentSearch)
-        recentSearchLiveData.postValue(recentSearch)
-        changeOption(recentSearch)
-    }
-
-    fun setRecentSearch(recentSearch: RecentSearch) = viewModelScope.launch(Dispatchers.IO) {
-        repository.setRecentSearch(recentSearch)
-        recentSearchLiveData.postValue(recentSearch)
-        changeOption(recentSearch)
-    }
-
-    private suspend fun getRecentSearch() = withContext(Dispatchers.IO) {
-        repository.getRecentSearch().first()
-    }
-
-    fun getMode() {
+    fun setSearchOption(searchOption: SearchOption) {
         viewModelScope.launch(Dispatchers.Main) {
-            val mode = repository.getMode()
-            modeLiveData.value = mode
-            applyMode(mode)
+            repository.setSearchOption(searchOption)
+            searchOptionLiveData.value = searchOption
+            repository.getVolunteerFlowList(searchOption).cachedIn(viewModelScope).collect {
+                infoFlowList.value = it
+            }
         }
     }
 
-    fun setMode(mode: String) {
+    private fun getThemeOption() {
         viewModelScope.launch(Dispatchers.Main) {
-            repository.setMode(mode)
-            modeLiveData.value = mode
-            applyMode(mode)
+            val themeOption = repository.getThemeOption()
+            themeOptionLiveData.value = themeOption
+            applyTheme(themeOption)
         }
     }
 
-    private fun applyMode(mode: String) {
-        when(mode) {
-            Const.MODE.LIGHT_MODE -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
-            Const.MODE.DARK_MODE -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
-            Const.MODE.SYSTEM_MODE -> {
+    fun setThemeOption(option: String) {
+        viewModelScope.launch(Dispatchers.Main) {
+            repository.setThemeOption(option)
+            themeOptionLiveData.value = option
+            applyTheme(option)
+        }
+    }
+
+    private fun applyTheme(option: String) {
+        when(option) {
+            Const.THEME.LIGHT -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+            Const.THEME.DARK -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+            Const.THEME.SYSTEM -> {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q)
                     AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
                 else
@@ -99,79 +90,61 @@ class MainViewModel @Inject constructor(private val repository: VolunteerReposit
         }
     }
 
-    fun getLocale() {
+    private fun getLanguageOption() {
         viewModelScope.launch(Dispatchers.Main) {
-            localeLiveData.value = repository.getLocale()
+            languageOptionLiveData.value = repository.getLanguageOption()
         }
     }
 
-    fun setLocale(locale: String) {
+    fun setLanguageOption(language: String) {
         viewModelScope.launch(Dispatchers.Main) {
-            repository.setLocale(locale)
-            localeLiveData.value = locale
-            applyLocale(locale)
+            repository.setLanguageOption(language)
+            languageOptionLiveData.value = language
+            applyLanguage(language)
         }
     }
 
-    private fun applyLocale(locale: String) {
-        val enLocale = LocaleListCompat.forLanguageTags("en-US")
-        val koLocale = LocaleListCompat.forLanguageTags("ko-rKR")
+    private fun applyLanguage(language: String) {
         AppCompatDelegate.setApplicationLocales(
-            when(locale) {
-                Const.LOCALE.EN -> enLocale
-                else -> koLocale
+            when(language) {
+                Const.LANGUAGE.ENGLISH -> LocaleListCompat.forLanguageTags(Const.LANGUAGE.ENGLISH)
+                else -> LocaleListCompat.forLanguageTags(Const.LANGUAGE.KOREAN)
             }
         )
     }
 
-    fun removeRead() {
+    private fun getVisitOption() {
+        viewModelScope.launch(Dispatchers.Main) {
+            visitOptionLiveData.value = repository.getVisitOption()
+        }
+    }
+
+    fun setVisitOption(option: String) {
+        viewModelScope.launch(Dispatchers.Main) {
+            repository.setVisitOption(option)
+            visitOptionLiveData.value = option
+        }
+    }
+
+    fun deleteVisitHistory() {
         viewModelScope.launch {
-            repository.removeRead()
+            repository.removeVisit()
         }
     }
 
-    fun getRead() {
+    fun clickContextMenu(pID: String) {
         viewModelScope.launch(Dispatchers.Main) {
-            readLiveData.value = repository.getReadOption()
+            repository.removeBookmark(pID)
         }
     }
 
-    fun setRead(mode: String) {
-        viewModelScope.launch(Dispatchers.Main) {
-            repository.setReadOption(mode)
-            readLiveData.value = mode
-        }
-    }
-
-    fun getState() {
-        viewModelScope.launch(Dispatchers.Main) {
-            stateLiveData.value = repository.getStateOption()
-        }
-    }
-
-    fun setState(mode: String) {
-        viewModelScope.launch(Dispatchers.Main) {
-            repository.setStateOption(mode)
-            stateLiveData.value = mode
-        }
-    }
-
-    fun contextMenuDelete(pID: String) {
-        viewModelScope.launch {
-            bookMarkList.value?.let {
-                val isBookMark = it.any { it.pID == pID }
-                if (isBookMark) repository.removeBookMark(pID)
-            }
-        }
-    }
-
-    fun contextMenuAdd(pID: String, homeList: List<VolunteerInfo>) {
-        viewModelScope.launch {
-            bookMarkList.value?.let { list ->
-                val isBookMark = list.any { it.pID == pID }
-                if (!isBookMark) {
-                    repository.addBookMark(homeList.first { it.pID == pID })
-                }
+    fun clickContextMenu(pID: String, infoList: List<Info>) {
+        val info = infoList.find { it.pID == pID }
+        val isBookmark = bookmarkLiveList.value?.any { it.pID == pID } ?: false
+        info?.let {
+            viewModelScope.launch(Dispatchers.Main) {
+                if (isBookmark) repository.removeBookmark(pID)
+                else repository.addBookmark(it)
             }
         }
     }

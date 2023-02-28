@@ -5,16 +5,16 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import g6y116.volunteer.data.VolunteerInfo
+import g6y116.volunteer.data.Info
 import g6y116.volunteer.databinding.ItemVolrunteerInfoBinding
 
 class BookMarkAdapter(private val viewHolderBindListener: ViewHolderBindListener):
-    ListAdapter<VolunteerInfo, BookMarkAdapter.ViewHolder>(DIFF_CALLBACK) {
+    ListAdapter<Info, BookMarkAdapter.ViewHolder>(DIFF_CALLBACK) {
 
     companion object {
-        private val DIFF_CALLBACK = object : DiffUtil.ItemCallback<VolunteerInfo>() {
-            override fun areItemsTheSame(old: VolunteerInfo, new: VolunteerInfo) = old.pID == new.pID
-            override fun areContentsTheSame(old: VolunteerInfo, new: VolunteerInfo) = old == new
+        private val DIFF_CALLBACK = object : DiffUtil.ItemCallback<Info>() {
+            override fun areItemsTheSame(old: Info, new: Info) = old.pID == new.pID
+            override fun areContentsTheSame(old: Info, new: Info) = old == new
         }
     }
 
@@ -22,7 +22,7 @@ class BookMarkAdapter(private val viewHolderBindListener: ViewHolderBindListener
         private val binding: ItemVolrunteerInfoBinding,
         private val viewHolderBindListener: ViewHolderBindListener
     ): RecyclerView.ViewHolder(binding.root) {
-        fun bind(item: VolunteerInfo) {
+        fun bind(item: Info) {
             binding.item = item
             viewHolderBindListener.onViewHolderBind(this, item)
         }

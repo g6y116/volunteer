@@ -7,7 +7,7 @@
     <data>
         <variable
             name="item"
-            type="g6y116.volunteer.data.VolunteerInfo" />
+            type="g6y116.volunteer.data.Info" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

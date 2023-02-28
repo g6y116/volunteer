@@ -6,20 +6,19 @@ interface Const {
         const val SERVICE_KEY = "t0LTS5OH1ThRLqQH7cBgaUInxWKKhLhjOQVmrph7P3ZlCaHnOXZ4VXRVDzN%2BXg4hG%2FdtS4V6Xj49ubxjfCRSHA%3D%3D"
         const val DATABASE_NAME = "volunteer_db"
         const val DATASTORE_NAME = "volunteer_db"
+        const val INITIAL_PAGE_NUM = 1
+        const val LOAD_SIZE = 100
+    }
 
-        const val INIT_PAGE_NUM = 1
-        const val LOAD_SIZE = 40
-
-        const val HOME = "home"
-        const val BOOK_MARK = "bookMark"
+    interface FROM {
+        companion object {
+            const val HOME = "HOME"
+            const val BOOKMARK = "BOOKMARK"
+        }
     }
 
     interface TYPE {
         companion object {
-            const val BOTH = "성인/청소년"
-            const val ADULT = "성인"
-            const val YOUNG = "청소년"
-
             const val TRUE = "Y"
             const val FALSE = "N"
             val NO_MATTER = null
@@ -28,52 +27,49 @@ interface Const {
 
     interface STATE {
         companion object {
-            const val ALL = "전체"
-            const val DOING = "모집 중"
-            const val DONE = "모집 완료"
-
-            const val TODO_NUM = 1
-            const val DOING_NUM = 2
-            const val DONE_NUM = 3
+            const val ALL = "ALL"
+            const val TODO = "TODO"
+            const val DOING = "DOING"
+            const val DONE = "DONE"
         }
     }
 
-    interface MODE {
+    interface THEME {
         companion object {
-            const val SYSTEM_MODE = "system_mode"
-            const val LIGHT_MODE = "light_mode"
-            const val DARK_MODE = "dark_mode"
+            const val SYSTEM = "SYSTEM"
+            const val LIGHT = "LIGHT"
+            const val DARK = "DARK"
         }
     }
 
-    interface LOCALE {
+    interface LANGUAGE {
         companion object {
-            const val KO = "korean"
-            const val EN = "english"
+            const val KOREAN = "ko-rKR"
+            const val ENGLISH = "en-US"
         }
     }
 
-    interface READ {
+    interface VISIT {
         companion object {
-            const val VISIBLE = "보이게"
-            const val INVISIBLE = "안보이게"
+            const val VISIBLE = "VISIBLE"
+            const val INVISIBLE = "INVISIBLE"
         }
     }
 
     interface PrefKey {
         companion object {
-            const val MODE = "mode"
-            const val LOCALE = "locale"
-            const val RECENT_SEARCH = "recentSearch"
-            const val SI_DO_CODE = "siDoCode"
-            const val GOO_GUN_CODE = "gooGunCode"
-            const val S_DATE = "sDate"
-            const val E_DATE = "eDate"
-            const val IS_ADULT_POSSIBLE = "isAdultPossible"
-            const val IS_YOUNG_POSSIBLE = "isYoungPossible"
+            const val SIDO = "SIDO"
+            const val GOOGUN = "GOOGUN"
+            const val START_DATE = "START_DATE"
+            const val END_DATE = "END_DATE"
+            const val ADULT = "ADULT"
+            const val YOUNG = "YOUNG"
+            const val STATE = "STATE"
             const val KEY_WORD = "keyWord"
-            const val READ = "read"
-            const val STATE = "state"
+
+            const val LANGUAGE = "LANGUAGE"
+            const val THEME = "THEME"
+            const val VISIT = "VISIT"
         }
     }
 }

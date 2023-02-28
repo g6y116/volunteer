@@ -1,7 +1,6 @@
 package g6y116.volunteer.view
 
 import android.app.AlertDialog
-import android.content.Context
 import android.os.Build
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -19,85 +18,64 @@ class MoreFragment : Fragment() {
 
     private val binding by lazy { FragmentMoreBinding.inflate(layoutInflater) }
     private val viewModel: MainViewModel by activityViewModels()
-    private lateinit var mainActivity: Context
 
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        mainActivity = context
-    }
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View = binding.root
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         binding.viewmodel = viewModel
-
         binding.localeCardView.visibility =
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) View.VISIBLE
             else View.GONE
 
         setOnclick()
         setObserver()
-        return binding.root
     }
 
     private fun setOnclick() {
         binding.modeLayout.onClick {
-            val modes = arrayOf(
-                getString(R.string.system_mode),
-                getString(R.string.light_mode),
-                getString(R.string.dark_mode),
-            )
-
+            val menus = arrayOf(getString(R.string.theme_system), getString(R.string.theme_light), getString(R.string.theme_dark))
             AlertDialog.Builder(context)
-                .setTitle(getString(R.string.mode))
-                .setItems(modes) { _, which ->
+                .setTitle(getString(R.string.theme))
+                .setItems(menus) { _, which ->
                     when(which) {
-                        0 -> viewModel.setMode(Const.MODE.SYSTEM_MODE)
-                        1 -> viewModel.setMode(Const.MODE.LIGHT_MODE)
-                        2 -> viewModel.setMode(Const.MODE.DARK_MODE)
+                        0 -> viewModel.setThemeOption(Const.THEME.SYSTEM)
+                        1 -> viewModel.setThemeOption(Const.THEME.LIGHT)
+                        2 -> viewModel.setThemeOption(Const.THEME.DARK)
                     }
                 }
                 .show()
         }
 
         binding.localeLayout.onClick {
-            val locales = arrayOf(
-                getString(R.string.ko),
-                getString(R.string.en),
-            )
-
+            val menus = arrayOf(getString(R.string.language_ko), getString(R.string.language_en))
             AlertDialog.Builder(context)
-                .setTitle(getString(R.string.locale))
-                .setItems(locales) { _, which ->
+                .setTitle(getString(R.string.language))
+                .setItems(menus) { _, which ->
                     when(which) {
-                        0 -> viewModel.setLocale(Const.LOCALE.KO)
-                        1 -> viewModel.setLocale(Const.LOCALE.EN)
+                        0 -> viewModel.setLanguageOption(Const.LANGUAGE.KOREAN)
+                        1 -> viewModel.setLanguageOption(Const.LANGUAGE.ENGLISH)
                     }
                 }
                 .show()
         }
 
         binding.readLayout.onClick {
-            val menus = arrayOf(
-                getString(R.string.read_visible),
-                getString(R.string.read_invisible),
-                getString(R.string.read_delete),
-            )
-
+            val menus = arrayOf(getString(R.string.visit_visible), getString(R.string.visit_invisible), getString(R.string.visit_delete))
             AlertDialog.Builder(context)
-                .setTitle(getString(R.string.read))
+                .setTitle(getString(R.string.visit))
                 .setItems(menus) { _, which ->
                     when(which) {
-                        0 -> viewModel.setRead(Const.READ.VISIBLE)
-                        1 -> viewModel.setRead(Const.READ.INVISIBLE)
+                        0 -> viewModel.setVisitOption(Const.VISIT.VISIBLE)
+                        1 -> viewModel.setVisitOption(Const.VISIT.INVISIBLE)
                         2 -> {
                             AlertDialog.Builder(context)
-                                .setTitle(getString(R.string.read))
-                                .setMessage(getString(R.string.delete_read_msg))
+                                .setTitle(getString(R.string.visit))
+                                .setMessage(getString(R.string.msg_visit_delete))
                                 .setPositiveButton(getString(R.string.yes)) { _, _ ->
-                                    viewModel.removeRead()
+                                    viewModel.deleteVisitHistory()
                                 }
-                                .setNegativeButton(getString(R.string.no)) { _, _ ->
-
-                                }
+                                .setNegativeButton(getString(R.string.no)) { _, _ -> }
                                 .show()
                         }
                     }
@@ -107,25 +85,25 @@ class MoreFragment : Fragment() {
     }
 
     private fun setObserver() {
-        viewModel.modeLiveData.observe(viewLifecycleOwner) {
+        viewModel.themeOptionLiveData.observe(viewLifecycleOwner) {
             when(it) {
-                Const.MODE.SYSTEM_MODE -> binding.modeTvSub.text = getString(R.string.system_mode)
-                Const.MODE.LIGHT_MODE -> binding.modeTvSub.text = getString(R.string.light_mode)
-                Const.MODE.DARK_MODE -> binding.modeTvSub.text = getString(R.string.dark_mode)
+                Const.THEME.SYSTEM -> binding.modeTvSub.text = getString(R.string.theme_system)
+                Const.THEME.LIGHT -> binding.modeTvSub.text = getString(R.string.theme_light)
+                Const.THEME.DARK -> binding.modeTvSub.text = getString(R.string.theme_dark)
             }
         }
 
-        viewModel.localeLiveData.observe(viewLifecycleOwner) {
+        viewModel.languageOptionLiveData.observe(viewLifecycleOwner) {
             when(it) {
-                Const.LOCALE.KO -> binding.localeTvSub.text = getString(R.string.ko)
-                Const.LOCALE.EN -> binding.localeTvSub.text = getString(R.string.en)
+                Const.LANGUAGE.KOREAN -> binding.localeTvSub.text = getString(R.string.language_ko)
+                Const.LANGUAGE.ENGLISH -> binding.localeTvSub.text = getString(R.string.language_en)
             }
         }
 
-        viewModel.readLiveData.observe(viewLifecycleOwner) {
+        viewModel.visitOptionLiveData.observe(viewLifecycleOwner) {
             when(it) {
-                Const.READ.VISIBLE -> binding.readTvSub.text = getString(R.string.read_visible)
-                Const.READ.INVISIBLE -> binding.readTvSub.text = getString(R.string.read_invisible)
+                Const.VISIT.VISIBLE -> binding.readTvSub.text = getString(R.string.visit_visible)
+                Const.VISIT.INVISIBLE -> binding.readTvSub.text = getString(R.string.visit_invisible)
             }
         }
     }
@@ -133,7 +111,7 @@ class MoreFragment : Fragment() {
     override fun onResume() {
         super.onResume()
         activity?.let { mainActivity ->
-            (mainActivity as MainActivity).setToolbarTitle(getText(R.string.menu_3).toString())
+            (mainActivity as MainActivity).setToolbarTitle(getText(R.string.toolbar_more).toString())
         }
     }
 }

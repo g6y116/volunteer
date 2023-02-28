@@ -3,68 +3,67 @@ package g6y116.volunteer
 data class Area(val name: String, val code: String)
 
 object Code {
-    fun getSiDo(nameOrCode: String?): Area? = 전국.find { it.name == nameOrCode || it.code == nameOrCode }
+    fun getSiDo(nameOrCode: String): Area? = 전국.find { it.name == nameOrCode || it.code == nameOrCode }
 
     fun getGooGun(siDoNameOrCode: String, GooGunNameOrCode: String): Area? = when(siDoNameOrCode) {
-        "경기도", "6410000" -> 경기도.find { it.name == GooGunNameOrCode || it.code == GooGunNameOrCode }
         "서울", "6110000" -> 서울.find { it.name == GooGunNameOrCode || it.code == GooGunNameOrCode }
-        "부산", "6260000" -> 부산.find { it.name == GooGunNameOrCode || it.code == GooGunNameOrCode }
-        "경상남도", "6480000" -> 경상남도.find { it.name == GooGunNameOrCode || it.code == GooGunNameOrCode }
         "인천", "6280000" -> 인천.find { it.name == GooGunNameOrCode || it.code == GooGunNameOrCode }
-        "경상북도", "6470000" -> 경상북도.find { it.name == GooGunNameOrCode || it.code == GooGunNameOrCode }
-        "대구", "6270000" -> 대구.find { it.name == GooGunNameOrCode || it.code == GooGunNameOrCode }
-        "충청남도", "6440000" -> 충청남도.find { it.name == GooGunNameOrCode || it.code == GooGunNameOrCode }
-        "전라남도", "6460000" -> 전라남도.find { it.name == GooGunNameOrCode || it.code == GooGunNameOrCode }
-        "전라북도", "6450000" -> 전라북도.find { it.name == GooGunNameOrCode || it.code == GooGunNameOrCode }
-        "충청북도", "6430000" -> 충청북도.find { it.name == GooGunNameOrCode || it.code == GooGunNameOrCode }
+        "경기도", "6410000" -> 경기도.find { it.name == GooGunNameOrCode || it.code == GooGunNameOrCode }
         "강원도", "6420000" -> 강원도.find { it.name == GooGunNameOrCode || it.code == GooGunNameOrCode }
         "대전", "6300000" -> 대전.find { it.name == GooGunNameOrCode || it.code == GooGunNameOrCode }
-        "광주", "6290000" -> 광주.find { it.name == GooGunNameOrCode || it.code == GooGunNameOrCode }
+        "충청북도", "6430000" -> 충청북도.find { it.name == GooGunNameOrCode || it.code == GooGunNameOrCode }
+        "충청남도", "6440000" -> 충청남도.find { it.name == GooGunNameOrCode || it.code == GooGunNameOrCode }
+        "부산", "6260000" -> 부산.find { it.name == GooGunNameOrCode || it.code == GooGunNameOrCode }
+        "대구", "6270000" -> 대구.find { it.name == GooGunNameOrCode || it.code == GooGunNameOrCode }
         "울산", "6310000" -> 울산.find { it.name == GooGunNameOrCode || it.code == GooGunNameOrCode }
+        "경상북도", "6470000" -> 경상북도.find { it.name == GooGunNameOrCode || it.code == GooGunNameOrCode }
+        "경상남도", "6480000" -> 경상남도.find { it.name == GooGunNameOrCode || it.code == GooGunNameOrCode }
+        "광주", "6290000" -> 광주.find { it.name == GooGunNameOrCode || it.code == GooGunNameOrCode }
+        "전라북도", "6450000" -> 전라북도.find { it.name == GooGunNameOrCode || it.code == GooGunNameOrCode }
+        "전라남도", "6460000" -> 전라남도.find { it.name == GooGunNameOrCode || it.code == GooGunNameOrCode }
         else -> null // 제주, 세종은 구군이 없음
     }
 
-    fun getGooGunList(siDoNameOrCode: String?): List<Area> {
-        return when(siDoNameOrCode) {
-            "경기도", "6410000" -> 경기도
-            "서울", "6110000" -> 서울
-            "부산", "6260000" -> 부산
-            "경상남도", "6480000" -> 경상남도
-            "인천", "6280000" -> 인천
-            "경상북도", "6470000" -> 경상북도
-            "대구", "6270000" -> 대구
-            "충청남도", "6440000" -> 충청남도
-            "전라남도", "6460000" -> 전라남도
-            "전라북도", "6450000" -> 전라북도
-            "충청북도", "6430000" -> 충청북도
-            "강원도", "6420000" -> 강원도
-            "대전", "6300000" -> 대전
-            "광주", "6290000" -> 광주
-            "울산", "6310000" -> 울산
-            else -> emptyList()
-        }
+    fun getGooGunList(siDoNameOrCode: String): List<Area> = when(siDoNameOrCode) {
+        "서울", "6110000" -> 서울
+        "인천", "6280000" -> 인천
+        "경기도", "6410000" -> 경기도
+        "강원도", "6420000" -> 강원도
+        "대전", "6300000" -> 대전
+        "충청북도", "6430000" -> 충청북도
+        "충청남도", "6440000" -> 충청남도
+        "부산", "6260000" -> 부산
+        "대구", "6270000" -> 대구
+        "울산", "6310000" -> 울산
+        "경상북도", "6470000" -> 경상북도
+        "경상남도", "6480000" -> 경상남도
+        "광주", "6290000" -> 광주
+        "전라북도", "6450000" -> 전라북도
+        "전라남도", "6460000" -> 전라남도
+        else -> emptyList() // 제주, 세종은 구군이 없음
     }
 
     val 전국 = listOf<Area>(
         Area("전국", ""),
-        Area("경기도", "6410000"),
         Area("서울", "6110000"),
-        Area("부산", "6260000"),
-        Area("경상남도", "6480000"),
         Area("인천", "6280000"),
-        Area("경상북도", "6470000"),
-        Area("대구", "6270000"),
-        Area("충청남도", "6440000"),
-        Area("전라남도", "6460000"),
-        Area("전라북도", "6450000"),
-        Area("충청북도", "6430000"),
+        Area("경기도", "6410000"),
         Area("강원도", "6420000"),
         Area("대전", "6300000"),
-        Area("광주", "6290000"),
+        Area("충청북도", "6430000"),
+        Area("충청남도", "6440000"),
+        Area("부산", "6260000"),
+        Area("대구", "6270000"),
         Area("울산", "6310000"),
-        Area("제주도", "6500000"),
+        Area("경상북도", "6470000"),
+        Area("경상남도", "6480000"),
+        Area("광주", "6290000"),
+        Area("전라북도", "6450000"),
+        Area("전라남도", "6460000"),
         Area("세종", "5690000"),
+        Area("제주도", "6500000"),
     )
+
     val 경기도 = listOf<Area>(
         Area("전체", ""),
         Area("수원시", "3740000"),
@@ -99,6 +98,7 @@ object Code {
         Area("가평군", "4160000"),
         Area("연천군", "4140000"),
     )
+
     val 서울 = listOf<Area>(
         Area("전체", ""),
         Area("종로구", "3000000"),
@@ -127,6 +127,7 @@ object Code {
         Area("송파구", "3230000"),
         Area("강동구", "3240000"),
     )
+
     val 부산 = listOf<Area>(
         Area("전체", ""),
         Area("중구", "3250000"),
@@ -146,6 +147,7 @@ object Code {
         Area("사상구", "3390000"),
         Area("기장군", "3400000"),
     )
+
     val 경상남도 = listOf<Area>(
         Area("전체", ""),
         Area("창원시", "5670000"),
@@ -167,6 +169,7 @@ object Code {
         Area("거창군", "5470000"),
         Area("합천군", "5480000"),
     )
+
     val 인천 = listOf<Area>(
         Area("전체", ""),
         Area("중구", "3490000"),
@@ -180,6 +183,7 @@ object Code {
         Area("강화군", "3570000"),
         Area("옹진군", "3580000"),
     )
+
     val 경상북도 = listOf<Area>(
         Area("전체", ""),
         Area("포항시", "5020000"),
@@ -206,6 +210,7 @@ object Code {
         Area("울진군", "5250000"),
         Area("울릉군", "5260000"),
     )
+
     val 대구 = listOf<Area>(
         Area("전체", ""),
         Area("중구", "3410000"),
@@ -217,6 +222,7 @@ object Code {
         Area("달서구", "3470000"),
         Area("달성군", "3480000"),
     )
+
     val 충청남도 = listOf<Area>(
         Area("전체", ""),
         Area("천안시", "4490000"),
@@ -236,6 +242,7 @@ object Code {
         Area("예산군", "4610000"),
         Area("태안군", "4620000"),
     )
+
     val 전라남도 = listOf<Area>(
         Area("전체", ""),
         Area("목포시", "4800000"),
@@ -261,6 +268,7 @@ object Code {
         Area("진도군", "5000000"),
         Area("신안군", "5010000"),
     )
+
     val 전라북도 = listOf<Area>(
         Area("전체", ""),
         Area("전주시", "4640000"),
@@ -278,6 +286,7 @@ object Code {
         Area("고창군", "4780000"),
         Area("부안군", "4790000"),
     )
+
     val 충청북도 = listOf<Area>(
         Area("전체", ""),
         Area("청주시", "5710000"),
@@ -292,6 +301,7 @@ object Code {
         Area("음성군", "4470000"),
         Area("단양군", "4480000"),
     )
+
     val 강원도 = listOf<Area>(
         Area("전체", ""),
         Area("춘천시", "4180000"),
@@ -313,6 +323,7 @@ object Code {
         Area("고성군", "4340000"),
         Area("양양군", "4350000"),
     )
+
     val 대전 = listOf<Area>(
         Area("전체", ""),
         Area("동구", "3640000"),
@@ -321,6 +332,7 @@ object Code {
         Area("유성구", "3670000"),
         Area("대덕구", "3680000"),
     )
+
     val 광주 = listOf<Area>(
         Area("전체", ""),
         Area("동구", "3590000"),
@@ -329,6 +341,7 @@ object Code {
         Area("북구", "3620000"),
         Area("광산구", "3630000"),
     )
+
     val 울산 = listOf<Area>(
         Area("전체", ""),
         Area("중구", "3690000"),

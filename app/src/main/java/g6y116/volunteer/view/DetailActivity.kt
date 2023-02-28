@@ -25,27 +25,33 @@ class DetailActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
-
         setSupportActionBar(binding.toolbar.root)
-        supportActionBar?.title = getString(R.string.menu_4)
+        supportActionBar?.title = getString(R.string.toolbar_detail)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         viewModel.pID = intent?.getStringExtra("pID").toString()
         viewModel.url = intent?.getStringExtra("url").toString()
         viewModel.from = intent?.getStringExtra("from").toString()
 
-        viewModel.getVolunteer(viewModel.pID)
-        viewModel.addRead(viewModel.pID)
-
         binding.lifecycleOwner = this
         binding.viewmodel = viewModel
 
+        viewModel.getVolunteer(viewModel.pID)
+        viewModel.addRead(viewModel.pID)
+
+        setOnclick()
+        setObserver()
+    }
+
+    private fun setOnclick() {
         binding.btn.onClick {
             if (viewModel.url.isNotEmpty())
                 startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(viewModel.url)))
         }
+    }
 
-        viewModel.isBookMark.observe(this) {
+    private fun setObserver() {
+        viewModel.isBookmarkLiveData.observe(this) {
             val bookMarkIcon = binding.toolbar.root.findViewById<ActionMenuItemView>(R.id.book_mark)
             val bookMarkBorderIcon = binding.toolbar.root.findViewById<ActionMenuItemView>(R.id.book_mark_border)
             bookMarkIcon.visibility = if (it) View.VISIBLE else View.GONE
@@ -53,7 +59,7 @@ class DetailActivity : AppCompatActivity() {
         }
 
         viewModel.errorLiveData.observe(this) {
-            toast(this, getString(R.string.error_deleted_volunteer))
+            toast(this, getString(R.string.msg_volunteer_deleted))
             finish()
         }
     }

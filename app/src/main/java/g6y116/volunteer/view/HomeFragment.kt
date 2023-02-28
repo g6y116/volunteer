@@ -3,18 +3,18 @@ package g6y116.volunteer.view
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
-import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
-import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.google.android.material.datepicker.CalendarConstraints
 import com.google.android.material.datepicker.MaterialDatePicker
@@ -22,7 +22,8 @@ import g6y116.volunteer.*
 import g6y116.volunteer.adapter.HomeAdapter
 import g6y116.volunteer.adapter.ViewHolderBindListener
 import g6y116.volunteer.bottomsheet.RoundedBottomListSheet
-import g6y116.volunteer.data.VolunteerInfo
+import g6y116.volunteer.data.Info
+import g6y116.volunteer.data.SearchOption
 import g6y116.volunteer.databinding.FragmentHomeBinding
 import g6y116.volunteer.viewmodel.MainViewModel
 import kotlinx.coroutines.flow.collectLatest
@@ -38,9 +39,7 @@ class HomeFragment : Fragment(), ViewHolderBindListener {
     private val viewModel: MainViewModel by activityViewModels()
     private val adapter: HomeAdapter = HomeAdapter(this)
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
-        return binding.root
-    }
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View = binding.root
 
     @SuppressLint("NotifyDataSetChanged")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -55,28 +54,31 @@ class HomeFragment : Fragment(), ViewHolderBindListener {
 
     private fun setOnclick() {
         binding.sidoChip.onClick {
-            viewModel.recentSearchLiveData.value?.let { recentSearch ->
-                RoundedBottomListSheet(getString(R.string.choice_area), Code.전국.map { it.name }) { siDoName ->
-                    viewModel.setRecentSearch(recentSearch.copy(siDoCode = Code.getSiDo(siDoName)?.code, gooGunCode = null))
+            viewModel.searchOptionLiveData.value?.let { recentSearch ->
+                RoundedBottomListSheet(getString(R.string.chip_area), Code.전국.map { it.name }) { siDoName ->
+                    val sidoCode = Code.getSiDo(siDoName)?.code
+                    viewModel.setSearchOption(recentSearch.copy(siDoCode = sidoCode, gooGunCode = null))
                 }.show((activity as MainActivity).supportFragmentManager, tag)
             }
         }
 
         binding.googunChip.onClick {
-            viewModel.recentSearchLiveData.value?.let { recentSearch ->
-                RoundedBottomListSheet(getString(R.string.choice_area), Code.getGooGunList(recentSearch.siDoCode).map { it.name }) { gooGunName ->
-                    val gooGunCode = if (recentSearch.siDoCode != null) Code.getGooGun(recentSearch.siDoCode, gooGunName)?.code else null
-                    viewModel.setRecentSearch(recentSearch.copy(gooGunCode = gooGunCode))
-                }.show((activity as MainActivity).supportFragmentManager, tag)
+            viewModel.searchOptionLiveData.value?.let { recentSearch ->
+                if (recentSearch.siDoCode != null) {
+                    RoundedBottomListSheet(getString(R.string.chip_area), Code.getGooGunList(recentSearch.siDoCode).map { it.name }) { gooGunName ->
+                        val gooGunCode = Code.getGooGun(recentSearch.siDoCode, gooGunName)?.code
+                        viewModel.setSearchOption(recentSearch.copy(gooGunCode = gooGunCode))
+                    }.show((activity as MainActivity).supportFragmentManager, tag)
+                }
             }
         }
 
         binding.startDateChip.onClick {
             callDatePicker(
-                getString(R.string.start_date),
+                getString(R.string.chip_start_date),
                 positive = { time ->
-                    viewModel.recentSearchLiveData.value?.let { recentSearch ->
-                        viewModel.setRecentSearch(
+                    viewModel.searchOptionLiveData.value?.let { recentSearch ->
+                        viewModel.setSearchOption(
                             if (recentSearch.eDate.isNullOrEmpty()) recentSearch.copy(sDate = longTo8String(time), eDate = longTo8String(time))
                             else {
                                 val sDate = min(longTo8String(time).toInt(), recentSearch.eDate.toInt()).toString()
@@ -87,18 +89,18 @@ class HomeFragment : Fragment(), ViewHolderBindListener {
                     }
                 },
                 negative = {
-                    viewModel.recentSearchLiveData.value?.let { recentSearch ->
-                        viewModel.setRecentSearch(recentSearch.copy(sDate = null, eDate = null))
+                    viewModel.searchOptionLiveData.value?.let { recentSearch ->
+                        viewModel.setSearchOption(recentSearch.copy(sDate = null, eDate = null))
                     }
                 })
         }
 
         binding.endDateChip.onClick {
             callDatePicker(
-                getString(R.string.end_date),
+                getString(R.string.chip_end_date),
                 positive = { time ->
-                    viewModel.recentSearchLiveData.value?.let { recentSearch ->
-                        viewModel.setRecentSearch(
+                    viewModel.searchOptionLiveData.value?.let { recentSearch ->
+                        viewModel.setSearchOption(
                             if (recentSearch.sDate.isNullOrEmpty()) recentSearch.copy(sDate = longTo8String(time), eDate = longTo8String(time))
                             else {
                                 val sDate = min(longTo8String(time).toInt(), recentSearch.sDate.toInt()).toString()
@@ -109,49 +111,157 @@ class HomeFragment : Fragment(), ViewHolderBindListener {
                     }
                 },
                 negative = {
-                    viewModel.recentSearchLiveData.value?.let { recentSearch ->
-                        viewModel.setRecentSearch(recentSearch.copy(sDate = null, eDate = null))
+                    viewModel.searchOptionLiveData.value?.let { recentSearch ->
+                        viewModel.setSearchOption(recentSearch.copy(sDate = null, eDate = null))
                     }
                 })
         }
 
+        binding.resetChip.onClick {
+            viewModel.searchOptionLiveData.value?.let {
+                viewModel.setSearchOption(SearchOption.reset())
+            }
+        }
+
         binding.typeChip.onClick {
-            RoundedBottomListSheet(getString(R.string.choice_type), listOf(Const.TYPE.BOTH, Const.TYPE.ADULT, Const.TYPE.YOUNG)) { item ->
-                when(item) {
-                    Const.TYPE.BOTH -> viewModel.recentSearchLiveData.value?.let { recentSearch ->
-                        viewModel.setRecentSearch(recentSearch.copy(isAdultPossible = Const.TYPE.NO_MATTER, isYoungPossible = Const.TYPE.NO_MATTER))
-                    }
-                    Const.TYPE.ADULT -> viewModel.recentSearchLiveData.value?.let { recentSearch ->
-                        viewModel.setRecentSearch(recentSearch.copy(isAdultPossible = Const.TYPE.TRUE, isYoungPossible = Const.TYPE.NO_MATTER))
-                    }
-                    Const.TYPE.YOUNG -> viewModel.recentSearchLiveData.value?.let { recentSearch ->
-                        viewModel.setRecentSearch(recentSearch.copy(isAdultPossible = Const.TYPE.NO_MATTER, isYoungPossible = Const.TYPE.TRUE))
+            RoundedBottomListSheet(
+                getString(R.string.chip_type),
+                listOf(getString(R.string.chip_type_all), getString(R.string.chip_type_adult), getString(R.string.chip_type_young)))
+            { item ->
+                viewModel.searchOptionLiveData.value?.let { searchOption ->
+                    when(item) {
+                        getString(R.string.chip_type_all) ->
+                            viewModel.setSearchOption(searchOption.copy(isAdult = Const.TYPE.NO_MATTER, isYoung = Const.TYPE.NO_MATTER))
+                        getString(R.string.chip_type_adult) ->
+                            viewModel.setSearchOption(searchOption.copy(isAdult = Const.TYPE.TRUE, isYoung = Const.TYPE.NO_MATTER))
+                        getString(R.string.chip_type_young) ->
+                            viewModel.setSearchOption(searchOption.copy(isAdult = Const.TYPE.NO_MATTER, isYoung = Const.TYPE.TRUE))
                     }
                 }
             }.show((activity as MainActivity).supportFragmentManager, tag)
         }
 
         binding.stateChip.onClick {
-            RoundedBottomListSheet(getString(R.string.state_chip), listOf(Const.STATE.ALL, Const.STATE.DOING, Const.STATE.DONE)) { item ->
-                when(item) {
-                    Const.STATE.ALL -> viewModel.stateLiveData.value?.let {
-                        viewModel.setState(Const.STATE.ALL)
-                    }
-                    Const.STATE.DOING -> viewModel.stateLiveData.value?.let {
-                        viewModel.setState(Const.STATE.DOING)
-                    }
-                    Const.STATE.DONE -> viewModel.stateLiveData.value?.let {
-                        viewModel.setState(Const.STATE.DONE)
+            RoundedBottomListSheet(
+                getString(R.string.chip_state),
+                listOf(getString(R.string.chip_state_all), getString(R.string.chip_state_doing), getString(R.string.chip_state_done))
+            ) { item ->
+                viewModel.searchOptionLiveData.value?.let { searchOption ->
+                    when(item) {
+                        getString(R.string.chip_state_all) -> viewModel.setSearchOption(searchOption.copy(state = Const.STATE.ALL))
+                        getString(R.string.chip_state_doing) -> viewModel.setSearchOption(searchOption.copy(state = Const.STATE.DOING))
+                        getString(R.string.chip_state_done) -> viewModel.setSearchOption(searchOption.copy(state = Const.STATE.DONE))
                     }
                 }
             }.show((activity as MainActivity).supportFragmentManager, tag)
         }
+    }
 
-        binding.resetChip.onClick {
-            viewModel.recentSearchLiveData.value?.let {
-                viewModel.removeRecentSearch()
+    @SuppressLint("NotifyDataSetChanged", "SuspiciousIndentation")
+    private fun setObserver() {
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.infoFlowList.collectLatest {
+                    adapter.submitData(it)
+                }
             }
         }
+
+        viewModel.bookmarkLiveList.observe(viewLifecycleOwner) {
+            if (viewModel.contextMenuClickPosition.value == null) adapter.notifyDataSetChanged()
+            else {
+                adapter.notifyItemChanged(viewModel.contextMenuClickPosition.value!!)
+                viewModel.contextMenuClickPosition.value = null
+            }
+        }
+
+        viewModel.visitLiveList.observe(viewLifecycleOwner) {
+            adapter.notifyDataSetChanged()
+        }
+
+        viewModel.searchOptionLiveData.observe(viewLifecycleOwner) {
+
+            val sidoString =
+                if (!it.siDoCode.isNullOrEmpty()) Code.getSiDo(it.siDoCode)?.name ?: getString(R.string.chip_area_all)
+                else  getString(R.string.chip_area_all)
+
+            val googunString =
+                if (!it.siDoCode.isNullOrEmpty() && !it.gooGunCode.isNullOrEmpty())
+                    Code.getGooGun(it.siDoCode, it.gooGunCode)?.name ?: getString(R.string.all)
+                else getString(R.string.all)
+
+            binding.sidoChip.text = sidoString
+            binding.googunChip.text = googunString
+            binding.googunChip.visibility =
+                if (sidoString == getString(R.string.chip_area_all) || sidoString == "제주도" || sidoString == "세종") View.GONE
+                else View.VISIBLE
+
+            binding.startDateChip.text =
+                if (!it.sDate.isNullOrEmpty()) getString(R.string.dete_form_short, it.sDate.substring(4, 6), it.sDate.substring(6, 8))
+                else getString(R.string.chip_start_date)
+
+            binding.endDateChip.text =
+                if (!it.eDate.isNullOrEmpty()) getString(R.string.dete_form_short, it.eDate.substring(4, 6), it.eDate.substring(6, 8))
+                else getString(R.string.chip_end_date)
+
+            binding.typeChip.text = when {
+                it.isAdult == Const.TYPE.NO_MATTER && it.isYoung == Const.TYPE.NO_MATTER -> getString(R.string.chip_type_all)
+                it.isAdult == Const.TYPE.TRUE && it.isYoung == Const.TYPE.NO_MATTER -> getString(R.string.chip_type_adult)
+                it.isAdult == Const.TYPE.NO_MATTER && it.isYoung == Const.TYPE.TRUE -> getString(R.string.chip_type_young)
+                else -> getString(R.string.type)
+            }
+
+            binding.stateChip.text = when (it.state) {
+                Const.STATE.ALL -> getString(R.string.chip_state_all)
+                Const.STATE.DOING -> getString(R.string.chip_state_doing)
+                Const.STATE.DONE -> getString(R.string.chip_state_done)
+                else -> getString(R.string.chip_state_all)
+            }
+
+            Handler(Looper.getMainLooper()).postDelayed({
+                binding.recyclerView.scrollToPosition(0)
+            }, 100)
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        activity?.let { mainActivity ->
+            (mainActivity as MainActivity).setToolbarTitle(getText(R.string.toolbar_home).toString())
+        }
+    }
+
+    override fun onViewHolderBind(holder: ViewHolder, item: Any) {
+        val item = item as Info
+        val isBookmark = item.isBookmark(viewModel.bookmarkLiveList.value)
+        val isVisit = item.isVisit(viewModel.visitLiveList.value)
+        val visitOption = viewModel.visitOptionLiveData.value == Const.VISIT.VISIBLE
+
+        holder.itemView.findViewById<ImageView>(R.id.ivBookMark).visibility = if (isBookmark) View.VISIBLE else View.GONE
+        holder.itemView.findViewById<ImageView>(R.id.ivRead).visibility = if (isVisit && visitOption) View.VISIBLE else View.GONE
+        holder.itemView.setOnCreateContextMenuListener { contextMenu, _, _ ->
+            if (isBookmark) contextMenu.add(0, item.pID.toInt(), 0, getString(R.string.delete_bookmark))
+            else contextMenu.add(0, item.pID.toInt(), 0, getString(R.string.add_bookmark))
+            viewModel.contextMenuClickPosition.value = holder.layoutPosition
+        }
+
+        holder.itemView.onClick {
+            lifecycleScope.launch {
+                startActivity(Intent(context, DetailActivity::class.java).apply {
+                    putExtra("pID", item.pID)
+                    putExtra("url", item.url)
+                    putExtra("from", Const.FROM.HOME)
+                })
+            }
+        }
+    }
+
+    override fun onContextItemSelected(item: MenuItem): Boolean {
+        if (getString(R.string.add_bookmark) == item.toString() || getString(R.string.delete_bookmark) == item.toString()) {
+            viewModel.clickContextMenu(item.itemId.toString(), adapter.snapshot().items)
+        }
+
+        return true
     }
 
     private fun callDatePicker(titleMsg: String, positive: (Long) -> Unit, negative: () -> Unit) {
@@ -178,140 +288,5 @@ class HomeFragment : Fragment(), ViewHolderBindListener {
         }
 
         datePicker.show((activity as MainActivity).supportFragmentManager, "")
-    }
-
-    @SuppressLint("NotifyDataSetChanged", "SuspiciousIndentation")
-    private fun setObserver() {
-        viewLifecycleOwner.lifecycleScope.launch {
-            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.homeList.collectLatest {
-                    adapter.submitData(it)
-                }
-            }
-        }
-
-        viewModel.bookMarkList.observe(viewLifecycleOwner) {
-            adapter.notifyDataSetChanged()
-        }
-
-        viewModel.readList.observe(viewLifecycleOwner) {
-            adapter.notifyDataSetChanged()
-        }
-
-        viewModel.stateLiveData.observe(viewLifecycleOwner) {
-            it?.let {
-                binding.stateChip.text =
-                    when (it) {
-                        Const.STATE.DOING -> Const.STATE.DOING
-                        Const.STATE.DONE -> Const.STATE.DONE
-                        else -> Const.STATE.ALL
-                    }
-            }
-
-            adapter.notifyDataSetChanged()
-        }
-
-        viewModel.recentSearchLiveData.observe(viewLifecycleOwner) {
-
-            var sidoString = Code.getSiDo(it.siDoCode)?.name ?: getString(R.string.sido)
-                if (sidoString == "전국") sidoString = getString(R.string.sido)
-            val googunString =
-                if (it.siDoCode != null && it.gooGunCode != null)
-                    Code.getGooGun(it.siDoCode, it.gooGunCode)?.name ?: getString(R.string.googun)
-                else
-                    getString(R.string.googun)
-
-            binding.sidoChip.text = sidoString
-            binding.googunChip.text = googunString
-
-            if (sidoString == getString(R.string.sido) || sidoString == "제주도" || sidoString == "세종")
-                binding.googunChip.visibility = View.GONE
-            else
-                binding.googunChip.visibility = View.VISIBLE
-
-            binding.startDateChip.text =
-                if (!it.sDate.isNullOrBlank())
-                    "${it.sDate.substring(4, 6).toInt()}월 ${it.sDate.substring(6, 8).toInt()}일"
-                else getString(R.string.start_date)
-
-            binding.endDateChip.text =
-                if (!it.eDate.isNullOrBlank())
-                    "${it.eDate.substring(4, 6).toInt()}월 ${it.eDate.substring(6, 8).toInt()}일"
-                else getString(R.string.end_date)
-
-            binding.typeChip.text = when {
-                it.isAdultPossible == Const.TYPE.NO_MATTER && it.isYoungPossible == Const.TYPE.NO_MATTER -> getString(R.string.adult_young)
-                it.isAdultPossible == Const.TYPE.TRUE && it.isYoungPossible == Const.TYPE.NO_MATTER -> getString(R.string.adult)
-                it.isAdultPossible == Const.TYPE.NO_MATTER && it.isYoungPossible == Const.TYPE.TRUE -> getString(R.string.young)
-                else -> getString(R.string.type)
-            }
-        }
-    }
-
-    override fun onResume() {
-        super.onResume()
-        activity?.let { mainActivity ->
-            (mainActivity as MainActivity).setToolbarTitle(getText(R.string.menu_1).toString())
-        }
-    }
-
-    override fun onContextItemSelected(item: MenuItem): Boolean {
-        if (getString(R.string.context_menu_delete_bookmark) == item.toString()) {
-            viewModel.contextMenuDelete(item.itemId.toString())
-        }
-
-        if (getString(R.string.context_menu_add_bookmark) == item.toString()) {
-            viewModel.contextMenuAdd(item.itemId.toString(), adapter.snapshot().items)
-        }
-        return true
-    }
-
-    override fun onViewHolderBind(holder: ViewHolder, item: Any) {
-        val item = item as VolunteerInfo
-
-        holder.itemView.setOnCreateContextMenuListener { contextMenu, view, contextMenuInfo ->
-            if (item.isBookMark(viewModel.bookMarkList.value))
-                contextMenu.add(0, item.pID.toInt(), 0, getString(R.string.context_menu_delete_bookmark))
-            else
-                contextMenu.add(0, item.pID.toInt(), 0, getString(R.string.context_menu_add_bookmark))
-        }
-
-        viewModel.stateLiveData.value?.let {
-            val isVisible = when(it) {
-                Const.STATE.DOING -> item.state == Const.STATE.DOING_NUM
-                Const.STATE.DONE -> item.state == Const.STATE.DONE_NUM
-                else -> true
-            }
-
-            if (isVisible) {
-                holder.itemView.visibility = View.VISIBLE
-                holder.itemView.layoutParams = RecyclerView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
-            } else {
-                holder.itemView.visibility = View.GONE
-                holder.itemView.layoutParams = RecyclerView.LayoutParams(0, 0)
-            }
-        }
-
-        if (viewModel.readLiveData.value != null
-            && viewModel.readLiveData.value == Const.READ.VISIBLE) {
-            holder.itemView.findViewById<ImageView>(R.id.ivRead).visibility =
-                if (item.isRead(viewModel.readList.value)) View.VISIBLE else View.GONE
-        } else if (viewModel.readLiveData.value != null
-            && viewModel.readLiveData.value == Const.READ.INVISIBLE) {
-            holder.itemView.findViewById<ImageView>(R.id.ivRead).visibility = View.GONE
-        }
-
-        holder.itemView.findViewById<ImageView>(R.id.ivBookMark).visibility =
-            if (item.isBookMark(viewModel.bookMarkList.value)) View.VISIBLE else View.GONE
-
-        holder.itemView.onClick {
-            lifecycleScope.launch {
-                startActivity(Intent(context, DetailActivity::class.java).apply {
-                    putExtra("pID", item.pID)
-                    putExtra("url", item.url)
-                    putExtra("from", Const.HOME)
-                })
-            }
-        }
     }
 }

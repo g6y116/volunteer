@@ -61,7 +61,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             tools:text="모집분야"
-                            app:text="@{viewmodel.volunteer.field}"
+                            app:text="@{viewmodel.volunteerLiveData.field}"
                             app:layout_constraintTop_toTopOf="parent"
                             app:layout_constraintStart_toStartOf="parent"/>
 
@@ -72,7 +72,7 @@
                             android:layout_marginEnd="@dimen/margin_medium"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            app:state="@{viewmodel.volunteer.state}"
+                            app:state="@{viewmodel.volunteerLiveData.state}"
                             tools:text="모집유형"
                             app:layout_constraintTop_toTopOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"/>
@@ -85,7 +85,7 @@
                             android:layout_height="wrap_content"
                             android:gravity="center"
                             tools:text="제목"
-                            app:text="@{viewmodel.volunteer.title}"
+                            app:text="@{viewmodel.volunteerLiveData.title}"
                             app:layout_constraintTop_toBottomOf="@+id/tvField"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"/>
@@ -107,7 +107,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             tools:text="XXXX"
-                            android:text="@{viewmodel.volunteer.host}"
+                            android:text="@{viewmodel.volunteerLiveData.host}"
                             app:layout_constraintTop_toTopOf="@+id/tvHost"
                             app:layout_constraintStart_toEndOf="@+id/tvHost"/>
 
@@ -128,7 +128,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             tools:text="XXXX"
-                            android:text="@{viewmodel.volunteer.area}"
+                            android:text="@{viewmodel.volunteerLiveData.area}"
                             app:layout_constraintTop_toTopOf="@+id/tvArea"
                             app:layout_constraintStart_toEndOf="@+id/tvArea"/>
 
@@ -150,7 +150,7 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             tools:text="XXXX"
-                            android:text="@{viewmodel.volunteer.place}"
+                            android:text="@{viewmodel.volunteerLiveData.place}"
                             app:layout_constraintHorizontal_bias="0"
                             app:layout_constraintTop_toTopOf="@+id/tvPlace"
                             app:layout_constraintStart_toEndOf="@+id/tvPlace"
@@ -163,7 +163,7 @@
                             android:layout_marginStart="@dimen/margin_medium"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@string/person_num"
+                            android:text="@string/person"
                             app:layout_constraintTop_toBottomOf="@+id/tvPlaceValue"
                             app:layout_constraintStart_toStartOf="parent"/>
 
@@ -173,7 +173,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             tools:text="XXXX"
-                            android:text='@{String.valueOf(viewmodel.volunteer.num) + "명"}'
+                            android:text='@{String.valueOf(viewmodel.volunteerLiveData.person) + "명"}'
                             app:layout_constraintTop_toTopOf="@+id/tvNum"
                             app:layout_constraintStart_toEndOf="@+id/tvNum"/>
 
@@ -184,7 +184,7 @@
                             android:layout_marginStart="@dimen/margin_medium"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@string/possible"
+                            android:text="@string/type"
                             app:layout_constraintTop_toBottomOf="@+id/tvNum"
                             app:layout_constraintStart_toStartOf="parent"/>
 
@@ -194,8 +194,8 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             tools:text="XXXX"
-                            app:adultPossible="@{viewmodel.volunteer.isAdultPossible}"
-                            app:youngPossible="@{viewmodel.volunteer.isYoungPossible}"
+                            app:isAdult="@{viewmodel.volunteerLiveData.adult}"
+                            app:isYoung="@{viewmodel.volunteerLiveData.young}"
                             app:layout_constraintTop_toTopOf="@+id/tvPossible"
                             app:layout_constraintStart_toEndOf="@+id/tvPossible"/>
                     </androidx.constraintlayout.widget.ConstraintLayout>
@@ -220,7 +220,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             tools:text="내용"
-                            app:text="@{viewmodel.volunteer.contents}" />
+                            app:text="@{viewmodel.volunteerLiveData.contents}" />
                     </FrameLayout>
                 </androidx.cardview.widget.CardView>
 
@@ -264,8 +264,8 @@
                                 android:layout_marginTop="@dimen/margin_extra_small"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                app:sDate="@{viewmodel.volunteer.nsDate}"
-                                app:eDate="@{viewmodel.volunteer.neDate}"
+                                app:sDate="@{viewmodel.volunteerLiveData.nsDate}"
+                                app:eDate="@{viewmodel.volunteerLiveData.neDate}"
                                 tools:text="mm월dd일 ~ mm월dd일" />
                         </LinearLayout>
 
@@ -293,8 +293,8 @@
                                 android:layout_marginTop="@dimen/margin_extra_small"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                app:sDate="@{viewmodel.volunteer.sDate}"
-                                app:eDate="@{viewmodel.volunteer.eDate}"
+                                app:sDate="@{viewmodel.volunteerLiveData.sDate}"
+                                app:eDate="@{viewmodel.volunteerLiveData.eDate}"
                                 tools:text="mm월dd일 ~ mm월dd일" />
                         </LinearLayout>
 
@@ -322,8 +322,8 @@
                                 style="@style/small_text"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                app:sHour="@{String.valueOf(viewmodel.volunteer.sHour)}"
-                                app:eHour="@{String.valueOf(viewmodel.volunteer.eHour)}"
+                                app:sHour="@{String.valueOf(viewmodel.volunteerLiveData.sHour)}"
+                                app:eHour="@{String.valueOf(viewmodel.volunteerLiveData.eHour)}"
                                 tools:text="hh ~ hh" />
                         </LinearLayout>
                     </LinearLayout>
@@ -361,7 +361,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             tools:text="XXXX"
-                            android:text="@{viewmodel.volunteer.manager}"
+                            android:text="@{viewmodel.volunteerLiveData.manager}"
                             app:layout_constraintTop_toTopOf="@+id/tvManager"
                             app:layout_constraintStart_toEndOf="@+id/tvManager"/>
 
@@ -382,7 +382,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             tools:text="XXXX"
-                            android:text="@{viewmodel.volunteer.tel}"
+                            android:text="@{viewmodel.volunteerLiveData.tel}"
                             app:layout_constraintTop_toTopOf="@+id/tvTel"
                             app:layout_constraintStart_toEndOf="@+id/tvTel"/>
 
@@ -403,7 +403,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             tools:text="XXXX"
-                            android:text="@{viewmodel.volunteer.email}"
+                            android:text="@{viewmodel.volunteerLiveData.email}"
                             app:layout_constraintTop_toTopOf="@+id/tvEmail"
                             app:layout_constraintStart_toEndOf="@+id/tvEmail"/>
                     </androidx.constraintlayout.widget.ConstraintLayout>

@@ -4,12 +4,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
         android:id="@+id/book_mark_border"
-        android:title="@string/book_mark"
+        android:title="@string/toolbar_bookmark"
         android:icon="@drawable/ic_bookmark_border_24"
         app:showAsAction="always" />
     <item
         android:id="@+id/book_mark"
-        android:title="@string/book_mark"
+        android:title="@string/toolbar_bookmark"
         android:icon="@drawable/ic_bookmark_24"
         app:showAsAction="always" />
 </menu>

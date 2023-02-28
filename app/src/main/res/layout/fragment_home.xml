@@ -38,7 +38,7 @@
                     style="@style/chip"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/sido"/>
+                    android:text="@string/chip_area"/>
 
                 <com.google.android.material.chip.Chip
                     android:id="@+id/googunChip"
@@ -46,7 +46,7 @@
                     android:layout_marginStart="@dimen/margin_extra_small"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/googun"/>
+                    android:text="@string/chip_area"/>
 
                 <com.google.android.material.chip.Chip
                     android:id="@+id/startDateChip"
@@ -54,7 +54,7 @@
                     android:layout_marginStart="@dimen/margin_extra_small"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/start_date"/>
+                    android:text="@string/chip_start_date"/>
 
                 <com.google.android.material.chip.Chip
                     android:id="@+id/endDateChip"
@@ -62,7 +62,7 @@
                     android:layout_marginStart="@dimen/margin_extra_small"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/end_date"/>
+                    android:text="@string/chip_end_date"/>
 
                 <com.google.android.material.chip.Chip
                     android:id="@+id/resetChip"
@@ -70,7 +70,7 @@
                     android:layout_marginStart="@dimen/margin_extra_small"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/reset" />
+                    android:text="@string/chip_reset" />
             </LinearLayout>
         </HorizontalScrollView>
 
@@ -95,7 +95,7 @@
                     style="@style/chip"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/type"/>
+                    android:text="@string/chip_type"/>
 
                 <com.google.android.material.chip.Chip
                     android:id="@+id/stateChip"
@@ -103,7 +103,7 @@
                     android:layout_marginStart="@dimen/margin_extra_small"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/state_chip" />
+                    android:text="@string/chip_state" />
             </LinearLayout>
         </HorizontalScrollView>
 

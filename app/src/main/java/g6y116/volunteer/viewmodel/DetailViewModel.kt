@@ -3,10 +3,8 @@ package g6y116.volunteer.viewmodel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.orhanobut.logger.AndroidLogAdapter
-import com.orhanobut.logger.Logger
 import dagger.hilt.android.lifecycle.HiltViewModel
-import g6y116.volunteer.data.Read
+import g6y116.volunteer.data.Visit
 import g6y116.volunteer.data.Volunteer
 import g6y116.volunteer.repository.VolunteerRepository
 import kotlinx.coroutines.Dispatchers
@@ -16,8 +14,8 @@ import javax.inject.Inject
 @HiltViewModel
 class DetailViewModel @Inject constructor(private val repository: VolunteerRepository) : ViewModel() {
 
-    val volunteer = MutableLiveData<Volunteer>()
-    val isBookMark = MutableLiveData<Boolean>()
+    val volunteerLiveData = MutableLiveData<Volunteer>()
+    val isBookmarkLiveData = MutableLiveData<Boolean>()
     val errorLiveData = MutableLiveData<Boolean>()
 
     var pID = ""
@@ -28,17 +26,17 @@ class DetailViewModel @Inject constructor(private val repository: VolunteerRepos
         if (pID.isNotEmpty()) {
             viewModelScope.launch(Dispatchers.IO) {
                 try {
-                    val v = repository.getDetail(pID)
+                    val v = repository.getVolunteer(pID)
                     if (v != null) {
-                        volunteer.postValue(v!!)
-                        isBookMark.postValue(repository.getBookMarkList().any { it.pID == v.pID })
+                        volunteerLiveData.postValue(v!!)
+                        isBookmarkLiveData.postValue(repository.getBookmarkList().any { it.pID == v.pID })
                     } else {
-                        repository.removeBookMark(pID)
+                        repository.removeBookmark(pID)
                         errorLiveData.postValue(true)
                     }
 
                 } catch (e: Exception) {
-                    repository.removeBookMark(pID)
+                    repository.removeBookmark(pID)
                     errorLiveData.postValue(true)
                 }
             }
@@ -47,13 +45,13 @@ class DetailViewModel @Inject constructor(private val repository: VolunteerRepos
 
     fun clickBookMark() {
         viewModelScope.launch {
-            if (volunteer.value != null && isBookMark.value != null) {
-                if (isBookMark.value!!) {
-                    repository.removeBookMark(volunteer.value!!.pID)
-                    isBookMark.postValue(false)
+            if (volunteerLiveData.value != null && isBookmarkLiveData.value != null) {
+                if (isBookmarkLiveData.value!!) {
+                    repository.removeBookmark(volunteerLiveData.value!!.pID)
+                    isBookmarkLiveData.postValue(false)
                 } else {
-                    repository.addBookMark(volunteer.value!!.toVolunteerInfo(url))
-                    isBookMark.postValue(true)
+                    repository.addBookmark(volunteerLiveData.value!!.toInfo(url))
+                    isBookmarkLiveData.postValue(true)
                 }
             }
         }
@@ -61,7 +59,7 @@ class DetailViewModel @Inject constructor(private val repository: VolunteerRepos
 
     fun addRead(pID: String) {
         viewModelScope.launch {
-            repository.addRead(Read(pID = pID))
+            repository.addVisit(Visit(pID = pID))
         }
     }
 }
