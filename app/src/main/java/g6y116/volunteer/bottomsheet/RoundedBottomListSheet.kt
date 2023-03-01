@@ -28,13 +28,16 @@ class RoundedBottomListSheet<T: Any>(
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         val binding = BottomSheetListBinding.inflate(layoutInflater)
         binding.labelTv.text = label
-        binding.recyclerView.adapter = Adapter()
-        binding.recyclerView.layoutManager = GridLayoutManager(context, 3)
+        binding.rv.adapter = Adapter()
+        binding.rv.layoutManager = GridLayoutManager(context, 3)
+
+        binding.cancelIv.onClick {
+            dismiss()
+        }
 
         (dialog as? BottomSheetDialog)?.behavior?.apply {
             state = BottomSheetBehavior.STATE_EXPANDED
             skipCollapsed = true
-            maxHeight = 1280
         }
 
         return binding.root
@@ -46,7 +49,7 @@ class RoundedBottomListSheet<T: Any>(
             private val binding: ItemBottomSheetBinding
         ) : RecyclerView.ViewHolder(binding.root) {
             fun bind(item: T) {
-                binding.item.text = item.toString()
+                binding.itemTv.text = item.toString()
                 binding.root.onClick {
                     listener.invoke(item)
                     dismiss()

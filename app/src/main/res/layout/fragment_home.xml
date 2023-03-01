@@ -15,15 +15,16 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@color/option_background">
 
         <HorizontalScrollView
-            android:id="@+id/topScrollView"
+            android:id="@+id/topSv"
             android:layout_marginTop="@dimen/margin_small"
             android:layout_marginHorizontal="@dimen/margin_medium"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/base"
+            android:background="@color/option_background"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent">
@@ -75,13 +76,13 @@
         </HorizontalScrollView>
 
         <HorizontalScrollView
-            android:id="@+id/bottomScrollView"
+            android:id="@+id/bottomSv"
             android:layout_marginTop="@dimen/margin_small"
             android:layout_marginHorizontal="@dimen/margin_medium"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/base"
-            app:layout_constraintTop_toBottomOf="@+id/topScrollView"
+            android:background="@color/option_background"
+            app:layout_constraintTop_toBottomOf="@+id/topSv"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent">
 
@@ -108,15 +109,16 @@
         </HorizontalScrollView>
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerView"
+            android:id="@+id/rv"
             android:layout_marginTop="@dimen/margin_small"
             android:layout_width="0dp"
             android:layout_height="0dp"
+            android:background="@color/background"
             android:adapter="@{adapter}"
             app:layoutManager="LinearLayoutManager"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/bottomScrollView" />
+            app:layout_constraintTop_toBottomOf="@+id/bottomSv" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

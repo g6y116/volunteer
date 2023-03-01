@@ -17,15 +17,16 @@
         android:background="@color/background">
 
         <androidx.cardview.widget.CardView
-            android:id="@+id/localeCardView"
-            android:layout_marginHorizontal="@dimen/margin_medium"
+            android:id="@+id/languageCv"
+            android:layout_marginTop="@dimen/margin_extra_small"
+            android:layout_marginHorizontal="@dimen/margin_extra_small"
             android:layout_width="match_parent"
             android:layout_height="64dp"
             app:cardCornerRadius="@dimen/card_radius"
             app:cardUseCompatPadding="true">
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/localeLayout"
+                android:id="@+id/languageL"
                 android:paddingVertical="@dimen/padding_small"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -34,7 +35,7 @@
                 android:background="@drawable/ripple">
 
                 <TextView
-                    android:id="@+id/localeTv"
+                    android:id="@+id/languageTv"
                     style="@style/medium_text"
                     android:layout_marginStart="@dimen/margin_medium"
                     android:layout_width="match_parent"
@@ -42,31 +43,31 @@
                     android:text="@string/language"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintBottom_toTopOf="@+id/localeTvSub"/>
+                    app:layout_constraintBottom_toTopOf="@+id/languageSubTv"/>
 
                 <TextView
-                    android:id="@+id/localeTvSub"
+                    android:id="@+id/languageSubTv"
                     style="@style/small_light_text"
                     android:layout_marginTop="@dimen/margin_small"
                     android:layout_marginStart="@dimen/margin_medium"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     tools:text="@string/language_ko"
-                    app:layout_constraintTop_toBottomOf="@+id/localeTv"
+                    app:layout_constraintTop_toBottomOf="@+id/languageTv"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintBottom_toBottomOf="parent" />
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.cardview.widget.CardView>
 
         <androidx.cardview.widget.CardView
-            android:layout_marginHorizontal="@dimen/margin_medium"
+            android:layout_marginHorizontal="@dimen/margin_extra_small"
             android:layout_width="match_parent"
             android:layout_height="64dp"
             app:cardCornerRadius="@dimen/card_radius"
             app:cardUseCompatPadding="true">
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/modeLayout"
+                android:id="@+id/themeL"
                 android:paddingVertical="@dimen/padding_small"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -75,7 +76,7 @@
                 android:background="@drawable/ripple">
 
                 <TextView
-                    android:id="@+id/modeTv"
+                    android:id="@+id/themeTv"
                     style="@style/medium_text"
                     android:layout_marginStart="@dimen/margin_medium"
                     android:layout_width="match_parent"
@@ -83,31 +84,31 @@
                     android:text="@string/theme"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintBottom_toTopOf="@+id/modeTvSub"/>
+                    app:layout_constraintBottom_toTopOf="@+id/themeSubTv"/>
 
                 <TextView
-                    android:id="@+id/modeTvSub"
+                    android:id="@+id/themeSubTv"
                     style="@style/small_light_text"
                     android:layout_marginTop="@dimen/margin_small"
                     android:layout_marginStart="@dimen/margin_medium"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     tools:text="@string/theme_system"
-                    app:layout_constraintTop_toBottomOf="@+id/modeTv"
+                    app:layout_constraintTop_toBottomOf="@+id/themeTv"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintBottom_toBottomOf="parent" />
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.cardview.widget.CardView>
 
         <androidx.cardview.widget.CardView
-            android:layout_marginHorizontal="@dimen/margin_medium"
+            android:layout_marginHorizontal="@dimen/margin_extra_small"
             android:layout_width="match_parent"
             android:layout_height="64dp"
             app:cardCornerRadius="@dimen/card_radius"
             app:cardUseCompatPadding="true">
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/readLayout"
+                android:id="@+id/visitL"
                 android:paddingVertical="@dimen/padding_small"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -116,7 +117,7 @@
                 android:background="@drawable/ripple">
 
                 <TextView
-                    android:id="@+id/readTv"
+                    android:id="@+id/visitTv"
                     style="@style/medium_text"
                     android:layout_marginStart="@dimen/margin_medium"
                     android:layout_width="match_parent"
@@ -124,25 +125,24 @@
                     android:text="@string/visit"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintBottom_toTopOf="@+id/readTvSub"/>
+                    app:layout_constraintBottom_toTopOf="@+id/visitSubTv"/>
 
                 <TextView
-                    android:id="@+id/readTvSub"
+                    android:id="@+id/visitSubTv"
                     style="@style/small_light_text"
                     android:layout_marginTop="@dimen/margin_small"
                     android:layout_marginStart="@dimen/margin_medium"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/visit_visible"
-                    app:layout_constraintTop_toBottomOf="@+id/readTv"
+                    app:layout_constraintTop_toBottomOf="@+id/visitTv"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintBottom_toBottomOf="parent" />
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.cardview.widget.CardView>
 
         <androidx.cardview.widget.CardView
-            android:layout_marginTop="@dimen/margin_extra_small"
-            android:layout_marginHorizontal="@dimen/margin_medium"
+            android:layout_marginHorizontal="@dimen/margin_extra_small"
             android:layout_width="match_parent"
             android:layout_height="64dp"
             app:cardCornerRadius="@dimen/card_radius"
@@ -182,8 +182,7 @@
         </androidx.cardview.widget.CardView>
 
         <androidx.cardview.widget.CardView
-            android:layout_marginTop="@dimen/margin_extra_small"
-            android:layout_marginHorizontal="@dimen/margin_medium"
+            android:layout_marginHorizontal="@dimen/margin_extra_small"
             android:layout_width="match_parent"
             android:layout_height="64dp"
             app:cardCornerRadius="@dimen/card_radius"

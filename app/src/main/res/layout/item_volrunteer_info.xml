@@ -11,15 +11,15 @@
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/container"
+        android:id="@+id/containerL"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:clickable="true"
         android:focusable="true"
-        android:background="@drawable/ripple">
+        android:background="@drawable/ripple_item">
 
         <TextView
-            android:id="@+id/tvDate"
+            android:id="@+id/dateTv"
             style="@style/small_text"
             android:layout_marginStart="@dimen/margin_large"
             android:layout_marginTop="@dimen/margin_small"
@@ -28,12 +28,12 @@
             app:sDateInfo="@{item.sDate}"
             app:eDateInfo="@{item.eDate}"
             tools:text="mm/dd ~ mm/dd"
-            android:textColor="@color/sky_blue"
+            android:textColor="@color/blue_light"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 
         <TextView
-            android:id="@+id/tvState"
+            android:id="@+id/stateTv"
             style="@style/small_text"
             android:layout_marginTop="@dimen/margin_small"
             android:layout_marginStart="@dimen/margin_small"
@@ -43,10 +43,10 @@
             tools:text="모집 XX"
             tools:textColor="@color/gray_1"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/tvDate" />
+            app:layout_constraintStart_toEndOf="@+id/dateTv" />
 
         <TextView
-            android:id="@+id/tvTitle"
+            android:id="@+id/titleTv"
             style="@style/medium_text"
             android:layout_marginHorizontal="@dimen/margin_large"
             android:layout_marginVertical="@dimen/margin_small"
@@ -54,12 +54,12 @@
             android:layout_height="wrap_content"
             android:text="@{item.title}"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvDate"
+            app:layout_constraintEnd_toStartOf="@+id/labelV"
+            app:layout_constraintTop_toBottomOf="@+id/dateTv"
             tools:text="봉사 제목" />
 
         <TextView
-            android:id="@+id/tvArea"
+            android:id="@+id/areaTv"
             style="@style/small_light_text"
             android:layout_marginStart="@dimen/margin_large"
             android:layout_marginVertical="@dimen/margin_small"
@@ -67,36 +67,36 @@
             android:layout_height="wrap_content"
             android:text="@{item.host}"
             tools:text="모집 기관"
-            app:layout_constraintTop_toBottomOf="@+id/tvTitle"
+            app:layout_constraintTop_toBottomOf="@+id/titleTv"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"/>
 
         <ImageView
-            android:id="@+id/ivBookMark"
+            android:id="@+id/bookmarkIv"
             android:layout_width="16dp"
             android:layout_height="16dp"
             android:background="@drawable/ic_bookmark_24"
             android:backgroundTint="@color/green"
-            app:layout_constraintTop_toTopOf="@+id/tvDate"
-            app:layout_constraintBottom_toBottomOf="@+id/tvDate"
-            app:layout_constraintStart_toEndOf="@+id/tvState"/>
-
-        <ImageView
-            android:id="@+id/ivRead"
-            android:layout_marginStart="@dimen/margin_extra_small"
-            android:layout_width="12dp"
-            android:layout_height="12dp"
-            android:background="@drawable/ic_check_24"
-            android:backgroundTint="@color/inactive_line"
-            app:layout_constraintTop_toTopOf="@+id/tvArea"
-            app:layout_constraintBottom_toBottomOf="@+id/tvArea"
-            app:layout_constraintStart_toEndOf="@+id/tvArea"/>
+            app:layout_constraintTop_toTopOf="@+id/dateTv"
+            app:layout_constraintBottom_toBottomOf="@+id/dateTv"
+            app:layout_constraintStart_toEndOf="@+id/stateTv"/>
 
         <View
-            style="@style/app_divide"
+            android:id="@+id/labelV"
+            android:layout_marginStart="@dimen/margin_extra_small"
+            android:layout_width="@dimen/label"
+            android:layout_height="0dp"
+            android:background="@color/visit"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+        <View
             android:layout_marginTop="@dimen/margin_small"
             android:layout_width="0dp"
-            app:layout_constraintTop_toBottomOf="@+id/tvArea"
+            android:layout_height="@dimen/line"
+            android:background="@color/line"
+            app:layout_constraintTop_toBottomOf="@+id/areaTv"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"/>
 

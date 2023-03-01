@@ -46,7 +46,7 @@ class HomeFragment : Fragment(), ViewHolderBindListener {
         super.onViewCreated(view, savedInstanceState)
         binding.viewmodel = viewModel
         binding.adapter = adapter
-        binding.recyclerView.itemAnimator = null
+        binding.rv.itemAnimator = null
 
         setOnclick()
         setObserver()
@@ -197,11 +197,11 @@ class HomeFragment : Fragment(), ViewHolderBindListener {
                 else View.VISIBLE
 
             binding.startDateChip.text =
-                if (!it.sDate.isNullOrEmpty()) getString(R.string.dete_form_short, it.sDate.substring(4, 6), it.sDate.substring(6, 8))
+                if (!it.sDate.isNullOrEmpty()) getString(R.string.date_form_short, it.sDate.substring(4, 6), it.sDate.substring(6, 8))
                 else getString(R.string.chip_start_date)
 
             binding.endDateChip.text =
-                if (!it.eDate.isNullOrEmpty()) getString(R.string.dete_form_short, it.eDate.substring(4, 6), it.eDate.substring(6, 8))
+                if (!it.eDate.isNullOrEmpty()) getString(R.string.date_form_short, it.eDate.substring(4, 6), it.eDate.substring(6, 8))
                 else getString(R.string.chip_end_date)
 
             binding.typeChip.text = when {
@@ -219,7 +219,7 @@ class HomeFragment : Fragment(), ViewHolderBindListener {
             }
 
             Handler(Looper.getMainLooper()).postDelayed({
-                binding.recyclerView.scrollToPosition(0)
+                binding.rv.scrollToPosition(0)
             }, 100)
         }
     }
@@ -237,8 +237,8 @@ class HomeFragment : Fragment(), ViewHolderBindListener {
         val isVisit = item.isVisit(viewModel.visitLiveList.value)
         val visitOption = viewModel.visitOptionLiveData.value == Const.VISIT.VISIBLE
 
-        holder.itemView.findViewById<ImageView>(R.id.ivBookMark).visibility = if (isBookmark) View.VISIBLE else View.GONE
-        holder.itemView.findViewById<ImageView>(R.id.ivRead).visibility = if (isVisit && visitOption) View.VISIBLE else View.GONE
+        holder.itemView.findViewById<ImageView>(R.id.bookmarkIv).visibility = if (isBookmark) View.VISIBLE else View.GONE
+        holder.itemView.findViewById<View>(R.id.labelV).visibility = if (isVisit && visitOption) View.VISIBLE else View.GONE
         holder.itemView.setOnCreateContextMenuListener { contextMenu, _, _ ->
             if (isBookmark) contextMenu.add(0, item.pID.toInt(), 0, getString(R.string.delete_bookmark))
             else contextMenu.add(0, item.pID.toInt(), 0, getString(R.string.add_bookmark))

@@ -1,45 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- base color -->
-    <color name="white">#FFFFFFFF</color>
-    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFF</color>
+    <color name="black">#000000</color>
     <color name="transparent">#00000000</color>
 
     <color name="red">#EE4452</color>
     <color name="green">#00CB45</color>
-    <color name="sky_blue">#478BFF</color>
-    <color name="blue">#1D5ECC</color>
+    <color name="blue_light">#4B7AF8</color>
+    <color name="blue">#3F6FF3</color>
+    <color name="blue_dark">#365FD3</color>
 
-    <color name="gray_0">#F8F9FA</color>
-    <color name="gray_1">#F1F3F5</color>
-    <color name="gray_2">#E9ECEF</color>
-    <color name="gray_3">#DEE2E6</color>
-    <color name="gray_4">#CED4DA</color>
-    <color name="gray_5">#ADB5BD</color>
-    <color name="gray_6">#868E96</color>
-    <color name="gray_7">#495057</color>
-    <color name="gray_8">#343A40</color>
-    <color name="gray_9">#212529</color>
+    <color name="gray_0">@color/white</color>
+    <color name="gray_1">#FEFEFE</color> <!-- card / sheet -->
+    <color name="gray_2">#FAFAFA</color>
+    <color name="gray_3">#F7F7F7</color> <!-- background -->
+    <color name="gray_4">#E8E8E8</color> <!-- line -->
+    <color name="gray_5">#C5C5C5</color> <!-- visit -->
+    <color name="gray_6">#646F7C</color> <!-- light_text / icon -->
+    <color name="gray_7">#374553</color> <!-- text -->
+    <color name="gray_8">#28323C</color>
+    <color name="gray_9">#161D24</color> <!-- dark_text -->
+    <color name="gray_10">@color/black</color>
 
     <!-- semantic color -->
-    <color name="base">@color/white</color>
+    <color name="base">@color/gray_0</color>
+    <color name="reverse">@color/gray_10</color>
+    <color name="option_background">@color/gray_0</color>
+    <color name="background">@color/gray_3</color>
     <color name="light_text">@color/gray_6</color>
-    <color name="text">@color/gray_8</color>
-    <color name="dark_text">@color/black</color>
+    <color name="text">@color/gray_7</color>
+    <color name="dark_text">@color/gray_9</color>
     <color name="ripple">#20000000</color>
-    <color name="divide_line">@color/gray_3</color>
-    <color name="active_line">@color/gray_4</color>
-    <color name="inactive_line">@color/gray_2</color>
-    <color name="background">@color/gray_1</color>
-    <color name="detail_background">@color/gray_1</color>
-    <color name="card">@color/white</color>
-    <color name="sheet">@color/white</color>
-    <color name="handle">@color/black</color>
-
-    <color name="colorPrimary">@color/blue</color>
-    <color name="colorOnPrimary">@color/white</color>
-    <color name="colorSecondary">@color/sky_blue</color>
-    <color name="colorOnSecondary">@color/black</color>
+    <color name="line">@color/gray_4</color>
+    <color name="sheet_line">@color/gray_4</color>
+    <color name="card">@color/gray_1</color>
+    <color name="sheet">@color/gray_1</color>
+    <color name="icon">@color/gray_6</color>
+    <color name="visit">@color/gray_5</color>
+    <color name="item">@color/gray_0</color>
+    <color name="toolbar">@color/gray_0</color>
 
     <!-- https://yeun.github.io/2016/09/25/general-usage-of-gray.html -->
     <!-- https://m2.material.io/design/color/dark-theme.html#behavior -->

@@ -25,7 +25,7 @@ class DetailActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
-        setSupportActionBar(binding.toolbar.root)
+        setSupportActionBar(binding.tb.root)
         supportActionBar?.title = getString(R.string.toolbar_detail)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
@@ -52,8 +52,8 @@ class DetailActivity : AppCompatActivity() {
 
     private fun setObserver() {
         viewModel.isBookmarkLiveData.observe(this) {
-            val bookMarkIcon = binding.toolbar.root.findViewById<ActionMenuItemView>(R.id.book_mark)
-            val bookMarkBorderIcon = binding.toolbar.root.findViewById<ActionMenuItemView>(R.id.book_mark_border)
+            val bookMarkIcon = binding.tb.root.findViewById<ActionMenuItemView>(R.id.book_mark)
+            val bookMarkBorderIcon = binding.tb.root.findViewById<ActionMenuItemView>(R.id.book_mark_border)
             bookMarkIcon.visibility = if (it) View.VISIBLE else View.GONE
             bookMarkBorderIcon.visibility = if (it) View.GONE else View.VISIBLE
         }

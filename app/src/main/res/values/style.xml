@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- common -->
     <style name="toolbar">
         <item name="android:paddingBottom">@dimen/padding_extra_small</item>
         <item name="android:textColor">@color/dark_text</item>
         <item name="android:fontFamily">@font/nanum_bold</item>
-        <item name="android:background">@color/base</item>
+        <item name="android:background">@color/toolbar</item>
         <item name="android:elevation">@dimen/elevation</item>
     </style>
 
@@ -20,7 +19,7 @@
         <item name="android:includeFontPadding">false</item>
         <item name="chipBackgroundColor">@color/base</item>
         <item name="chipStrokeWidth">@dimen/line</item>
-        <item name="chipStrokeColor">@color/active_line</item>
+        <item name="chipStrokeColor">@color/line</item>
         <item name="chipCornerRadius">@dimen/chip_radius</item>
         <item name="chipMinTouchTargetSize">@dimen/zero</item>
     </style>
@@ -34,7 +33,7 @@
     </style>
 
     <style name="bottom_sheet_item">
-        <item name="android:textSize">@dimen/text_size_bottom_sheet_item</item>
+        <item name="android:textSize">@dimen/text_size_large</item>
         <item name="android:textColor">@color/text</item>
         <item name="android:fontFamily">@font/nanum_bold</item>
         <item name="android:includeFontPadding">false</item>
@@ -46,11 +45,6 @@
 
     <style name="toggle_button" parent="Widget.MaterialComponents.MaterialCalendar.HeaderToggleButton">
         <item name="android:visibility">gone</item>
-    </style>
-
-    <style name="app_divide">
-        <item name="android:layout_height">@dimen/line</item>
-        <item name="android:background">@color/divide_line</item>
     </style>
 
     <!-- textView -->

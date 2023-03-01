@@ -7,7 +7,6 @@ import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.RecyclerView
@@ -40,8 +39,8 @@ class BookMarkFragment : Fragment(), ViewHolderBindListener {
         lifecycleScope.launch {
             viewModel.bookmarkLiveList.observe(viewLifecycleOwner) {
                 adapter.submitList(it)
-                binding.recyclerView.visibility = if (it.isNullOrEmpty()) View.GONE else View.VISIBLE
-                binding.noResult.visibility = if (it.isNullOrEmpty()) View.VISIBLE else View.GONE
+                binding.rv.visibility = if (it.isNullOrEmpty()) View.GONE else View.VISIBLE
+                binding.noResultL.visibility = if (it.isNullOrEmpty()) View.VISIBLE else View.GONE
             }
         }
     }
@@ -62,7 +61,7 @@ class BookMarkFragment : Fragment(), ViewHolderBindListener {
     override fun onViewHolderBind(holder: RecyclerView.ViewHolder, item: Any) {
         val item = item as Info
 
-        holder.itemView.findViewById<ImageView>(R.id.ivRead).visibility = View.GONE
+        holder.itemView.findViewById<View>(R.id.labelV).visibility = View.GONE
         holder.itemView.setOnCreateContextMenuListener { contextMenu, _, _ ->
             contextMenu.add(0, item.pID.toInt(), 0, getString(R.string.delete_bookmark))
         }

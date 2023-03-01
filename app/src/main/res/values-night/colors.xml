@@ -1,43 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- base color -->
-    <color name="white">#FFFFFFFF</color>
-    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFF</color>
+    <color name="black">#000000</color>
     <color name="transparent">#00000000</color>
 
     <color name="red">#EE4452</color>
     <color name="green">#00CB45</color>
-    <color name="sky_blue">#478BFF</color>
-    <color name="blue">#1D5ECC</color>
+    <color name="blue_light">#4B7AF8</color>
+    <color name="blue">#3F6FF3</color>
+    <color name="blue_dark">#365FD3</color>
 
-    <color name="gray_0">#F8F9FA</color>
-    <color name="gray_1">#F1F3F5</color>
-    <color name="gray_2">#E9ECEF</color>
-    <color name="gray_3">#DEE2E6</color>
-    <color name="gray_4">#CED4DA</color>
-    <color name="gray_5">#ADB5BD</color>
-    <color name="gray_6">#868E96</color>
-    <color name="gray_7">#495057</color>
-    <color name="gray_8">#343A40</color>
-    <color name="gray_9">#212529</color>
+    <color name="gray_0">@color/black</color>
+    <color name="gray_1">#080808</color>
+    <color name="gray_2">#F5121214</color>
+    <color name="gray_3">#F5202020</color>
+    <color name="gray_4">#262626</color>
+    <color name="gray_5">#404040</color>
+    <color name="gray_6">#F5949494</color>
+    <color name="gray_7">#C0C0C0</color>
+    <color name="gray_8">#F5C8C8C8</color>
+    <color name="gray_9">#EAEAEA</color>
+    <color name="gray_10">#FAFAFA</color>
 
     <!-- semantic color -->
-    <color name="base">#F5000000</color>
-    <color name="light_text">@color/gray_5</color>
-    <color name="text">@color/gray_0</color>
-    <color name="dark_text">@color/white</color>
-    <color name="ripple">#40FFFFFF</color>
-    <color name="divide_line">@color/gray_8</color>
-    <color name="active_line">@color/gray_7</color>
-    <color name="inactive_line">@color/gray_6</color>
-    <color name="background">#FF121212</color>
-    <color name="detail_background">#F5000000</color>
-    <color name="card">#FF121212</color>
-    <color name="sheet">#FF121212</color>
-    <color name="handle">@color/white</color>
-
-    <color name="colorPrimary">@color/blue</color>
-    <color name="colorOnPrimary">@color/white</color>
-    <color name="colorSecondary">@color/sky_blue</color>
-    <color name="colorOnSecondary">#F5000000</color>
+    <color name="base">@color/gray_2</color>
+    <color name="reverse">@color/gray_10</color>
+    <color name="option_background">@color/gray_1</color>
+    <color name="background">@color/gray_1</color>
+    <color name="light_text">#70FFFFFF</color>
+    <color name="text">#E0FFFFFF</color>
+    <color name="dark_text">#F5FFFFFF</color>
+    <color name="ripple">#20FFFFFF</color>
+    <color name="line">@color/gray_4</color>
+    <color name="sheet_line">@color/gray_5</color>
+    <color name="card">@color/gray_2</color>
+    <color name="sheet">@color/gray_2</color>
+    <color name="icon">@color/gray_7</color>
+    <color name="visit">@color/gray_4</color>
+    <color name="item">@color/gray_1</color>
+    <color name="toolbar">@color/gray_2</color>
 </resources>

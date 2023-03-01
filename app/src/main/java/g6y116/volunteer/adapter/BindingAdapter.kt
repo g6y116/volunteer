@@ -19,7 +19,7 @@ object BindingAdapter {
             }
             Const.STATE.DOING -> {
                 view.text = view.context.getString(R.string.chip_state_doing)
-                view.setTextColor(ContextCompat.getColor(view.context, R.color.sky_blue))
+                view.setTextColor(ContextCompat.getColor(view.context, R.color.blue_light))
             }
             Const.STATE.DONE -> {
                 view.text = view.context.getString(R.string.chip_state_done)
@@ -35,13 +35,13 @@ object BindingAdapter {
         if (startDate != null && endDate != null) {
             if (startDate == endDate) {
                 view.text = view.context.getString(
-                    R.string.dete_form_short,
+                    R.string.date_form_short,
                     startDate.substring(4, 6),
                     startDate.substring(6, 8)
                 )
             } else {
                 view.text = view.context.getString(
-                    R.string.dete_form,
+                    R.string.date_form,
                     startDate.substring(4, 6),
                     startDate.substring(6, 8),
                     endDate.substring(4, 6),
@@ -58,13 +58,13 @@ object BindingAdapter {
         if (startDate != null && endDate != null) {
             if (startDate == endDate) {
                 view.text = view.context.getString(
-                    R.string.dete_form_short,
+                    R.string.date_form_short,
                     startDate.substring(4, 6),
                     startDate.substring(6, 8)
                 )
             } else {
                 view.text = view.context.getString(
-                    R.string.dete_form,
+                    R.string.date_form,
                     startDate.substring(4, 6),
                     startDate.substring(6, 8),
                     endDate.substring(4, 6),

@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">1365 봉사활동</string>
-    <string name="version_number">1.2</string>
+    <string name="version_number">1.3</string>
     <string name="email_address">g6y116@naver.com</string>
 
     <string name="toolbar_home">봉사활동</string>
@@ -61,8 +61,8 @@
     <string name="map">지도정보</string>
 
     <!-- etc -->
-    <string name="dete_form_short">%s/%s</string>
-    <string name="dete_form">%s/%s ~ %s/%s</string>
+    <string name="date_form_short">%s/%s</string>
+    <string name="date_form">%s/%s ~ %s/%s</string>
     <string name="time_form">%s시 ~ %s시</string>
     <string name="msg_bookmark_empty">책갈피가 없습니다.</string>
     <string name="msg_volunteer_deleted">삭제된 봉사정보입니다.</string>

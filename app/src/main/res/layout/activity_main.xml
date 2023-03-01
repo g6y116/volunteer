@@ -9,7 +9,7 @@
     android:weightSum="1">
 
     <include
-        android:id="@+id/toolbar"
+        android:id="@+id/tb"
         layout="@layout/item_toolbar"/>
 
     <androidx.fragment.app.FragmentContainerView

@@ -24,7 +24,7 @@ class MoreFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.viewmodel = viewModel
-        binding.localeCardView.visibility =
+        binding.languageCv.visibility =
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) View.VISIBLE
             else View.GONE
 
@@ -33,7 +33,7 @@ class MoreFragment : Fragment() {
     }
 
     private fun setOnclick() {
-        binding.modeLayout.onClick {
+        binding.themeL.onClick {
             val menus = arrayOf(getString(R.string.theme_system), getString(R.string.theme_light), getString(R.string.theme_dark))
             AlertDialog.Builder(context)
                 .setTitle(getString(R.string.theme))
@@ -47,7 +47,7 @@ class MoreFragment : Fragment() {
                 .show()
         }
 
-        binding.localeLayout.onClick {
+        binding.languageL.onClick {
             val menus = arrayOf(getString(R.string.language_ko), getString(R.string.language_en))
             AlertDialog.Builder(context)
                 .setTitle(getString(R.string.language))
@@ -60,7 +60,7 @@ class MoreFragment : Fragment() {
                 .show()
         }
 
-        binding.readLayout.onClick {
+        binding.visitL.onClick {
             val menus = arrayOf(getString(R.string.visit_visible), getString(R.string.visit_invisible), getString(R.string.visit_delete))
             AlertDialog.Builder(context)
                 .setTitle(getString(R.string.visit))
@@ -87,23 +87,23 @@ class MoreFragment : Fragment() {
     private fun setObserver() {
         viewModel.themeOptionLiveData.observe(viewLifecycleOwner) {
             when(it) {
-                Const.THEME.SYSTEM -> binding.modeTvSub.text = getString(R.string.theme_system)
-                Const.THEME.LIGHT -> binding.modeTvSub.text = getString(R.string.theme_light)
-                Const.THEME.DARK -> binding.modeTvSub.text = getString(R.string.theme_dark)
+                Const.THEME.SYSTEM -> binding.themeSubTv.text = getString(R.string.theme_system)
+                Const.THEME.LIGHT -> binding.themeSubTv.text = getString(R.string.theme_light)
+                Const.THEME.DARK -> binding.themeSubTv.text = getString(R.string.theme_dark)
             }
         }
 
         viewModel.languageOptionLiveData.observe(viewLifecycleOwner) {
             when(it) {
-                Const.LANGUAGE.KOREAN -> binding.localeTvSub.text = getString(R.string.language_ko)
-                Const.LANGUAGE.ENGLISH -> binding.localeTvSub.text = getString(R.string.language_en)
+                Const.LANGUAGE.KOREAN -> binding.languageSubTv.text = getString(R.string.language_ko)
+                Const.LANGUAGE.ENGLISH -> binding.languageSubTv.text = getString(R.string.language_en)
             }
         }
 
         viewModel.visitOptionLiveData.observe(viewLifecycleOwner) {
             when(it) {
-                Const.VISIT.VISIBLE -> binding.readTvSub.text = getString(R.string.visit_visible)
-                Const.VISIT.INVISIBLE -> binding.readTvSub.text = getString(R.string.visit_invisible)
+                Const.VISIT.VISIBLE -> binding.visitSubTv.text = getString(R.string.visit_visible)
+                Const.VISIT.INVISIBLE -> binding.visitSubTv.text = getString(R.string.visit_invisible)
             }
         }
     }
