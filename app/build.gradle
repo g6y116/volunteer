@@ -104,4 +104,7 @@ dependencies {
 
     // logger
     implementation 'com.orhanobut:logger:2.2.0'
+
+    // Kakao maps sdk
+    implementation files('libs/libDaumMapAndroid.jar')
 }

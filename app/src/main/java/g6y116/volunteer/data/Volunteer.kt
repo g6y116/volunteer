@@ -4,6 +4,11 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import androidx.room.ColumnInfo
 
+data class Coordinate(
+    val x: String, // 경도
+    val y: String, // 위도
+)
+
 @Entity(tableName = "info")
 data class Info(
     @PrimaryKey(autoGenerate = false)

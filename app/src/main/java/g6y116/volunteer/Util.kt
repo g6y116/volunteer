@@ -7,7 +7,7 @@ import android.view.View
 import android.widget.Toast
 import com.orhanobut.logger.Logger
 import java.text.SimpleDateFormat
-import java.util.Date
+import java.util.*
 
 fun View.onClick(onSingleClick: (View) -> Unit) {
     setOnClickListener(OnSingleClickListener { onSingleClick(it) })

@@ -10,11 +10,14 @@ import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import g6y116.volunteer.Const
+import g6y116.volunteer.api.KakaoApi
 import g6y116.volunteer.api.VolunteerApi
 import g6y116.volunteer.dao.BookmarkDao
 import g6y116.volunteer.dao.VisitDao
 import g6y116.volunteer.data.*
 import g6y116.volunteer.datasource.HomePagingSource
+import g6y116.volunteer.di.AppModule
+import g6y116.volunteer.log
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.first
@@ -23,6 +26,8 @@ import java.io.IOException
 import javax.inject.Inject
 
 interface VolunteerRepository {
+    suspend fun getCoordinate(address: String): Coordinate?
+
     suspend fun getVolunteer(pID: String): Volunteer?
     fun getVolunteerFlowList(searchOption: SearchOption): Flow<PagingData<Info>>
 
@@ -48,10 +53,16 @@ interface VolunteerRepository {
 
 class VolunteerRepositoryImpl @Inject constructor(
     private val api: VolunteerApi,
+    private val kakoApi: KakaoApi,
     private val bookmarkDao: BookmarkDao,
     private val visitDao: VisitDao,
     private val dataStore: DataStore<Preferences>
 ) : VolunteerRepository {
+    override suspend fun getCoordinate(address: String): Coordinate? =
+        (kakoApi.getAddress(address).body() as? KakaoResponse)?.documents?.get(0)?.run {
+            log("${road_address.toString()}")
+            Coordinate(x, y)
+        }
 
     override suspend fun getVolunteer(pID: String): Volunteer? = (api.getVolunteer(pID).body() as DetailResponse).body.items.item?.toVolunteer()
     override fun getVolunteerFlowList(searchOption: SearchOption): Flow<PagingData<Info>> =

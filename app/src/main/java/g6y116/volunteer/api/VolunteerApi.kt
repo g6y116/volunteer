@@ -18,13 +18,13 @@ interface VolunteerApi {
         @Query("keyword") keyWord: String?,
         @Query("adultPosblAt") isAdult: String?,
         @Query("yngbgsPosblAt") isYoung: String?,
-        @Query("serviceKey") serviceKey: String = Const.SERVICE_KEY,
+        @Query("serviceKey") serviceKey: String = Const.OPEN_API_KEY,
         @Query("numOfRows") numOfRows: Int = Const.LOAD_SIZE,
     ) : Response<HomeResponse>
 
     @GET("getVltrPartcptnItem")
     suspend fun getVolunteer(
         @Query("progrmRegistNo") pID: String,
-        @Query("serviceKey") serviceKey: String = Const.SERVICE_KEY,
+        @Query("serviceKey") serviceKey: String = Const.OPEN_API_KEY,
     ) : Response<DetailResponse>
 }

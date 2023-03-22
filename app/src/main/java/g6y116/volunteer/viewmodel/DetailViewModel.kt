@@ -4,6 +4,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
+import g6y116.volunteer.data.Coordinate
 import g6y116.volunteer.data.Visit
 import g6y116.volunteer.data.Volunteer
 import g6y116.volunteer.repository.VolunteerRepository
@@ -14,6 +15,7 @@ import javax.inject.Inject
 @HiltViewModel
 class DetailViewModel @Inject constructor(private val repository: VolunteerRepository) : ViewModel() {
 
+    val coordinateLiveData = MutableLiveData<Coordinate>()
     val volunteerLiveData = MutableLiveData<Volunteer>()
     val isBookmarkLiveData = MutableLiveData<Boolean>()
     val errorLiveData = MutableLiveData<Boolean>()
@@ -30,6 +32,9 @@ class DetailViewModel @Inject constructor(private val repository: VolunteerRepos
                     if (v != null) {
                         volunteerLiveData.postValue(v!!)
                         isBookmarkLiveData.postValue(repository.getBookmarkList().any { it.pID == v.pID })
+
+                        //
+                        getCoordinate(v.address)
                     } else {
                         repository.removeBookmark(pID)
                         errorLiveData.postValue(true)
@@ -38,6 +43,17 @@ class DetailViewModel @Inject constructor(private val repository: VolunteerRepos
                 } catch (e: Exception) {
                     repository.removeBookmark(pID)
                     errorLiveData.postValue(true)
+                }
+            }
+        }
+    }
+
+    fun getCoordinate(address: String) {
+        if (address.isNotEmpty()) {
+            viewModelScope.launch(Dispatchers.IO) {
+                val v = repository.getCoordinate(address)
+                if (v != null) {
+                    coordinateLiveData.postValue(v!!)
                 }
             }
         }
