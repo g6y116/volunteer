@@ -40,21 +40,21 @@ class DetailActivity : AppCompatActivity() {
         viewModel.url = intent?.getStringExtra("url").toString()
         viewModel.from = intent?.getStringExtra("from").toString()
 
-        binding.lifecycleOwner = this
-        binding.viewmodel = viewModel
-
+//        binding.lifecycleOwner = this
+//        binding.viewmodel = viewModel
+//
         viewModel.getVolunteer(viewModel.pID)
         viewModel.addRead(viewModel.pID)
-
-        setOnclick()
-        setObserver()
+//
+//        setOnclick()
+//        setObserver()
     }
 
     private fun setOnclick() {
-        binding.btn.onClick {
-            if (viewModel.url.isNotEmpty())
-                startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(viewModel.url)))
-        }
+//        binding.btn.onClick {
+//            if (viewModel.url.isNotEmpty())
+//                startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(viewModel.url)))
+//        }
     }
 
     private fun setObserver() {
@@ -70,24 +70,24 @@ class DetailActivity : AppCompatActivity() {
             finish()
         }
 
-        viewModel.coordinateLiveData.observe(this) {
-            if (it != null) {
-                mapView.setMapCenterPoint(MapPoint.mapPointWithGeoCoord(it.y.toDouble(), it.x.toDouble()), true)
-                mapView.setZoomLevel(2, true)
-
-                val marker = MapPOIItem().apply {
-                    itemName = "여기"
-                    tag = 0
-                    mapPoint = MapPoint.mapPointWithGeoCoord(it.y.toDouble(), it.x.toDouble())
-                    markerType = MapPOIItem.MarkerType.BluePin
-                    selectedMarkerType = MapPOIItem.MarkerType.RedPin
-
-                }
-                mapView.addPOIItem(marker)
-
-                binding.mapL.addView(mapView) // map
-            }
-        }
+//        viewModel.coordinateLiveData.observe(this) {
+//            if (it != null) {
+//                mapView.setMapCenterPoint(MapPoint.mapPointWithGeoCoord(it.y.toDouble(), it.x.toDouble()), true)
+//                mapView.setZoomLevel(2, true)
+//
+//                val marker = MapPOIItem().apply {
+//                    itemName = "여기"
+//                    tag = 0
+//                    mapPoint = MapPoint.mapPointWithGeoCoord(it.y.toDouble(), it.x.toDouble())
+//                    markerType = MapPOIItem.MarkerType.BluePin
+//                    selectedMarkerType = MapPOIItem.MarkerType.RedPin
+//
+//                }
+//                mapView.addPOIItem(marker)
+//
+//                binding.mapL.addView(mapView) // map
+//            }
+//        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {

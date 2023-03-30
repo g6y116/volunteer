@@ -68,4 +68,6 @@
     <string name="msg_volunteer_deleted">This volunteer has been deleted.</string>
     <string name="add_bookmark">Add Bookmark</string>
     <string name="delete_bookmark">Delete Bookmark</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
