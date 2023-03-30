@@ -7,9 +7,9 @@
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 
     <application
-        android:name=".AppApplication"
-        android:localeConfig="@xml/locale_config"
+        android:name=".base.AppApplication"
         android:allowBackup="false"
+        android:localeConfig="@xml/locale_config"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
         android:icon="@mipmap/ic_logo"
@@ -19,21 +19,21 @@
         android:theme="@style/Theme.Volunteer"
         android:usesCleartextTraffic="true">
         <activity
-            android:name=".view.DetailActivity"
-            android:screenOrientation="portrait"
-            android:exported="false">
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
-        </activity>
-        <activity
-            android:name=".view.MainActivity"
+            android:name=".feature.ui.activity.MainActivity"
             android:screenOrientation="portrait"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".feature.ui.activity.DetailActivity"
+            android:screenOrientation="portrait"
+            android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />

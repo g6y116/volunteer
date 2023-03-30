@@ -7,7 +7,7 @@
     <data>
         <variable
             name="viewmodel"
-            type="g6y116.volunteer.viewmodel.MainViewModel" />
+            type="g6y116.volunteer.feature.ui.viewmodel.MainViewModel" />
     </data>
 
     <LinearLayout

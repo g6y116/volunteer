@@ -7,7 +7,7 @@
     <data>
         <variable
             name="viewmodel"
-            type="g6y116.volunteer.viewmodel.DetailViewModel" />
+            type="g6y116.volunteer.feature.ui.viewmodel.DetailViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -42,7 +42,7 @@
                 style="@style/solid_button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/apply" />
+                android:text="@string/open_kakao_map" />
         </androidx.cardview.widget.CardView>
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -50,8 +50,11 @@
             android:layout_margin="@dimen/margin_medium"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_search_24"
-            android:tintMode="screen"
+            android:src="@drawable/ic_map_24"
+            android:tint="@color/white"
+            android:tintMode="src_in"
+            app:fabSize="mini"
+            app:tint="@null"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toTopOf="@+id/bottomL"/>
     </androidx.constraintlayout.widget.ConstraintLayout>

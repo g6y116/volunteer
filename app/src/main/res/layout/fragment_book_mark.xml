@@ -7,10 +7,10 @@
     <data>
         <variable
             name="viewmodel"
-            type="g6y116.volunteer.viewmodel.MainViewModel" />
+            type="g6y116.volunteer.feature.ui.viewmodel.MainViewModel" />
         <variable
             name="adapter"
-            type="g6y116.volunteer.adapter.BookMarkAdapter" />
+            type="g6y116.volunteer.feature.adapter.BookMarkFragmentAdapter" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

@@ -8,16 +8,16 @@
 
     <fragment
         android:id="@+id/homeFragment"
-        android:name="g6y116.volunteer.view.HomeFragment"
+        android:name="g6y116.volunteer.feature.ui.fragment.HomeFragment"
         tools:layout="@layout/fragment_home" />
 
     <fragment
         android:id="@+id/bookMarkFragment"
-        android:name="g6y116.volunteer.view.BookMarkFragment"
+        android:name="g6y116.volunteer.feature.ui.fragment.BookMarkFragment"
         tools:layout="@layout/fragment_book_mark" />
 
     <fragment
         android:id="@+id/moreFragment"
-        android:name="g6y116.volunteer.view.MoreFragment"
+        android:name="g6y116.volunteer.feature.ui.fragment.MoreFragment"
         tools:layout="@layout/fragment_more" />
 </navigation>
