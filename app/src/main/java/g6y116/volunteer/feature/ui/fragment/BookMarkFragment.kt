@@ -53,7 +53,6 @@ class BookMarkFragment : BaseFragment<FragmentBookMarkBinding>(R.layout.fragment
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.bookMarkUiState.collectLatest {
                     adapter.submitList(it)
-
                     binding.rv.visibility = if (it.isNullOrEmpty()) View.GONE else View.VISIBLE
                     binding.noResultL.visibility = if (it.isNullOrEmpty()) View.VISIBLE else View.GONE
                 }

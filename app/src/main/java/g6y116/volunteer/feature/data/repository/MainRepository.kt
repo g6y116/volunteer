@@ -36,15 +36,20 @@ class MainRepositoryImpl @Inject constructor(
     private val visitLocalSource: VisitLocalSource,
     private val dataStore: DataStore<Preferences>
 ) : MainRepository {
+
     override fun loadInfo(searchOption: SearchOption): Flow<PagingData<Info>> =
         Pager(
             config = PagingConfig(pageSize = Const.LOAD_SIZE, enablePlaceholders = true),
             pagingSourceFactory = { OpenApiPagingSource(openApiRemoteSource, searchOption) },
         ).flow
+
     override fun loadBookMarkInfo(): Flow<List<Info>> = infoLocalSource.load()
+
     override fun loadVisit(): Flow<List<Visit>> = visitLocalSource.load()
+
     override suspend fun loadVolunteer(pID: String): Volunteer? =
         (openApiRemoteSource.loadVolunteer(pID).body() as DetailResponse).body.items.item?.toVolunteer()
+
     override fun loadSearchOption(): Flow<SearchOption> =
         dataStore.data.map { prefs ->
             SearchOption(
@@ -58,6 +63,7 @@ class MainRepositoryImpl @Inject constructor(
                 prefs[stringPreferencesKey(Const.PrefKey.STATE)].let { if (it != "") it else null},
             )
         }
+
     override fun loadAppOption(): Flow<AppOption> =
         dataStore.data.map { prefs ->
             AppOption(
@@ -67,21 +73,23 @@ class MainRepositoryImpl @Inject constructor(
             )
         }
 
-    override suspend fun deleteBookMark(pID: String) {
-        infoLocalSource.delete(pID)
-    }
+    override suspend fun deleteBookMark(pID: String) = infoLocalSource.delete(pID)
 
     override suspend fun insertVisit(visit: Visit) = visitLocalSource.insert(visit)
+
     override suspend fun deleteAllVisit() = visitLocalSource.deleteAll()
+
     override suspend fun updateOption(option: String?, type: String) {
         dataStore.edit { prefs -> prefs[stringPreferencesKey(type)] = option ?: "" }
     }
+
     override suspend fun updateOption(option1: String?, type1: String, option2: String?, type2: String) {
         dataStore.edit { prefs ->
             prefs[stringPreferencesKey(type1)] = option1 ?: ""
             prefs[stringPreferencesKey(type2)] = option2 ?: ""
         }
     }
+
     override suspend fun resetOption() {
         dataStore.edit { prefs ->
             prefs[stringPreferencesKey(Const.PrefKey.SIDO)] = ""

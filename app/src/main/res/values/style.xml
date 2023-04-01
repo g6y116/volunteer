@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <style name="toolbar">
+    <style name="toolbar" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
         <item name="android:paddingBottom">@dimen/padding_extra_small</item>
         <item name="android:textColor">@color/dark_text</item>
         <item name="android:fontFamily">@font/nanum_bold</item>

@@ -45,17 +45,7 @@ class DetailViewModel @Inject constructor(private val repository: DetailReposito
                     repository.deleteBookmark(it.pID)
                     it.isBookmark = false
                 } else {
-                    repository.insertBookmark(
-                        Info(
-                            it.pID,
-                            it.title,
-                            it.host,
-                            it.sDate,
-                            it.eDate,
-                            it.state,
-                            it.url
-                        )
-                    )
+                    repository.insertBookmark(Info(it.pID, it.title, it.host, it.sDate, it.eDate, it.state, it.url))
                     it.isBookmark = true
                 }
             }

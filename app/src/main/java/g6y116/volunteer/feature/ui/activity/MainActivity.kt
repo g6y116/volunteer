@@ -2,12 +2,9 @@ package g6y116.volunteer.feature.ui.activity
 
 import android.os.Bundle
 import androidx.activity.viewModels
-import androidx.navigation.fragment.NavHostFragment
-import androidx.navigation.ui.NavigationUI
 import dagger.hilt.android.AndroidEntryPoint
 import g6y116.volunteer.R
 import g6y116.volunteer.base.abstracts.BaseActivity
-import g6y116.volunteer.base.consts.Const
 import g6y116.volunteer.base.utils.toast
 import g6y116.volunteer.databinding.ActivityMainBinding
 import g6y116.volunteer.feature.ui.viewmodel.MainViewModel
@@ -19,7 +16,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setSupportActionBar(binding.tb.root)
+        setSupportActionBar(binding.tb)
         setNavigation(R.id.nh, binding.bn)
 
         viewModel.appOption.observe(this) {

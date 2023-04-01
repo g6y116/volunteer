@@ -10,9 +10,12 @@
         android:orientation="vertical"
         android:weightSum="1">
 
-        <include
+        <androidx.appcompat.widget.Toolbar
             android:id="@+id/tb"
-            layout="@layout/item_toolbar"/>
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/toolbar">
+        </androidx.appcompat.widget.Toolbar>
 
         <androidx.fragment.app.FragmentContainerView
             android:id="@+id/nh"

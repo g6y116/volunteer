@@ -1,7 +1,6 @@
 package g6y116.volunteer.feature.ui.fragment
 
 import android.content.Intent
-import android.location.Geocoder
 import android.net.Uri
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels

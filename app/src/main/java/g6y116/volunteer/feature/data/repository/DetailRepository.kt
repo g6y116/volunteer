@@ -4,7 +4,6 @@ import g6y116.volunteer.feature.data.datasource.InfoLocalSource
 import g6y116.volunteer.feature.data.datasource.KakaoRemoteSource
 import g6y116.volunteer.feature.data.model.Coordinate
 import g6y116.volunteer.feature.data.model.Info
-import g6y116.volunteer.feature.data.model.KakaoResponse
 import javax.inject.Inject
 
 interface DetailRepository {
@@ -17,8 +16,11 @@ class DetailRepositoryImpl @Inject constructor(
     private val kakaoRemoteSource: KakaoRemoteSource,
     private val infoLocalSource: InfoLocalSource,
 ) : DetailRepository {
+
     override suspend fun loadCoordinate(address: String): Coordinate? =
-        (kakaoRemoteSource.loadAddress(address).body() as? KakaoResponse)?.documents?.get(0)?.run { Coordinate(x, y) }
+        (kakaoRemoteSource.loadAddress(address).body())?.documents?.get(0)?.run { Coordinate(x, y) }
+
     override suspend fun insertBookmark(info: Info) = infoLocalSource.insert(info)
+
     override suspend fun deleteBookmark(pID: String) = infoLocalSource.delete(pID)
 }
