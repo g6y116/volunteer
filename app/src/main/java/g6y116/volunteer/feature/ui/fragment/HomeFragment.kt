@@ -24,6 +24,7 @@ import g6y116.volunteer.databinding.FragmentHomeBinding
 import g6y116.volunteer.feature.ui.activity.DetailActivity
 import g6y116.volunteer.feature.ui.activity.MainActivity
 import g6y116.volunteer.feature.ui.viewmodel.MainViewModel
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import java.lang.Math.min
@@ -38,7 +39,11 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
         viewModel.clickVolunteer(
             item,
             { startActivity(Intent(context, DetailActivity::class.java).apply { putExtra("item", it) }) },
-            { toast(requireActivity(), getString(R.string.msg_volunteer_deleted)) }
+            {
+                lifecycleScope.launch(Dispatchers.Main) {
+                    toast(requireActivity(), getString(R.string.msg_volunteer_deleted))
+                }
+            }
         )
     }
 

@@ -14,6 +14,7 @@ import g6y116.volunteer.databinding.FragmentBookMarkBinding
 import g6y116.volunteer.feature.ui.activity.DetailActivity
 import g6y116.volunteer.feature.ui.activity.MainActivity
 import g6y116.volunteer.feature.ui.viewmodel.MainViewModel
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
@@ -24,7 +25,11 @@ class BookMarkFragment : BaseFragment<FragmentBookMarkBinding>(R.layout.fragment
         viewModel.clickVolunteer(
             item,
             { startActivity(Intent(context, DetailActivity::class.java).apply { putExtra("item", it) }) },
-            { toast(requireActivity(), getString(R.string.msg_volunteer_deleted)) }
+            {
+                lifecycleScope.launch(Dispatchers.Main) {
+                    toast(requireActivity(), getString(R.string.msg_volunteer_deleted))
+                }
+            }
         )
     }
 
@@ -55,29 +60,4 @@ class BookMarkFragment : BaseFragment<FragmentBookMarkBinding>(R.layout.fragment
             }
         }
     }
-
-//    override fun onContextItemSelected(item: MenuItem): Boolean {
-//        if (getString(R.string.delete_bookmark) == item.toString())
-//            viewModel.clickContextMenu(item.itemId.toString())
-//        return true
-//    }
-//
-//    override fun onViewHolderBind(holder: RecyclerView.ViewHolder, item: Any) {
-//        val item = item as Info
-//
-//        holder.itemView.findViewById<View>(R.id.labelV).visibility = View.GONE
-//        holder.itemView.setOnCreateContextMenuListener { contextMenu, _, _ ->
-//            contextMenu.add(0, item.pID.toInt(), 0, getString(R.string.delete_bookmark))
-//        }
-//
-//        holder.itemView.onClick {
-//            lifecycleScope.launch {
-//                startActivity(Intent(context, DetailActivity::class.java).apply {
-//                    putExtra("pID", item.pID)
-//                    putExtra("url", item.url)
-//                    putExtra("from", Const.FROM.BOOKMARK)
-//                })
-//            }
-//        }
-//    }
 }
