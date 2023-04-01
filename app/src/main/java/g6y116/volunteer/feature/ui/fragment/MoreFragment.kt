@@ -107,9 +107,6 @@ class MoreFragment : BaseFragment<FragmentMoreBinding>(R.layout.fragment_more) {
                 Const.VISIT.VISIBLE -> binding.visitSubTv.text = getString(R.string.visit_visible)
                 Const.VISIT.INVISIBLE -> binding.visitSubTv.text = getString(R.string.visit_invisible)
             }
-
-            viewModel.applyTheme(it.theme)
-            viewModel.applyLanguage(it.language)
         }
     }
 }

@@ -7,6 +7,7 @@ import androidx.navigation.ui.NavigationUI
 import dagger.hilt.android.AndroidEntryPoint
 import g6y116.volunteer.R
 import g6y116.volunteer.base.abstracts.BaseActivity
+import g6y116.volunteer.base.consts.Const
 import g6y116.volunteer.base.utils.toast
 import g6y116.volunteer.databinding.ActivityMainBinding
 import g6y116.volunteer.feature.ui.viewmodel.MainViewModel
@@ -20,6 +21,11 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
         super.onCreate(savedInstanceState)
         setSupportActionBar(binding.tb.root)
         setNavigation(R.id.nh, binding.bn)
+
+        viewModel.appOption.observe(this) {
+            viewModel.applyTheme(it.theme)
+            viewModel.applyLanguage(it.language)
+        }
     }
 
     private var waitTime = 0L
