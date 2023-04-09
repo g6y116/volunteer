@@ -6,11 +6,10 @@
 
 <p>
 
-<img src="https://img.shields.io/badge/Android-3DDC84?style=flat-square&logo=Android&logoColor=white"/>
-<img src="https://img.shields.io/badge/Kotlin-3178C6?style=flat-square&logo=Kotlin&logoColor=white"/>
+<img src ="https://img.shields.io/badge/Android-3DDC84.svg?&style=flat&logo=Android&logoColor=white"/> <img src ="https://img.shields.io/badge/Kotlin-7F52FF.svg?&style=flat&logo=Kotlin&logoColor=white"/>
 </p>
  
-1365 봉사활동 사이트의 정보를 쉽게 조회할 수 있습니다.
+1365 자원봉사 사이트의 정보를 쉽게 조회할 수 있습니다.
 
 플레이스토어에서 [다운로드](https://play.google.com/store/apps/details?id=g6y116.volunteer) 받으실 수 있습니다.
 
@@ -27,7 +26,7 @@
 4. 방문기록
 5. 다크모드 지원
 6. 다국어 지원
-7. 카카오 맵 지원(new)
+7. 카카오 맵 지원
 ```
 
 ## ScreenShot
@@ -36,7 +35,7 @@
 
 <img src="https://user-images.githubusercontent.com/121198194/222146794-45c823bc-42bd-4f5b-a176-a22056988359.jpg" width="20%" height="20%"><img src="https://user-images.githubusercontent.com/121198194/222146799-56df571d-e39d-46e0-9382-6426d30ffc92.jpg" width="20%" height="20%"><img src="https://user-images.githubusercontent.com/121198194/222146912-f0763975-5687-4705-97ff-de337abb399c.jpg" width="20%" height="20%"><img src="https://user-images.githubusercontent.com/121198194/222146925-39b7ac58-b000-4dc0-97d6-40c6b9da1323.jpg" width="20%" height="20%"><img src="https://user-images.githubusercontent.com/121198194/222146935-390105b9-4d2e-4441-8a5f-5b2ec317d73c.jpg" width="20%" height="20%">
 
-## Skill
+## Library
 
  - `Coroutine/Flow`
  - `ViewModel`
@@ -44,7 +43,7 @@
  - `Data Binding`
  - `Room`
  - `DataStore`
- - `Paging3`
+ - `Paging`
  - `Hilt`
  - `Navigation`
  - `Retrofit`
@@ -57,6 +56,6 @@
  - `행정안전부 코드조회서비스`
  - `카카오 맵 API`
 
-## Architecture
+## Architecture Pattern
 
  - `MVVM Repository`
